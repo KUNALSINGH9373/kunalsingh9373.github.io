@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kunal Singh | AI Engineer</title>
+    <title>Kunal Singh | AI Researcher</title>
     <style>
         :root {
             --bg-color: #0a0a0a;
@@ -24,7 +24,8 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scroll from canvas */
+            scroll-behavior: smooth; /* Smooth scroll for anchor links */
         }
 
         /* Background Animation Canvas */
@@ -38,6 +39,43 @@
             opacity: 0.6; /* Subtle effect */
         }
 
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Slightly transparent */
+            padding: 1rem 0;
+            z-index: 100; /* Above all other content */
+            backdrop-filter: blur(5px); /* Frosty effect */
+            -webkit-backdrop-filter: blur(5px); /* Safari support */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center; /* Center the links */
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0.5rem;
+            transition: color 0.2s, background-color 0.2s;
+            border-bottom: 2px solid transparent; /* For active state */
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
         /* Layout */
         .container {
             max-width: 900px;
@@ -45,6 +83,7 @@
             padding: 2rem;
             position: relative;
             z-index: 1;
+            padding-top: 8rem; /* Space for fixed nav */
         }
 
         /* Typography & Elements */
@@ -54,7 +93,14 @@
         }
 
         h1 { font-size: 3rem; margin-bottom: 0.5rem; }
-        h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--text-color); border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+        h2 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1.5rem; 
+            color: var(--text-color); 
+            border-bottom: 1px solid #333; 
+            padding-bottom: 0.5rem; 
+            padding-top: 1rem; /* For smooth scroll offset */
+        }
         h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-color); }
         h4 { font-size: 1rem; color: var(--secondary-text); margin-bottom: 0.5rem; font-weight: normal; }
 
@@ -87,7 +133,7 @@
         header {
             text-align: left;
             margin-bottom: var(--section-spacing);
-            padding-top: 4rem;
+            padding-top: 0; /* Adjusted for nav padding */
         }
 
         .contact-links {
@@ -109,6 +155,17 @@
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .date { float: none; display: block; margin-bottom: 0.5rem; }
+            nav .nav-container {
+                gap: 1rem;
+                justify-content: space-around;
+            }
+            nav a {
+                padding: 0.5rem 0.2rem;
+                font-size: 0.9rem;
+            }
+            .container {
+                 padding-top: 7rem; /* Adjust for smaller screens */
+            }
         }
     </style>
 </head>
@@ -117,139 +174,150 @@
         <canvas id="automation-canvas"></canvas>
     </div>
 
+    <nav>
+        <div class="nav-container">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
+        </div>
+    </nav>
+
     <main class="container">
-        <header>
-            [cite_start]<h1>Hi Baluuu. Love you so much Mau Darling [cite: 2]</h1>
-            [cite_start]<h3>AI Engineer based in Pune, India [cite: 3, 6]</h3>
+        <header id="about">
+            <h1>Kunal Singh</h1>
+            <h3>AI Researcher based in Pune, India</h3>
             <div class="contact-links">
-                [cite_start]<a href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com [cite: 3]</a>
-                [cite_start]<span>+91 9373288175 [cite: 4]</span>
-                [cite_start]<a href="https://linkedin.com/kunalsingh/" target="_blank">LinkedIn [cite: 5]</a>
-                [cite_start]<a href="https://github.com/kunalsingh" target="_blank">GitHub [cite: 5]</a>
-                [cite_start]<a href="#">Google Scholar [cite: 5]</a>
-            </div>
+                <a href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com</a>
+                <span>+91 9373288175</span>
+                <a href="https://linkedin.com/in/kunalsingh9373" target="_blank">LinkedIn</a>
+                <a href="https://github.com/kunalsingh9373" target="_blank">GitHub</a>
+                <a href="#" target="_blank">Google Scholar</a> </div>
+            <p style="margin-top: 2rem; max-width: 700px; color: var(--secondary-text);">
+                A dedicated AI Researcher with a passion for pushing the boundaries of Large Language Models (LLMs) and intelligent agent systems. My work focuses on advanced prompt engineering, RAG architectures, and developing robust, efficient AI solutions, with a strong background in both theoretical understanding and practical implementation.
+            </p>
         </header>
 
-        <section class="section">
+        <section class="section" id="skills">
             <h2>Technical Skills</h2>
             <div class="skills-grid">
-                 [cite_start]<p>Python, Machine Learning, Deep Learning [cite: 102]</p>
-                 [cite_start]<p>Hugging Face, Langchain, LLMs [cite: 102]</p>
-                 [cite_start]<p>Tensorflow, PyTorch [cite: 102]</p>
-                 [cite_start]<p>RAG Architectures [cite: 17]</p>
-                 [cite_start]<p>Agent to Agent (A2A) Protocol [cite: 8]</p>
+                 <p>Python, Machine Learning, Deep Learning</p>
+                 <p>Hugging Face, Langchain, LLMs</p>
+                 <p>Tensorflow, PyTorch</p>
+                 <p>RAG Architectures</p>
+                 <p>Agent to Agent (A2A) Protocol</p>
+                 <p>Prompt Engineering, Fine-tuning</p>
+                 <p>Vector Databases</p>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="experience">
             <h2>Experience</h2>
             
             <div class="sub-section">
-                [cite_start]<h3>AI Engineer <span class="date">Sept 2024-Present [cite: 7]</span></h3>
-                [cite_start]<h4>Indicus Software - Pune, India [cite: 6]</h4>
+                <h3>AI Engineer <span class="date">Sept 2024-Present</span></h3>
+                <h4>Indicus Software - Pune, India</h4>
                 <ul>
-                    [cite_start]<li>Implemented a POC using Agent to Agent (A2A) protocol, Google's ADK, and n8n[cite: 8].</li>
-                    [cite_start]<li>Built a production-ready entity-generation pipeline for user requirements with accurate relations and attributes[cite: 9].</li>
-                    [cite_start]<li>Developed goal-based AI Agents for enterprise and personal use tasks[cite: 10].</li>
-                    [cite_start]<li>Added support for various Vector Databases and Multimodal/Multilingual Embedding Models[cite: 12].</li>
-                    [cite_start]<li>Researched and implemented Prompt Caching and Context Based Retrieval for LLMs to reduce cost and latency[cite: 13].</li>
+                    <li>Implemented a POC using Agent to Agent (A2A) protocol, Google's ADK, and n8n.</li>
+                    <li>Built a production-ready entity-generation pipeline for user requirements with accurate relations and attributes.</li>
+                    <li>Developed goal-based AI Agents for enterprise and personal use tasks.</li>
+                    <li>Researched and implemented Prompt Caching and Context Based Retrieval for LLMs to reduce cost and latency.</li>
                 </ul>
             </div>
 
             <div class="sub-section">
-                [cite_start]<h3>Technical Intern-AI <span class="date">June 2024-Sept 2024 [cite: 16]</span></h3>
-                [cite_start]<h4>Indicus Software - Pune, India [cite: 15]</h4>
+                <h3>Technical Intern-AI <span class="date">June 2024-Sept 2024</span></h3>
+                <h4>Indicus Software - Pune, India</h4>
                 <ul>
-                    [cite_start]<li>Led research on prompt engineering, fine-tuning, and RAG, implementing constitutional AI and self-verification techniques[cite: 17].</li>
-                    [cite_start]<li>Implemented reasoning techniques like Chain-of-Thought and few-shot learning to enhance model responses[cite: 19].</li>
-                    [cite_start]<li>Conducted extensive comparative analysis and benchmarking of state-of-the-art LLMs (GPT-4, Claude-3, Llama-3, etc.)[cite: 20].</li>
+                    <li>Led research on prompt engineering, fine-tuning, and RAG, implementing constitutional AI and self-verification techniques.</li>
+                    <li>Conducted extensive comparative analysis and benchmarking of state-of-the-art LLMs (GPT-4, Claude-3, Llama-3, etc.).</li>
                 </ul>
             </div>
 
             <div class="sub-section">
-                [cite_start]<h3>AI Intern, Resumepal <span class="date">April 2024-June 2024 [cite: 23]</span></h3>
-                [cite_start]<h4>Quoppo Ventures - Pune, India [cite: 22]</h4>
+                <h3>AI Intern, Resumepal <span class="date">April 2024-June 2024</span></h3>
+                <h4>Quoppo Ventures - Pune, India</h4>
                 <ul>
-                    [cite_start]<li>Built a POC for RAG architecture using Pinecone to improve content quality[cite: 24].</li>
-                    [cite_start]<li>Integrated Hugging Face libraries and models to enhance AI capabilities for resume creation[cite: 25].</li>
-                    [cite_start]<li>Utilized various NLP techniques for key information extraction and enhancing text matching algorithms[cite: 27].</li>
+                    <li>Built a POC for RAG architecture using Pinecone to improve content quality.</li>
+                    <li>Integrated Hugging Face libraries and models to enhance AI capabilities for resume creation.</li>
                 </ul>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="international-experience">
             <h2>International Experience</h2>
             <div class="sub-section">
-                [cite_start]<h3>Advanced School on Applied Machine Learning <span class="date">May-June 2024 [cite: 70]</span></h3>
-                [cite_start]<h4>International Centre for Theoretical Physics (ICTP) - Italy [cite: 63]</h4>
+                <h3>Advanced School on Applied Machine Learning <span class="date">May-June 2024</span></h3>
+                <h4>International Centre for Theoretical Physics (ICTP) - Italy</h4>
                 <ul>
-                    [cite_start]<li>Fully-funded offline program; selected among 350+ global applicants[cite: 64, 65].</li>
-                    [cite_start]<li>Engaged with experts from Intel, Nvidia, and IBM on Graph Neural Networks, Transformers, and Neuromorphic Computing[cite: 66].</li>
-                    [cite_start]<li>Gained hands-on experience developing scalable ML pipelines for HPC infrastructures and Leonardo Supercomputer[cite: 68].</li>
+                    <li>Fully-funded offline program; selected among 350+ global applicants.</li>
+                    <li>Engaged with experts from Intel, Nvidia, and IBM on Graph Neural Networks, Transformers, and Neuromorphic Computing.</li>
+                    <li>Gained hands-on experience developing scalable ML pipelines for HPC infrastructures and Leonardo Supercomputer.</li>
                 </ul>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="projects">
             <h2>Projects</h2>
             
             <div class="sub-section">
-                [cite_start]<h3>Jailbreaking Resistance Analysis of Frontier Models [<a href="#">Github</a>] [cite: 30, 31]</h3>
+                <h3>Jailbreaking Resistance Analysis of Frontier Models [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
                 <ul>
-                    [cite_start]<li>Conducted systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts[cite: 32].</li>
-                    [cite_start]<li>Statistical analysis revealed a 69 percentage point security gap between models[cite: 34].</li>
+                    <li>Conducted systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts.</li>
+                    <li>Statistical analysis revealed a 69 percentage point security gap between models.</li>
                 </ul>
             </div>
 
             <div class="sub-section">
-                [cite_start]<h3>Few-Shot Learning vs Finetuning on Biomedical QA [<a href="#">Github</a>] [cite: 35, 36]</h3>
+                <h3>Few-Shot Learning vs Finetuning on Biomedical QA [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
                 <ul>
-                    [cite_start]<li>Reproduced and evaluated OpenAI's few-shot prompting methodology against fine-tuning using GPT-2 and PubMedQA[cite: 37].</li>
-                    [cite_start]<li>Few-shot approach achieved 32.5% higher performance on the original task demonstrating knowledge preservation advantages[cite: 38].</li>
+                    <li>Reproduced and evaluated OpenAI's few-shot prompting methodology against fine-tuning using GPT-2 and PubMedQA.</li>
+                    <li>Few-shot approach achieved 32.5% higher performance on the original task demonstrating knowledge preservation advantages.</li>
                 </ul>
             </div>
 
             <div class="sub-section">
-                [cite_start]<h3>Instruction Tuning LLMs [cite: 39]</h3>
+                <h3>Instruction Tuning LLMs [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
                 <ul>
-                    [cite_start]<li>Researched Instruction fine-tuning focusing on Llama-2-7b-chat-hf with the Open-Platypus dataset[cite: 40].</li>
-                    [cite_start]<li>Implemented Quantized LoRa technique for efficient fine-tuning, significantly reducing computational resources[cite: 41].</li>
+                    <li>Researched Instruction fine-tuning focusing on Llama-2-7b-chat-hf with the Open-Platypus dataset.</li>
+                    <li>Implemented Quantized LoRa technique for efficient fine-tuning, significantly reducing computational resources.</li>
                 </ul>
             </div>
 
             <div class="sub-section">
-                [cite_start]<h3>Marine Route Optimization [<a href="#">Github</a>] [cite: 42, 43]</h3>
+                <h3>Marine Route Optimization [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
                 <ul>
-                    [cite_start]<li>Optimized marine routes using realtime data integration from Copernicus Marine across 10 key parameters[cite: 45].</li>
-                    [cite_start]<li>Implemented dual modeling approach using Linear Regression and Random Forest, achieving 5% reduction in fuel costs[cite: 46].</li>
+                    <li>Optimized marine routes using realtime data integration from Copernicus Marine across 10 key parameters.</li>
+                    <li>Implemented dual modeling approach using Linear Regression and Random Forest, achieving 5% reduction in fuel costs.</li>
                 </ul>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="education">
             <h2>Education & Publication</h2>
             <div class="sub-section">
-                [cite_start]<h3>Master of Computer Applications <span class="date">2022-2024 [cite: 49]</span></h3>
-                [cite_start]<h4>Savitribai Phule Pune University (GPA: 8.27/10) [cite: 50, 51]</h4>
+                <h3>Master of Computer Applications <span class="date">2022-2024</span></h3>
+                <h4>Savitribai Phule Pune University (GPA: 8.27/10)</h4>
             </div>
              <div class="sub-section">
-                [cite_start]<h3>Bachelor of Science - Physics <span class="date">2018-2022 [cite: 54]</span></h3>
-                [cite_start]<h4>Savitribai Phule Pune University (GPA: 8.46/10) [cite: 55, 56]</h4>
+                <h3>Bachelor of Science - Physics <span class="date">2018-2022</span></h3>
+                <h4>Savitribai Phule Pune University (GPA: 8.46/10)</h4>
             </div>
             <div class="sub-section">
-                [cite_start]<h3>Publication: Refining the Giants [cite: 59]</h3>
-                <p>A Comprehensive review of finetuning strategies for LLMs. [cite_start]20th International Conference on Computing and Machine Learning (CML)[cite: 59, 60].</p>
+                <h3>Publication: Refining the Giants</h3>
+                <p>A Comprehensive review of finetuning strategies for LLMs. 20th International Conference on Computing and Machine Learning (CML).</p>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="activities-awards">
             <h2>Additional Activities & Awards</h2>
             <ul>
-                [cite_start]<li>**Lecturer:** Taught "Introduction to Large Language Models" to 60+ MCA students at IMCC (Oct 2024)[cite: 96].</li>
-                [cite_start]<li>**Mentor:** Mentored 10+ Interns at Indicus Software to work in Generative AI and build ML pipelines[cite: 95].</li>
-                [cite_start]<li>**Scholarship:** Received 50% tuition grant for 2 years of Masters by Government of Maharashtra (EBC)[cite: 98].</li>
-                [cite_start]<li>**Amateur Astronomer:** Executive Member of India's oldest Amateur Astronomy organization with 4+ years experience handling professional telescopes[cite: 100].</li>
-                [cite_start]<li>Recently attended AI Alignment Fast-track Course by BlueDot Impact (Dec 2024)[cite: 72, 73].</li>
+                <li>**Lecturer:** Taught "Introduction to Large Language Models" to 60+ MCA students at IMCC (Oct 2024).</li>
+                <li>**Mentor:** Mentored 10+ Interns at Indicus Software to work in Generative AI and build ML pipelines.</li>
+                <li>**Scholarship:** Received 50% tuition grant for 2 years of Masters by Government of Maharashtra (EBC).</li>
+                <li>**Amateur Astronomer:** Executive Member of India's oldest Amateur Astronomy organization with 4+ years experience handling professional telescopes.</li>
+                <li>Recently attended AI Alignment Fast-track Course by BlueDot Impact (Dec 2024).</li>
             </ul>
         </section>
 
@@ -260,9 +328,10 @@
         const ctx = canvas.getContext('2d');
         let particles = [];
         const maxParticles = 70;
-        const connectionDistance = 120;
+        const connectionDistance = 120; // Increased for slightly more visible connections
 
         let w, h;
+        let mouse = { x: null, y: null, radius: 100 }; // Mouse interaction for particles
 
         function resize() {
             w = canvas.width = window.innerWidth;
@@ -272,25 +341,56 @@
         window.addEventListener('resize', resize);
         resize();
 
+        // Mouse interaction
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+
         class Particle {
             constructor() {
                 this.x = Math.random() * w;
                 this.y = Math.random() * h;
-                this.vx = (Math.random() - 0.5) * 0.3; // Very slow movement
+                this.vx = (Math.random() - 0.5) * 0.3; 
                 this.vy = (Math.random() - 0.5) * 0.3;
                 this.size = Math.random() * 1.5 + 0.5;
             }
 
             update() {
+                // Bounce off edges
+                if (this.x < 0 || this.x > w) this.vx *= -1;
+                if (this.y < 0 || this.y > h) this.vy *= -1;
+
                 this.x += this.vx;
                 this.y += this.vy;
 
-                if (this.x < 0 || this.x > w) this.vx *= -1;
-                if (this.y < 0 || this.y > h) this.vy *= -1;
+                // Mouse repulsion/attraction (subtle)
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const forceDirectionX = dx / dist;
+                        const forceDirectionY = dy / dist;
+                        const force = (mouse.radius - dist) / mouse.radius; // Stronger closer to mouse
+                        const directionX = forceDirectionX * force * 0.5; // Small force
+                        const directionY = forceDirectionY * force * 0.5;
+
+                        this.vx += directionX;
+                        this.vy += directionY;
+                    }
+                }
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(224, 224, 224, 0.6)'; // Matches text color, subtle
+                ctx.fillStyle = 'rgba(224, 224, 224, 0.6)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -311,14 +411,13 @@
                 particles[i].update();
                 particles[i].draw();
 
-                // Connect particles to form the "automation network"
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < connectionDistance) {
-                        ctx.strokeStyle = `rgba(74, 144, 226, ${1 - dist / connectionDistance})`; // Accent color fade
+                        ctx.strokeStyle = `rgba(74, 144, 226, ${1 - dist / connectionDistance})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -332,7 +431,45 @@
 
         init();
         animate();
+
+        // Active navigation link highlighting
+        const sections = document.querySelectorAll('main section, header');
+        const navLinks = document.querySelectorAll('nav a');
+
+        function highlightNavLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - nav.offsetHeight - 20; // Adjust for fixed nav and padding
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.href.includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightNavLink);
+        document.addEventListener('DOMContentLoaded', highlightNavLink); // Set active on load
+
+        // Smooth scroll for nav links (optional, body scroll-behavior handles most of it)
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                const offsetTop = targetSection.offsetTop - nav.offsetHeight - 20; // Scroll to just below nav
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
     </script>
 </body>
-
 </html>
