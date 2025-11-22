@@ -236,29 +236,76 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 1rem;
+                padding: 0.8rem;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.7rem;
+            }
+
+            .contact-links {
+                font-size: 0.65rem;
+                gap: 0.5rem;
+            }
+
+            .bio {
+                font-size: 0.7rem;
+                margin: 0.3rem auto;
             }
 
             nav {
-                gap: 1rem;
+                gap: 0.5rem;
+                margin: 0.7rem 0;
+                padding-bottom: 0.6rem;
                 flex-wrap: wrap;
             }
 
             nav button {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
             }
 
             .two-col {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .grid {
                 grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+
+            h2 {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+                padding: 0.3rem 0.5rem;
+            }
+
+            .card {
+                padding: 0.5rem;
+            }
+
+            .card h3 {
+                font-size: 0.85rem;
+            }
+
+            .simple-list p {
+                padding: 0.5rem;
+                margin-bottom: 0.3rem;
+                font-size: 0.7rem;
+            }
+
+            .skills-compact {
+                gap: 0.3rem;
+            }
+
+            .skills-compact span {
+                padding: 0.15rem 0.5rem;
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -428,14 +475,19 @@
         const canvas = document.getElementById('automation-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const maxParticles = 8000;
+        
+        // Detect mobile and adjust particle count
+        const isMobile = window.innerWidth < 768;
+        const maxParticles = isMobile ? 2000 : 8000;
 
         let w, h;
-        let mouse = { x: null, y: null, radius: 500 };
+        let mouse = { x: null, y: null, radius: isMobile ? 300 : 500 };
         let pageLoaded = true;
         let collapsePhase = true;
         let collapseTime = 0;
-        const collapseDuration = 3000; // 3 seconds for collapse animation
+        const collapseDuration = 2000; // 2 seconds for collapse
+        const explosionDuration = 2000; // 2 seconds for explosion
+        let phase = 'collapse'; // 'collapse', 'explosion', 'normal'
 
         function resize() {
             w = canvas.width = window.innerWidth;
@@ -448,7 +500,10 @@
         window.addEventListener('mousemove', (event) => {
             mouse.x = event.x;
             mouse.y = event.y;
-            collapsePhase = false; // End collapse phase when user moves mouse
+            // Don't interrupt the animation on first load
+            if (collapseTime > collapseDuration + explosionDuration) {
+                phase = 'normal';
+            }
         });
 
         window.addEventListener('mouseout', () => {
@@ -467,20 +522,44 @@
                 this.size = Math.random() * 0.6 + 0.2;
             }
 
-            update(collapseProgress) {
-                // Collapse to center animation
-                if (collapsePhase && collapseProgress < 1) {
-                    const centerX = w / 2;
-                    const centerY = h / 2;
-                    
-                    // Ease-in cubic for smooth acceleration to center
-                    const easeProgress = collapseProgress * collapseProgress * collapseProgress;
+            update(animationTime) {
+                const centerX = w / 2;
+                const centerY = h / 2;
+                
+                if (phase === 'collapse') {
+                    // COLLAPSE - particles rush to center
+                    const progress = Math.min(animationTime / collapseDuration, 1);
+                    const easeProgress = progress * progress * progress; // Ease-in
                     
                     this.x = this.startX + (centerX - this.startX) * easeProgress;
                     this.y = this.startY + (centerY - this.startY) * easeProgress;
                     this.vx = 0;
                     this.vy = 0;
+                } else if (phase === 'explosion') {
+                    // EXPLOSION - particles explode outward
+                    const explosionStart = collapseDuration;
+                    const timeInExplosion = animationTime - explosionStart;
+                    const explosionProgress = Math.min(timeInExplosion / explosionDuration, 1);
+                    
+                    if (timeInExplosion < 0) {
+                        // Hold at center briefly
+                        this.x = centerX;
+                        this.y = centerY;
+                        this.vx = 0;
+                        this.vy = 0;
+                    } else {
+                        // Launch outward from center
+                        const angle = Math.atan2(this.startY - centerY, this.startX - centerX);
+                        const speed = 4 + explosionProgress * 6; // Accelerates outward
+                        
+                        this.vx = Math.cos(angle) * speed;
+                        this.vy = Math.sin(angle) * speed;
+                        
+                        this.x += this.vx;
+                        this.y += this.vy;
+                    }
                 } else {
+                    // NORMAL - cursor gravity mode
                     // Wrap around edges
                     if (this.x < 0) this.x = w;
                     if (this.x > w) this.x = 0;
@@ -490,15 +569,14 @@
                     this.x += this.vx;
                     this.y += this.vy;
 
-                    // Extremely strong gravitational attraction to mouse cursor
+                    // Heavy cursor gravity
                     if (mouse.x !== null && mouse.y !== null) {
                         const dx = mouse.x - this.x;
                         const dy = mouse.y - this.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
 
                         if (dist > 1) {
-                            // Extremely heavy gravity force - much stronger pull
-                            const force = (mouse.radius * 12) / (dist * dist);
+                            const force = (mouse.radius * 8) / (dist * dist);
                             const forceX = (dx / dist) * force;
                             const forceY = (dy / dist) * force;
 
@@ -507,11 +585,11 @@
                         }
                     }
 
-                    // Minimal drag for fluid motion
+                    // Minimal drag
                     this.vx *= 0.95;
                     this.vy *= 0.95;
 
-                    // High velocity limit
+                    // Velocity limit
                     const maxVel = 10;
                     const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
                     if (vel > maxVel) {
@@ -588,14 +666,18 @@
         function animate() {
             ctx.clearRect(0, 0, w, h);
             
-            let collapseProgress = 0;
-            if (collapsePhase) {
-                collapseTime += 16; // Approximate frame time
-                collapseProgress = Math.min(collapseTime / collapseDuration, 1);
+            // Manage animation phases
+            if (phase === 'collapse' && collapseTime >= collapseDuration) {
+                phase = 'explosion';
+            }
+            if (phase === 'explosion' && collapseTime >= collapseDuration + explosionDuration) {
+                phase = 'normal';
             }
             
+            collapseTime += 16; // Approximate frame time (60fps)
+            
             for (let i = 0; i < particles.length; i++) {
-                particles[i].update(collapseProgress);
+                particles[i].update(collapseTime);
                 particles[i].draw();
             }
             
