@@ -6,10 +6,10 @@
     <title>Kunal Singh | AI Researcher</title>
     <style>
         :root {
-            --bg-color: #0a0a0a; /* Dark background */
-            --text-color: #e0e0e0; /* Light text for contrast */
-            --accent-color: #4a90e2; /* A blue for accents */
-            --secondary-text: #a0a0a0; /* Medium grey for secondary text */
+            --bg-color: #f8f8f8; /* Creamy white background */
+            --text-color: #222222; /* Darker text for contrast */
+            --accent-color: #007bff; /* A nice blue for accents */
+            --secondary-text: #555555; /* Medium grey for secondary text */
             --section-spacing: 4rem;
         }
 
@@ -36,7 +36,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.7; /* Increased opacity for more visible interaction */
+            opacity: 0.8; /* Slightly more opaque for light background */
         }
 
         /* Navigation Bar */
@@ -45,12 +45,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Slightly transparent dark background */
+            background: rgba(255, 255, 255, 0.8); /* Slightly transparent light background */
             padding: 1rem 0;
             z-index: 100;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Lighter shadow */
         }
 
         nav .nav-container {
@@ -97,7 +97,7 @@
             font-size: 1.8rem; 
             margin-bottom: 1.5rem; 
             color: var(--text-color); 
-            border-bottom: 1px solid #333333; /* Darker border */
+            border-bottom: 1px solid #cccccc; /* Lighter border */
             padding-bottom: 0.5rem; 
             padding-top: 1rem;
         }
@@ -151,32 +151,6 @@
             gap: 1rem;
         }
 
-        /* Tag/Pill Style for Research Interests & Skills */
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            background-color: #1a1a1a; /* Darker background for tags */
-            color: var(--accent-color);
-            padding: 0.4rem 0.8rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            border: 1px solid #333;
-            transition: background-color 0.2s, border-color 0.2s;
-        }
-
-        .tag:hover {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            border-color: var(--accent-color);
-        }
-
-
         /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
@@ -203,56 +177,39 @@
     <nav>
         <div class="nav-container">
             <a href="#about">About</a>
-            <a href="#research-interests">Research</a>
+            <a href="#skills">Skills</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
             <a href="#education">Education</a>
-            <a href="#publications">Publications</a>
         </div>
     </nav>
 
     <main class="container">
         <header id="about">
             <h1>Kunal Singh</h1>
-            <h3>AI Researcher | Pune, India</h3>
+            <h3>AI Researcher based in Pune, India</h3>
             <div class="contact-links">
-                <a href="mailto:singhkunal9373@gmail.com">Email</a>
+                <a href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com</a>
+                <span>+91 9373288175</span>
                 <a href="https://linkedin.com/in/kunalsingh9373" target="_blank">LinkedIn</a>
                 <a href="https://github.com/kunalsingh9373" target="_blank">GitHub</a>
-                <a href="#" target="_blank">Scholar</a>
+                <a href="#" target="_blank">Google Scholar</a>
             </div>
             <p style="margin-top: 2rem; max-width: 700px; color: var(--secondary-text);">
-                AI Researcher specializing in Technical AI Governance, adversarial testing, and safety evaluation of frontier models. Building systematic approaches to ensure AI systems are safe, aligned, and beneficial.
+                A dedicated AI Researcher with a passion for pushing the boundaries of Large Language Models (LLMs) and intelligent agent systems. My work focuses on advanced prompt engineering, RAG architectures, and developing robust, efficient AI solutions, with a strong background in both theoretical understanding and practical implementation.
             </p>
         </header>
 
-        <section class="section" id="research-interests">
-            <h2>Research Interests</h2>
-            <div class="tags-container">
-                <span class="tag">Technical AI Governance</span>
-                <span class="tag">AI Safety Evaluations</span>
-                <span class="tag">Red Teaming</span>
-                <span class="tag">Adversarial Testing</span>
-                <span class="tag">Model Robustness</span>
-                <span class="tag">Safety Benchmarking</span>
-                <span class="tag">AI Policy & Regulation</span>
-                <span class="tag">Control Evaluations</span>
-            </div>
+        <section class="section" id="skills">
             <h2>Technical Skills</h2>
-            <div class="tags-container">
-                 <span class="tag">Python</span>
-                 <span class="tag">Machine Learning</span>
-                 <span class="tag">Deep Learning</span>
-                 <span class="tag">Pytorch</span>
-                 <span class="tag">Tensorflow</span>
-                 <span class="tag">Hugging Face</span>
-                 <span class="tag">LangChain</span>
-                 <span class="tag">Large Language Models</span>
-                 <span class="tag">RAG Systems</span>
-                 <span class="tag">AI Agents</span>
-                 <span class="tag">Prompt Engineering</span>
-                 <span class="tag">Vector Databases</span>
-                 <span class="tag">Fine-tuning</span>
+            <div class="skills-grid">
+                 <p>Python, Machine Learning, Deep Learning</p>
+                 <p>Hugging Face, Langchain, LLMs</p>
+                 <p>Tensorflow, PyTorch</p>
+                 <p>RAG Architectures</p>
+                 <p>Agent to Agent (A2A) Protocol</p>
+                 <p>Prompt Engineering, Fine-tuning</p>
+                 <p>Vector Databases</p>
             </div>
         </section>
 
@@ -285,6 +242,19 @@
                 <ul>
                     <li>Built a POC for RAG architecture using Pinecone to improve content quality.</li>
                     <li>Integrated Hugging Face libraries and models to enhance AI capabilities for resume creation.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="international-experience">
+            <h2>International Experience</h2>
+            <div class="sub-section">
+                <h3>Advanced School on Applied Machine Learning <span class="date">May-June 2024</span></h3>
+                <h4>International Centre for Theoretical Physics (ICTP) - Italy</h4>
+                <ul>
+                    <li>Fully-funded offline program; selected among 350+ global applicants.</li>
+                    <li>Engaged with experts from Intel, Nvidia, and IBM on Graph Neural Networks, Transformers, and Neuromorphic Computing.</li>
+                    <li>Gained hands-on experience developing scalable ML pipelines for HPC infrastructures and Leonardo Supercomputer.</li>
                 </ul>
             </div>
         </section>
@@ -326,7 +296,7 @@
         </section>
 
         <section class="section" id="education">
-            <h2>Education</h2>
+            <h2>Education & Publication</h2>
             <div class="sub-section">
                 <h3>Master of Computer Applications <span class="date">2022-2024</span></h3>
                 <h4>Savitribai Phule Pune University (GPA: 8.27/10)</h4>
@@ -335,9 +305,9 @@
                 <h3>Bachelor of Science - Physics <span class="date">2018-2022</span></h3>
                 <h4>Savitribai Phule Pune University (GPA: 8.46/10)</h4>
             </div>
-            <div class="sub-section" id="publications">
-                <h2>Publication</h2>
-                <p>Refining the Giants: A Comprehensive review of finetuning strategies for LLMs. 20th International Conference on Computing and Machine Learning (CML).</p>
+            <div class="sub-section">
+                <h3>Publication: Refining the Giants</h3>
+                <p>A Comprehensive review of finetuning strategies for LLMs. 20th International Conference on Computing and Machine Learning (CML).</p>
             </div>
         </section>
 
@@ -358,18 +328,17 @@
         const canvas = document.getElementById('automation-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const maxParticles = 50; // Slightly increased from 40 for more visible "gravity pool"
-        const connectionDistance = 150;
-        const attractionStrength = 0.05; // Increased attraction strength
-        const maxSpeed = 3; // Cap particle speed
+        const maxParticles = 40; // Reduced particle count for smoothness
+        const connectionDistance = 150; // Slightly increased for a more spread out look
+        const mouseRadius = 80; // Reduced mouse interaction radius
 
         let w, h;
-        let mouse = { x: null, y: null };
+        let mouse = { x: null, y: null }; // Removed radius from mouse object for simpler logic
 
         function resize() {
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
-            init(); 
+            init(); // Reinitialize particles on resize to prevent issues
         }
 
         window.addEventListener('resize', resize);
@@ -390,41 +359,36 @@
             constructor() {
                 this.x = Math.random() * w;
                 this.y = Math.random() * h;
-                this.vx = (Math.random() - 0.5) * 1; // Initial velocity slightly higher
-                this.vy = (Math.random() - 0.5) * 1;
+                // Increased speed slightly for smoother motion at lower particle count
+                this.vx = (Math.random() - 0.5) * 0.7; 
+                this.vy = (Math.random() - 0.5) * 0.7;
                 this.size = Math.random() * 1.5 + 0.5;
             }
 
             update() {
-                // Bounce off edges (still important to keep them in bounds)
+                // Bounce off edges
                 if (this.x < 0 || this.x > w) this.vx *= -1;
                 if (this.y < 0 || this.y > h) this.vy *= -1;
 
-                // Strong mouse attraction
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - this.x; // Direction towards mouse
-                    const dy = mouse.y - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist > 1) { // Avoid division by zero when particle is on mouse
-                        this.vx += (dx / dist) * attractionStrength;
-                        this.vy += (dy / dist) * attractionStrength;
-                    }
-                }
-                
-                // Cap speed to prevent particles from flying off too fast
-                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                if (speed > maxSpeed) {
-                    this.vx = (this.vx / speed) * maxSpeed;
-                    this.vy = (this.vy / speed) * maxSpeed;
-                }
-
                 this.x += this.vx;
                 this.y += this.vy;
+
+                // Subtle mouse repulsion
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouseRadius) {
+                        const forceFactor = (mouseRadius - dist) / mouseRadius; // Force is stronger closer to mouse
+                        this.vx += (dx / dist) * forceFactor * 0.05; // Very small force
+                        this.vy += (dy / dist) * forceFactor * 0.05;
+                    }
+                }
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(224, 224, 224, 0.6)'; /* Light particles for dark background */
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; /* Darker particles for light background */
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -439,19 +403,21 @@
         }
 
         function animate() {
-            ctx.clearRect(0, 0, w, h); 
+            ctx.clearRect(0, 0, w, h); // Clear canvas each frame
             
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
 
+                // Draw connections
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < connectionDistance) {
-                        ctx.strokeStyle = `rgba(74, 144, 226, ${1 - dist / connectionDistance})`; /* Accent color fade */
+                        // Connection color changed for light background
+                        ctx.strokeStyle = `rgba(0, 123, 255, ${1 - dist / connectionDistance})`; /* Accent color fade */
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -460,16 +426,16 @@
                     }
                 }
             }
-            requestAnimationFrame(animate); 
+            requestAnimationFrame(animate); // Request next frame
         }
 
         init();
         animate();
 
-        // Active navigation link highlighting
+        // Active navigation link highlighting (remains the same)
         const sections = document.querySelectorAll('main section, header');
         const navLinks = document.querySelectorAll('nav a');
-        const nav = document.querySelector('nav'); 
+        const nav = document.querySelector('nav'); // Get nav element for offset
 
         function highlightNavLink() {
             let current = '';
