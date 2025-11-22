@@ -6,10 +6,10 @@
     <title>Kunal Singh | AI Researcher</title>
     <style>
         :root {
-            --bg-color: #f5f5dc;
-            --text-color: #1a1a1a;
-            --accent-color: #2b5797;
-            --secondary-text: #4a4a4a;
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #4a90e2;
+            --secondary-text: #a0a0a0;
         }
 
         * {
@@ -94,14 +94,14 @@
             justify-content: center;
             gap: 2rem;
             margin: 1.5rem 0;
-            border-bottom: 1px solid #d0d0d0;
+            border-bottom: 1px solid #333;
             padding-bottom: 1rem;
         }
 
         nav button {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(43, 87, 151, 0.2);
-            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            color: #1a1a1a;
             cursor: pointer;
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
@@ -165,10 +165,11 @@
 
         .card {
             padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 6px;
-            border: 1px solid rgba(43, 87, 151, 0.15);
+            border: 1px solid rgba(74, 144, 226, 0.2);
             font-size: 0.85rem;
+            color: #1a1a1a;
         }
 
         .card h3 {
@@ -203,10 +204,11 @@
 
         .simple-list p {
             margin-bottom: 0.5rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 0.8rem;
             border-radius: 6px;
-            border: 1px solid rgba(43, 87, 151, 0.15);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            color: #1a1a1a;
         }
 
         .skills-compact {
@@ -218,10 +220,10 @@
 
         .skills-compact span {
             padding: 0.3rem 0.8rem;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(43, 87, 151, 0.25);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(74, 144, 226, 0.3);
             border-radius: 4px;
-            color: var(--text-color);
+            color: #1a1a1a;
         }
 
         @media (max-width: 768px) {
@@ -500,20 +502,20 @@
                     // More dramatic color changes near cursor
                     if (dist < mouse.radius) {
                         const intensity = 1 - (dist / mouse.radius);
-                        r = Math.floor(70 + intensity * 120);   // Shift to red/orange
-                        g = Math.floor(120 - intensity * 40);   // Green reduces
-                        b = Math.floor(200 - intensity * 100);  // Blue decreases
+                        r = Math.floor(70 + intensity * 150);   // Shift to red/orange
+                        g = Math.floor(120 + intensity * 40);   // Green increases
+                        b = Math.floor(200 - intensity * 80);   // Blue decreases
                     }
                 }
                 
                 // Velocity-based color variation
                 const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
                 const velFactor = Math.min(vel / 4, 1);
-                r = Math.floor(r + velFactor * 60);
-                g = Math.floor(g + velFactor * 40);
-                b = Math.floor(b + velFactor * 30);
+                r = Math.floor(r + velFactor * 70);
+                g = Math.floor(g + velFactor * 50);
+                b = Math.floor(b + velFactor * 40);
                 
-                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
