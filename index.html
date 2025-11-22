@@ -6,11 +6,10 @@
     <title>Kunal Singh | AI Researcher</title>
     <style>
         :root {
-            --bg-color: #f8f8f8; /* Creamy white background */
-            --text-color: #222222; /* Darker text for contrast */
-            --accent-color: #007bff; /* A nice blue for accents */
-            --secondary-text: #555555; /* Medium grey for secondary text */
-            --section-spacing: 4rem;
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #4a90e2;
+            --secondary-text: #a0a0a0;
         }
 
         * {
@@ -23,12 +22,11 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            line-height: 1.4;
+            overflow: hidden;
+            height: 100vh;
         }
 
-        /* Background Animation Canvas */
         #canvas-container {
             position: fixed;
             top: 0;
@@ -36,135 +34,215 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.8; /* Slightly more opaque for light background */
+            opacity: 0.6;
         }
 
-        /* Navigation Bar */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8); /* Slightly transparent light background */
-            padding: 1rem 0;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Lighter shadow */
-        }
-
-        nav .nav-container {
-            max-width: 900px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 2rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.3rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .contact-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .bio {
+            max-width: 800px;
+            margin: 1rem auto;
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        nav {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            padding: 0 2rem;
+            margin: 1.5rem 0;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
         }
 
-        nav a {
+        nav button {
+            background: none;
+            border: none;
             color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 0.5rem;
-            transition: color 0.2s, border-bottom-color 0.2s;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
             border-bottom: 2px solid transparent;
+            transition: all 0.3s;
         }
 
-        nav a:hover, nav a.active {
+        nav button:hover,
+        nav button.active {
             color: var(--accent-color);
             border-bottom-color: var(--accent-color);
         }
 
-        /* Layout */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-            padding-top: 8rem;
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 1rem;
         }
 
-        /* Typography & Elements */
-        h1, h2, h3 {
+        .content-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content-area::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .content-area::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
             font-weight: 400;
-            letter-spacing: -0.5px;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 0.5rem; }
-        h2 { 
-            font-size: 1.8rem; 
-            margin-bottom: 1.5rem; 
-            color: var(--text-color); 
-            border-bottom: 1px solid #cccccc; /* Lighter border */
-            padding-bottom: 0.5rem; 
-            padding-top: 1rem;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
         }
-        h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-color); }
-        h4 { font-size: 1rem; color: var(--secondary-text); margin-bottom: 0.5rem; font-weight: normal; }
 
-        a {
+        .card {
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            font-size: 0.85rem;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .card .meta {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card a {
             color: var(--accent-color);
             text-decoration: none;
-            transition: opacity 0.2s;
+            font-size: 0.8rem;
         }
 
-        a:hover { opacity: 0.8; }
-
-        ul {
-            list-style-type: none;
-            padding-left: 1rem;
-        }
-
-        li { margin-bottom: 0.5rem; position: relative; }
-        li::before {
-            content: "•";
-            color: var(--accent-color);
-            position: absolute;
-            left: -1rem;
-        }
-
-        .section { margin-bottom: var(--section-spacing); }
-        .sub-section { margin-bottom: 2rem; }
-        .date { float: right; font-size: 0.9rem; color: var(--secondary-text); }
-
-        /* Specific Header Styling */
-        header {
-            text-align: left;
-            margin-bottom: var(--section-spacing);
-            padding-top: 0;
-        }
-
-        .contact-links {
-            margin-top: 1rem;
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--secondary-text);
-            flex-wrap: wrap;
-        }
-        
-        .skills-grid {
+        .two-col {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
-        /* Responsive */
+        .simple-list {
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .simple-list p {
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-compact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .skills-compact span {
+            padding: 0.3rem 0.8rem;
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 4px;
+        }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .date { float: none; display: block; margin-bottom: 0.5rem; }
-            nav .nav-container {
-                gap: 1rem;
-                justify-content: space-around;
-            }
-            nav a {
-                padding: 0.5rem 0.2rem;
-                font-size: 0.9rem;
-            }
             .container {
-                 padding-top: 7rem;
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            nav button {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -174,171 +252,172 @@
         <canvas id="automation-canvas"></canvas>
     </div>
 
-    <nav>
-        <div class="nav-container">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#education">Education</a>
-        </div>
-    </nav>
-
-    <main class="container">
-        <header id="about">
+    <div class="container">
+        <header>
             <h1>Kunal Singh</h1>
-            <h3>AI Researcher based in Pune, India</h3>
+            <p class="subtitle">AI Researcher | Pune, India</p>
             <div class="contact-links">
-                <a href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com</a>
-                <span>+91 9373288175</span>
+                <a href="mailto:singhkunal9373@gmail.com">Email</a>
+                <span>|</span>
                 <a href="https://linkedin.com/in/kunalsingh9373" target="_blank">LinkedIn</a>
+                <span>|</span>
                 <a href="https://github.com/kunalsingh9373" target="_blank">GitHub</a>
-                <a href="#" target="_blank">Google Scholar</a>
+                <span>|</span>
+                <a href="#" target="_blank">Scholar</a>
             </div>
-            <p style="margin-top: 2rem; max-width: 700px; color: var(--secondary-text);">
-                A dedicated AI Researcher with a passion for pushing the boundaries of Large Language Models (LLMs) and intelligent agent systems. My work focuses on advanced prompt engineering, RAG architectures, and developing robust, efficient AI solutions, with a strong background in both theoretical understanding and practical implementation.
+            <p class="bio">
+                AI Researcher specializing in Technical AI Governance, adversarial testing, and safety evaluation of frontier models. Building systematic approaches to ensure AI systems are safe, aligned, and beneficial.
             </p>
         </header>
 
-        <section class="section" id="skills">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                 <p>Python, Machine Learning, Deep Learning</p>
-                 <p>Hugging Face, Langchain, LLMs</p>
-                 <p>Tensorflow, PyTorch</p>
-                 <p>RAG Architectures</p>
-                 <p>Agent to Agent (A2A) Protocol</p>
-                 <p>Prompt Engineering, Fine-tuning</p>
-                 <p>Vector Databases</p>
-            </div>
-        </section>
+        <nav>
+            <button class="nav-btn active" data-section="research">Research</button>
+            <button class="nav-btn" data-section="experience">Experience</button>
+            <button class="nav-btn" data-section="projects">Projects</button>
+            <button class="nav-btn" data-section="education">Education</button>
+            <button class="nav-btn" data-section="publications">Publications</button>
+        </nav>
 
-        <section class="section" id="experience">
-            <h2>Experience</h2>
-            
-            <div class="sub-section">
-                <h3>AI Engineer <span class="date">Sept 2024-Present</span></h3>
-                <h4>Indicus Software - Pune, India</h4>
-                <ul>
-                    <li>Implemented a POC using Agent to Agent (A2A) protocol, Google's ADK, and n8n.</li>
-                    <li>Built a production-ready entity-generation pipeline for user requirements with accurate relations and attributes.</li>
-                    <li>Developed goal-based AI Agents for enterprise and personal use tasks.</li>
-                    <li>Researched and implemented Prompt Caching and Context Based Retrieval for LLMs to reduce cost and latency.</li>
-                </ul>
-            </div>
+        <div class="content-area">
+            <!-- Research Section -->
+            <div class="section active" id="research">
+                <h2>Research Interests</h2>
+                <div class="skills-compact">
+                    <span>Technical AI Governance</span>
+                    <span>AI Safety Evaluations</span>
+                    <span>Red Teaming</span>
+                    <span>Adversarial Testing</span>
+                    <span>Model Robustness</span>
+                    <span>Safety Benchmarking</span>
+                    <span>AI Policy & Regulation</span>
+                    <span>Control Evaluations</span>
+                </div>
 
-            <div class="sub-section">
-                <h3>Technical Intern-AI <span class="date">June 2024-Sept 2024</span></h3>
-                <h4>Indicus Software - Pune, India</h4>
-                <ul>
-                    <li>Led research on prompt engineering, fine-tuning, and RAG, implementing constitutional AI and self-verification techniques.</li>
-                    <li>Conducted extensive comparative analysis and benchmarking of state-of-the-art LLMs (GPT-4, Claude-3, Llama-3, etc.).</li>
-                </ul>
-            </div>
-
-            <div class="sub-section">
-                <h3>AI Intern, Resumepal <span class="date">April 2024-June 2024</span></h3>
-                <h4>Quoppo Ventures - Pune, India</h4>
-                <ul>
-                    <li>Built a POC for RAG architecture using Pinecone to improve content quality.</li>
-                    <li>Integrated Hugging Face libraries and models to enhance AI capabilities for resume creation.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="section" id="international-experience">
-            <h2>International Experience</h2>
-            <div class="sub-section">
-                <h3>Advanced School on Applied Machine Learning <span class="date">May-June 2024</span></h3>
-                <h4>International Centre for Theoretical Physics (ICTP) - Italy</h4>
-                <ul>
-                    <li>Fully-funded offline program; selected among 350+ global applicants.</li>
-                    <li>Engaged with experts from Intel, Nvidia, and IBM on Graph Neural Networks, Transformers, and Neuromorphic Computing.</li>
-                    <li>Gained hands-on experience developing scalable ML pipelines for HPC infrastructures and Leonardo Supercomputer.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="section" id="projects">
-            <h2>Projects</h2>
-            
-            <div class="sub-section">
-                <h3>Jailbreaking Resistance Analysis of Frontier Models [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
-                <ul>
-                    <li>Conducted systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts.</li>
-                    <li>Statistical analysis revealed a 69 percentage point security gap between models.</li>
-                </ul>
+                <h2 style="margin-top: 2rem;">Technical Skills</h2>
+                <div class="skills-compact">
+                    <span>Python</span>
+                    <span>Machine Learning</span>
+                    <span>Deep Learning</span>
+                    <span>PyTorch</span>
+                    <span>TensorFlow</span>
+                    <span>Hugging Face</span>
+                    <span>LangChain</span>
+                    <span>Large Language Models</span>
+                    <span>RAG Systems</span>
+                    <span>AI Agents</span>
+                    <span>Prompt Engineering</span>
+                    <span>Vector Databases</span>
+                    <span>Fine-tuning</span>
+                </div>
             </div>
 
-            <div class="sub-section">
-                <h3>Few-Shot Learning vs Finetuning on Biomedical QA [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
-                <ul>
-                    <li>Reproduced and evaluated OpenAI's few-shot prompting methodology against fine-tuning using GPT-2 and PubMedQA.</li>
-                    <li>Few-shot approach achieved 32.5% higher performance on the original task demonstrating knowledge preservation advantages.</li>
-                </ul>
+            <!-- Experience Section -->
+            <div class="section" id="experience">
+                <div class="simple-list">
+                    <p><strong>AI Engineer</strong> · Indicus Software, Pune · Sept 2024 - Present</p>
+                    <p><strong>Technical Intern - AI</strong> · Indicus Software, Pune · June 2024 - Sept 2024</p>
+                    <p><strong>AI Intern</strong> · Resumepal, Quoppo Ventures, Pune · April 2024 - June 2024</p>
+                    <p style="margin-top: 1.5rem;"><strong>Advanced School on Applied Machine Learning</strong> · International Centre for Theoretical Physics (ICTP), Italy · May-June 2024<br>
+                    <span style="font-size: 0.8rem; color: var(--secondary-text);">Selected among 350+ global applicants (1 of 2 from India) · Fully-funded program</span></p>
+                </div>
             </div>
 
-            <div class="sub-section">
-                <h3>Instruction Tuning LLMs [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
-                <ul>
-                    <li>Researched Instruction fine-tuning focusing on Llama-2-7b-chat-hf with the Open-Platypus dataset.</li>
-                    <li>Implemented Quantized LoRa technique for efficient fine-tuning, significantly reducing computational resources.</li>
-                </ul>
+            <!-- Projects Section -->
+            <div class="section" id="projects">
+                <div class="grid">
+                    <div class="card">
+                        <h3>Jailbreaking Resistance Analysis</h3>
+                        <p class="meta">Frontier Models Security Assessment</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts. Revealed 69pp security gap between models.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+
+                    <div class="card">
+                        <h3>Few-Shot vs Fine-tuning</h3>
+                        <p class="meta">Biomedical QA Research</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance demonstrating knowledge preservation.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+
+                    <div class="card">
+                        <h3>Instruction Tuning LLMs</h3>
+                        <p class="meta">Llama-2 Fine-tuning</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Implemented Quantized LoRa technique for efficient fine-tuning, significantly reducing computational resources.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+
+                    <div class="card">
+                        <h3>Marine Route Optimization</h3>
+                        <p class="meta">ML-based Optimization</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Dual modeling approach using Linear Regression and Random Forest. Achieved 5% reduction in fuel costs and CO2 emissions.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="sub-section">
-                <h3>Marine Route Optimization [<a href="https://github.com/kunalsingh9373" target="_blank">Github</a>]</h3>
-                <ul>
-                    <li>Optimized marine routes using realtime data integration from Copernicus Marine across 10 key parameters.</li>
-                    <li>Implemented dual modeling approach using Linear Regression and Random Forest, achieving 5% reduction in fuel costs.</li>
-                </ul>
-            </div>
-        </section>
+            <!-- Education Section -->
+            <div class="section" id="education">
+                <div class="two-col">
+                    <div>
+                        <h2>Education</h2>
+                        <div class="simple-list">
+                            <p><strong>Master of Computer Applications</strong><br>
+                            Savitribai Phule Pune University · 2022-2024<br>
+                            GPA: 8.27/10 (3.31/4)</p>
 
-        <section class="section" id="education">
-            <h2>Education & Publication</h2>
-            <div class="sub-section">
-                <h3>Master of Computer Applications <span class="date">2022-2024</span></h3>
-                <h4>Savitribai Phule Pune University (GPA: 8.27/10)</h4>
-            </div>
-             <div class="sub-section">
-                <h3>Bachelor of Science - Physics <span class="date">2018-2022</span></h3>
-                <h4>Savitribai Phule Pune University (GPA: 8.46/10)</h4>
-            </div>
-            <div class="sub-section">
-                <h3>Publication: Refining the Giants</h3>
-                <p>A Comprehensive review of finetuning strategies for LLMs. 20th International Conference on Computing and Machine Learning (CML).</p>
-            </div>
-        </section>
+                            <p style="margin-top: 1rem;"><strong>Bachelor of Science - Physics</strong><br>
+                            Savitribai Phule Pune University · 2018-2022<br>
+                            GPA: 8.46/10 (3.39/4)</p>
+                        </div>
+                    </div>
 
-        <section class="section" id="activities-awards">
-            <h2>Additional Activities & Awards</h2>
-            <ul>
-                <li>**Lecturer:** Taught "Introduction to Large Language Models" to 60+ MCA students at IMCC (Oct 2024).</li>
-                <li>**Mentor:** Mentored 10+ Interns at Indicus Software to work in Generative AI and build ML pipelines.</li>
-                <li>**Scholarship:** Received 50% tuition grant for 2 years of Masters by Government of Maharashtra (EBC).</li>
-                <li>**Amateur Astronomer:** Executive Member of India's oldest Amateur Astronomy organization with 4+ years experience handling professional telescopes.</li>
-                <li>Recently attended AI Alignment Fast-track Course by BlueDot Impact (Dec 2024).</li>
-            </ul>
-        </section>
+                    <div>
+                        <h2>Workshops & Courses</h2>
+                        <div class="simple-list" style="font-size: 0.8rem;">
+                            <p>• AI Alignment Fast-track Course · BlueDot Impact · Dec 2024</p>
+                            <p>• Introduction to Transformative AI · BlueDot Impact · Dec 2024</p>
+                            <p>• Deep Learning Conference (DEVCON) · ADaSci · Aug 2024</p>
+                            <p>• International Conference on CML · March 2024</p>
+                            <p>• Workshop on Data Science in Astronomy · IUCAA · Dec 2023</p>
+                            <p>• Gravitational Wave Open Data Workshop · LIGO-IUCAA · May 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    </main>
+            <!-- Publications Section -->
+            <div class="section" id="publications">
+                <h2>Publications</h2>
+                <div class="card" style="max-width: 700px;">
+                    <h3>Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</h3>
+                    <p class="meta">Kunal Singh, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">20th International Conference on Computing and Machine Learning (CML) · March 2024<br>
+                    Computing and Machine Learning, Volume 2</p>
+                </div>
+
+                <h2 style="margin-top: 2rem;">Additional</h2>
+                <div class="simple-list" style="font-size: 0.85rem;">
+                    <p>• <strong>Lecturer:</strong> Taught "Introduction to Large Language Models" to 60+ MCA students · Oct 2024</p>
+                    <p>• <strong>Mentor:</strong> Mentored 10+ interns in Generative AI at Indicus Software</p>
+                    <p>• <strong>Scholarship:</strong> 50% tuition grant from Government of Maharashtra (EBC)</p>
+                    <p>• <strong>Amateur Astronomer:</strong> Executive Member of India's oldest amateur astronomy organization · 4+ years</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const canvas = document.getElementById('automation-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const maxParticles = 40; // Reduced particle count for smoothness
-        const connectionDistance = 150; // Slightly increased for a more spread out look
-        const mouseRadius = 80; // Reduced mouse interaction radius
+        const maxParticles = 10000;
 
         let w, h;
-        let mouse = { x: null, y: null }; // Removed radius from mouse object for simpler logic
+        let mouse = { x: null, y: null, radius: 300 };
 
         function resize() {
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
-            init(); // Reinitialize particles on resize to prevent issues
         }
 
         window.addEventListener('resize', resize);
@@ -354,41 +433,80 @@
             mouse.y = null;
         });
 
-
         class Particle {
             constructor() {
                 this.x = Math.random() * w;
                 this.y = Math.random() * h;
-                // Increased speed slightly for smoother motion at lower particle count
-                this.vx = (Math.random() - 0.5) * 0.7; 
-                this.vy = (Math.random() - 0.5) * 0.7;
-                this.size = Math.random() * 1.5 + 0.5;
+                this.vx = (Math.random() - 0.5) * 1.2; 
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.size = Math.random() * 0.5 + 0.2;
             }
 
             update() {
-                // Bounce off edges
-                if (this.x < 0 || this.x > w) this.vx *= -1;
-                if (this.y < 0 || this.y > h) this.vy *= -1;
+                // Wrap around edges instead of bouncing
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
 
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Subtle mouse repulsion
+                // Very strong gravitational attraction to mouse cursor
                 if (mouse.x !== null && mouse.y !== null) {
-                    const dx = this.x - mouse.x;
-                    const dy = this.y - mouse.y;
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < mouseRadius) {
-                        const forceFactor = (mouseRadius - dist) / mouseRadius; // Force is stronger closer to mouse
-                        this.vx += (dx / dist) * forceFactor * 0.05; // Very small force
-                        this.vy += (dy / dist) * forceFactor * 0.05;
+                    if (dist > 1) {
+                        // Double the gravity force
+                        const force = (mouse.radius * 2.4) / (dist * dist);
+                        const forceX = (dx / dist) * force;
+                        const forceY = (dy / dist) * force;
+
+                        this.vx += forceX;
+                        this.vy += forceY;
                     }
+                }
+
+                // Less drag for more fluid motion
+                this.vx *= 0.96;
+                this.vy *= 0.96;
+
+                // Higher velocity limit
+                const maxVel = 8;
+                const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (vel > maxVel) {
+                    this.vx = (this.vx / vel) * maxVel;
+                    this.vy = (this.vy / vel) * maxVel;
                 }
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; /* Darker particles for light background */
+                // Calculate color based on velocity and distance from mouse
+                let r = 100, g = 150, b = 226; // Default blue
+                
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // Color changes based on proximity to mouse
+                    if (dist < mouse.radius) {
+                        const intensity = 1 - (dist / mouse.radius);
+                        r = Math.floor(74 + intensity * 180);  // Red increases
+                        g = Math.floor(144 - intensity * 50);   // Green decreases
+                        b = Math.floor(226 - intensity * 126);  // Blue varies
+                    }
+                }
+                
+                // Add velocity-based color variation
+                const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                const velFactor = Math.min(vel / 3, 1);
+                r = Math.floor(r + velFactor * 100);
+                g = Math.floor(g + velFactor * 50);
+                
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -403,73 +521,34 @@
         }
 
         function animate() {
-            ctx.clearRect(0, 0, w, h); // Clear canvas each frame
+            ctx.clearRect(0, 0, w, h);
             
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
-
-                // Draw connections
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < connectionDistance) {
-                        // Connection color changed for light background
-                        ctx.strokeStyle = `rgba(0, 123, 255, ${1 - dist / connectionDistance})`; /* Accent color fade */
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
             }
-            requestAnimationFrame(animate); // Request next frame
+            
+            requestAnimationFrame(animate);
         }
 
         init();
         animate();
 
-        // Active navigation link highlighting (remains the same)
-        const sections = document.querySelectorAll('main section, header');
-        const navLinks = document.querySelectorAll('nav a');
-        const nav = document.querySelector('nav'); // Get nav element for offset
+        // Tab navigation
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
 
-        function highlightNavLink() {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - nav.offsetHeight - 20;
-                if (scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.href.includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', highlightNavLink);
-        document.addEventListener('DOMContentLoaded', highlightNavLink);
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                const offsetTop = targetSection.offsetTop - nav.offsetHeight - 20;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.section;
+                
+                navBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
             });
         });
-
     </script>
 </body>
 </html>
