@@ -34,7 +34,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.85;
+            opacity: 1;
         }
 
         .container {
@@ -99,12 +99,13 @@
         }
 
         nav button {
-            background: none;
-            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(43, 87, 151, 0.2);
             color: var(--text-color);
             cursor: pointer;
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
+            border-radius: 4px;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
         }
@@ -164,9 +165,9 @@
 
         .card {
             padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 6px;
-            border: 1px solid rgba(43, 87, 151, 0.2);
+            border: 1px solid rgba(43, 87, 151, 0.15);
             font-size: 0.85rem;
         }
 
@@ -202,6 +203,10 @@
 
         .simple-list p {
             margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(43, 87, 151, 0.15);
         }
 
         .skills-compact {
@@ -213,9 +218,10 @@
 
         .skills-compact span {
             padding: 0.3rem 0.8rem;
-            background: rgba(43, 87, 151, 0.15);
-            border: 1px solid rgba(43, 87, 151, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(43, 87, 151, 0.25);
             border-radius: 4px;
+            color: var(--text-color);
         }
 
         @media (max-width: 768px) {
@@ -483,31 +489,31 @@
             }
 
             draw() {
-                // Calculate color based on velocity and distance from mouse - subtle RGB shifts
-                let r = 100, g = 130, b = 170; // Slightly brighter muted blue
+                // Bright RGB color shifts
+                let r = 70, g = 120, b = 200; // Brighter, more vibrant blue
                 
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     
-                    // Subtle color changes based on proximity to mouse
+                    // More dramatic color changes near cursor
                     if (dist < mouse.radius) {
                         const intensity = 1 - (dist / mouse.radius);
-                        r = Math.floor(100 + intensity * 70);   // Subtle shift to warmer
-                        g = Math.floor(130 - intensity * 35);   // Slight green reduction
-                        b = Math.floor(170 - intensity * 50);   // Blue decreases slightly
+                        r = Math.floor(70 + intensity * 120);   // Shift to red/orange
+                        g = Math.floor(120 - intensity * 40);   // Green reduces
+                        b = Math.floor(200 - intensity * 100);  // Blue decreases
                     }
                 }
                 
-                // Very subtle velocity-based color variation
+                // Velocity-based color variation
                 const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
                 const velFactor = Math.min(vel / 4, 1);
-                r = Math.floor(r + velFactor * 40);
-                g = Math.floor(g + velFactor * 25);
-                b = Math.floor(b + velFactor * 20);
+                r = Math.floor(r + velFactor * 60);
+                g = Math.floor(g + velFactor * 40);
+                b = Math.floor(b + velFactor * 30);
                 
-                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.65)`;
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
