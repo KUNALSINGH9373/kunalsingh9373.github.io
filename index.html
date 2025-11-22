@@ -436,6 +436,9 @@
         let collapsePhase = true;
         let collapseTime = 0;
         const collapseDuration = 3000; // 3 seconds for collapse animation
+        let explosionPhase = false;
+        let explosionTime = 0;
+        const explosionDuration = 1500; // 1.5 seconds for explosion
 
         function resize() {
             w = canvas.width = window.innerWidth;
@@ -465,14 +468,16 @@
                 this.vx = (Math.random() - 0.5) * 1.5; 
                 this.vy = (Math.random() - 0.5) * 1.5;
                 this.size = Math.random() * 0.6 + 0.2;
+                this.angle = Math.random() * Math.PI * 2;
+                this.explosionSpeed = Math.random() * 8 + 4;
             }
 
-            update(collapseProgress) {
+            update(collapseProgress, explosionProgress) {
+                const centerX = w / 2;
+                const centerY = h / 2;
+
                 // Collapse to center animation
-                if (collapsePhase && collapseProgress < 1) {
-                    const centerX = w / 2;
-                    const centerY = h / 2;
-                    
+                if (collapseProgress < 1) {
                     // Ease-in cubic for smooth acceleration to center
                     const easeProgress = collapseProgress * collapseProgress * collapseProgress;
                     
@@ -480,7 +485,22 @@
                     this.y = this.startY + (centerY - this.startY) * easeProgress;
                     this.vx = 0;
                     this.vy = 0;
-                } else {
+                } 
+                // Explosion effect - particles burst outward
+                else if (explosionProgress > 0 && explosionProgress < 1) {
+                    // Ease-out cubic for smooth deceleration
+                    const easeExplosion = 1 - Math.pow(1 - explosionProgress, 3);
+                    
+                    // Burst outward in random directions with increasing intensity
+                    const burstDistance = this.explosionSpeed * 150 * easeExplosion;
+                    this.x = centerX + Math.cos(this.angle) * burstDistance;
+                    this.y = centerY + Math.sin(this.angle) * burstDistance;
+                    
+                    this.vx = Math.cos(this.angle) * this.explosionSpeed * 3;
+                    this.vy = Math.sin(this.angle) * this.explosionSpeed * 3;
+                } 
+                // Normal behavior after explosion
+                else {
                     // Wrap around edges
                     if (this.x < 0) this.x = w;
                     if (this.x > w) this.x = 0;
@@ -567,10 +587,26 @@
             if (collapsePhase) {
                 collapseTime += 16; // Approximate frame time
                 collapseProgress = Math.min(collapseTime / collapseDuration, 1);
+                
+                // Trigger explosion when collapse is complete
+                if (collapseProgress >= 1) {
+                    collapsePhase = false;
+                    explosionPhase = true;
+                }
+            }
+            
+            let explosionProgress = 0;
+            if (explosionPhase) {
+                explosionTime += 16;
+                explosionProgress = Math.min(explosionTime / explosionDuration, 1);
+                
+                if (explosionProgress >= 1) {
+                    explosionPhase = false;
+                }
             }
             
             for (let i = 0; i < particles.length; i++) {
-                particles[i].update(collapseProgress);
+                particles[i].update(collapseProgress, explosionProgress);
                 particles[i].draw();
             }
             
