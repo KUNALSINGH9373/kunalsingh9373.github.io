@@ -1,1 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunal Singh | AI Researcher</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #4a90e2;
+            --secondary-text: #a0a0a0;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.4;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 1rem 0;
+            background: rgba(10, 10, 10, 0.85);
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            font-size: 0.7rem;
+            color: var(--secondary-text);
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .contact-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .bio {
+            max-width: 800px;
+            margin: 0.5rem auto;
+            font-size: 0.75rem;
+            color: var(--secondary-text);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 1rem 0;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.8rem;
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            color: #1a1a1a;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 1rem;
+        }
+
+        .content-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content-area::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .content-area::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.05rem;
+            margin-bottom: 0.7rem;
+            color: var(--accent-color);
+            font-weight: 400;
+            background: rgba(10, 10, 10, 0.7);
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            padding: 0.6rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 6px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            font-size: 0.75rem;
+            color: #1a1a1a;
+        }
+
+        .card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .card .meta {
+            font-size: 0.7rem;
+            color: #4a4a4a;
+            margin-bottom: 0.4rem;
+        }
+
+        .card a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.7rem;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .simple-list {
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .simple-list p {
+            margin-bottom: 0.4rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            color: #1a1a1a;
+        }
+
+        .skills-compact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+        }
+
+        .skills-compact span {
+            padding: 0.2rem 0.6rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 4px;
+            color: #1a1a1a;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.8rem;
+            }
+            
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.7rem;
+            }
+
+            .contact-links {
+                font-size: 0.65rem;
+                gap: 0.5rem;
+            }
+
+            .bio {
+                font-size: 0.7rem;
+                margin: 0.3rem auto;
+            }
+
+            nav {
+                gap: 0.5rem;
+                margin: 0.7rem 0;
+                padding-bottom: 0.6rem;
+                flex-wrap: wrap;
+            }
+
+            nav button {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+
+            h2 {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+                padding: 0.3rem 0.5rem;
+            }
+
+            .card {
+                padding: 0.5rem;
+            }
+
+            .card h3 {
+                font-size: 0.85rem;
+            }
+
+            .simple-list p {
+                padding: 0.5rem;
+                margin-bottom: 0.3rem;
+                font-size: 0.7rem;
+            }
+
+            .skills-compact {
+                gap: 0.3rem;
+            }
+
+            .skills-compact span {
+                padding: 0.15rem 0.5rem;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="automation-canvas"></canvas>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Kunal Singh</h1>
+            <p class="subtitle">AI Researcher | Pune, India</p>
+            <div class="contact-links">
+                <a href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com</a>
+                <span>|</span>
+                <a href="https://linkedin.com/in/kunalsingh9373" target="_blank">LinkedIn</a>
+                <span>|</span>
+                <a href="https://github.com/kunalsingh9373" target="_blank">GitHub</a>
+                <span>|</span>
+                <a href="https://scholar.google.com/citations?user=kunalsingh9373" target="_blank">Google Scholar</a>
+                <span>|</span>
+                <a href="https://medium.com/@kunalsingh9373" target="_blank">Medium</a>
+            </div>
+            <p class="bio">
+                AI Researcher specializing in Technical AI Governance, adversarial testing, and safety evaluation of frontier models. Building systematic approaches to ensure AI systems are safe, aligned, and beneficial.
+            </p>
+        </header>
+
+        <nav>
+            <button class="nav-btn active" data-section="research">Research & Publications</button>
+            <button class="nav-btn" data-section="experience">Experience</button>
+            <button class="nav-btn" data-section="projects">Projects</button>
+            <button class="nav-btn" data-section="education">Education</button>
+        </nav>
+
+        <div class="content-area">
+            <!-- Research & Publications Section -->
+            <div class="section active" id="research">
+                <h2>Research Interests</h2>
+                <div class="skills-compact">
+                    <span>Technical AI Governance</span>
+                    <span>AI Safety Evaluations</span>
+                    <span>Red Teaming</span>
+                    <span>Adversarial Testing</span>
+                    <span>Model Robustness</span>
+                    <span>Safety Benchmarking</span>
+                    <span>AI Policy & Regulation</span>
+                    <span>Control Evaluations</span>
+                </div>
+
+                <h2 style="margin-top: 2rem;">Publications</h2>
+                <div class="card" style="max-width: 700px;">
+                    <h3>Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</h3>
+                    <p class="meta">Kunal Singh, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">20th International Conference on Computing and Machine Learning (CML) · March 2024<br>
+                    Computing and Machine Learning, Volume 2</p>
+                </div>
+
+                <h2 style="margin-top: 2rem;">Technical Skills</h2>
+                <div class="skills-compact">
+                    <span>Python</span>
+                    <span>Machine Learning</span>
+                    <span>Deep Learning</span>
+                    <span>PyTorch</span>
+                    <span>TensorFlow</span>
+                    <span>Hugging Face</span>
+                    <span>LangChain</span>
+                    <span>Large Language Models</span>
+                    <span>RAG Systems</span>
+                    <span>AI Agents</span>
+                    <span>Prompt Engineering</span>
+                    <span>Vector Databases</span>
+                    <span>Fine-tuning</span>
+                </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="section" id="experience">
+                <div class="simple-list">
+                    <p><strong>AI Engineer</strong> · Indicus Software, Pune · Sept 2024 - Present</p>
+                    <p><strong>Technical Intern - AI</strong> · Indicus Software, Pune · June 2024 - Sept 2024</p>
+                    <p><strong>AI Intern</strong> · Resumepal, Quoppo Ventures, Pune · April 2024 - June 2024</p>
+                </div>
+
+                <h2 style="margin-top: 2rem;">International Experience</h2>
+                <div class="simple-list">
+                    <p><strong>Advanced School on Applied Machine Learning</strong> · International Centre for Theoretical Physics (ICTP), Italy · May-June 2024<br>
+                    <span style="font-size: 0.8rem; color: #1a1a1a;">Selected among 350+ global applicants (1 of 2 from India) · Fully-funded program</span></p>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="section" id="projects">
+                <div class="grid">
+                    <div class="card">
+                        <h3>Jailbreaking Resistance Analysis</h3>
+                        <p class="meta">Frontier Models Security Assessment</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts. Revealed 69pp security gap between models.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+
+                    <div class="card">
+                        <h3>Few-Shot vs Fine-tuning</h3>
+                        <p class="meta">Biomedical QA Research</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance demonstrating knowledge preservation.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+
+                    <div class="card">
+                        <h3>Instruction Tuning LLMs</h3>
+                        <p class="meta">Llama-2 Fine-tuning</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Implemented Quantized LoRa technique for efficient fine-tuning, significantly reducing computational resources.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+
+                    <div class="card">
+                        <h3>Marine Route Optimization</h3>
+                        <p class="meta">ML-based Optimization</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Dual modeling approach using Linear Regression and Random Forest. Achieved 5% reduction in fuel costs and CO2 emissions.</p>
+                        <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="section" id="education">
+                <div class="two-col">
+                    <div>
+                        <h2>Education</h2>
+                        <div class="simple-list">
+                            <p><strong>Master of Computer Applications</strong><br>
+                            Savitribai Phule Pune University · 2022-2024<br>
+                            GPA: 8.27/10 (3.31/4)</p>
+
+                            <p style="margin-top: 1rem;"><strong>Bachelor of Science - Physics</strong><br>
+                            Savitribai Phule Pune University · 2018-2022<br>
+                            GPA: 8.46/10 (3.39/4)</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2>Workshops & Courses</h2>
+                        <div class="simple-list" style="font-size: 0.8rem;">
+                            <p>• AI Alignment Fast-track Course · BlueDot Impact · Dec 2024</p>
+                            <p>• Introduction to Transformative AI · BlueDot Impact · Dec 2024</p>
+                            <p>• Deep Learning Conference (DEVCON) · ADaSci · Aug 2024</p>
+                            <p>• International Conference on CML · March 2024</p>
+                            <p>• Workshop on Data Science in Astronomy · IUCAA · Dec 2023</p>
+                            <p>• Gravitational Wave Open Data Workshop · LIGO-IUCAA · May 2023</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 2rem;">Additional</h2>
+                <div class="simple-list" style="font-size: 0.85rem;">
+                    <p>• <strong>Lecturer:</strong> Taught "Introduction to Large Language Models" to 60+ MCA students · Oct 2024</p>
+                    <p>• <strong>Mentor:</strong> Mentored 10+ interns in Generative AI at Indicus Software</p>
+                    <p>• <strong>Scholarship:</strong> 50% tuition grant from Government of Maharashtra (EBC)</p>
+                    <p>• <strong>Amateur Astronomer:</strong> Executive Member of India's oldest amateur astronomy organization · 4+ years</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('automation-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        // Detect mobile and adjust particle count
+        const isMobile = window.innerWidth < 768;
+        const maxParticles = isMobile ? 2000 : 8000;
+
+        let w, h;
+        let mouse = { x: null, y: null, radius: isMobile ? 300 : 500 };
+        let pageLoaded = true;
+        let collapsePhase = true;
+        let collapseTime = 0;
+        const collapseDuration = 2000; // 2 seconds for collapse
+        const explosionDuration = 2000; // 2 seconds for explosion
+        let phase = 'collapse'; // 'collapse', 'explosion', 'normal'
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+            // Don't interrupt the animation on first load
+            if (collapseTime > collapseDuration + explosionDuration) {
+                phase = 'normal';
+            }
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.startX = this.x;
+                this.startY = this.y;
+                this.vx = (Math.random() - 0.5) * 1.5; 
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 0.6 + 0.2;
+            }
+
+            update(animationTime) {
+                const centerX = w / 2;
+                const centerY = h / 2;
+                
+                if (phase === 'collapse') {
+                    // COLLAPSE - particles rush to center
+                    const progress = Math.min(animationTime / collapseDuration, 1);
+                    const easeProgress = progress * progress * progress; // Ease-in
+                    
+                    this.x = this.startX + (centerX - this.startX) * easeProgress;
+                    this.y = this.startY + (centerY - this.startY) * easeProgress;
+                    this.vx = 0;
+                    this.vy = 0;
+                } else if (phase === 'explosion') {
+                    // EXPLOSION - particles explode outward
+                    const explosionStart = collapseDuration;
+                    const timeInExplosion = animationTime - explosionStart;
+                    const explosionProgress = Math.min(timeInExplosion / explosionDuration, 1);
+                    
+                    if (timeInExplosion < 0) {
+                        // Hold at center briefly
+                        this.x = centerX;
+                        this.y = centerY;
+                        this.vx = 0;
+                        this.vy = 0;
+                    } else {
+                        // Launch outward from center
+                        const angle = Math.atan2(this.startY - centerY, this.startX - centerX);
+                        const speed = 4 + explosionProgress * 6; // Accelerates outward
+                        
+                        this.vx = Math.cos(angle) * speed;
+                        this.vy = Math.sin(angle) * speed;
+                        
+                        this.x += this.vx;
+                        this.y += this.vy;
+                    }
+                } else {
+                    // NORMAL - cursor gravity mode
+                    // Wrap around edges
+                    if (this.x < 0) this.x = w;
+                    if (this.x > w) this.x = 0;
+                    if (this.y < 0) this.y = h;
+                    if (this.y > h) this.y = 0;
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Heavy cursor gravity
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist > 1) {
+                            const force = (mouse.radius * 8) / (dist * dist);
+                            const forceX = (dx / dist) * force;
+                            const forceY = (dy / dist) * force;
+
+                            this.vx += forceX;
+                            this.vy += forceY;
+                        }
+                    }
+
+                    // Minimal drag
+                    this.vx *= 0.95;
+                    this.vy *= 0.95;
+
+                    // Velocity limit
+                    const maxVel = 10;
+                    const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                    if (vel > maxVel) {
+                        this.vx = (this.vx / vel) * maxVel;
+                        this.vy = (this.vy / vel) * maxVel;
+                    }
+                }
+            }
+
+            draw() {
+                let r, g, b;
+                
+                // Color gradient based on distance from cursor: Red → Orange → Yellow → Green → Blue
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // Normalize distance to 0-1 (0 at cursor, 1 at edge of radius)
+                    const normalizedDist = Math.min(dist / mouse.radius, 1);
+                    
+                    // Rainbow spectrum based on proximity to cursor
+                    if (normalizedDist < 0.2) {
+                        // Red zone (closest to cursor)
+                        r = 255;
+                        g = Math.floor(0 + (normalizedDist / 0.2) * 165); // 0 → 165
+                        b = 0;
+                    } else if (normalizedDist < 0.4) {
+                        // Orange to Yellow zone
+                        const t = (normalizedDist - 0.2) / 0.2;
+                        r = 255;
+                        g = Math.floor(165 + t * 90); // 165 → 255
+                        b = 0;
+                    } else if (normalizedDist < 0.6) {
+                        // Yellow to Green zone
+                        const t = (normalizedDist - 0.4) / 0.2;
+                        r = Math.floor(255 - t * 255); // 255 → 0
+                        g = 255;
+                        b = 0;
+                    } else if (normalizedDist < 0.8) {
+                        // Green to Cyan zone
+                        const t = (normalizedDist - 0.6) / 0.2;
+                        r = 0;
+                        g = 255;
+                        b = Math.floor(0 + t * 255); // 0 → 255
+                    } else {
+                        // Cyan to Blue zone (farthest)
+                        const t = (normalizedDist - 0.8) / 0.2;
+                        r = 0;
+                        g = Math.floor(255 - t * 135); // 255 → 120
+                        b = Math.floor(255 - t * 55); // 255 → 200
+                    }
+                } else {
+                    // Default blue when no cursor
+                    r = 70;
+                    g = 120;
+                    b = 200;
+                }
+                
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            
+            // Manage animation phases
+            if (phase === 'collapse' && collapseTime >= collapseDuration) {
+                phase = 'explosion';
+            }
+            if (phase === 'explosion' && collapseTime >= collapseDuration + explosionDuration) {
+                phase = 'normal';
+            }
+            
+            collapseTime += 16; // Approximate frame time (60fps)
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(collapseTime);
+                particles[i].draw();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        // Tab navigation
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.section;
+                
+                navBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
