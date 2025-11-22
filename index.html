@@ -6,10 +6,10 @@
     <title>Kunal Singh | AI Researcher</title>
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-color: #e0e0e0;
-            --accent-color: #4a90e2;
-            --secondary-text: #a0a0a0;
+            --bg-color: #f5f5dc;
+            --text-color: #1a1a1a;
+            --accent-color: #2b5797;
+            --secondary-text: #4a4a4a;
         }
 
         * {
@@ -34,7 +34,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.85;
         }
 
         .container {
@@ -94,7 +94,7 @@
             justify-content: center;
             gap: 2rem;
             margin: 1.5rem 0;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #d0d0d0;
             padding-bottom: 1rem;
         }
 
@@ -126,7 +126,7 @@
         }
 
         .content-area::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .content-area::-webkit-scrollbar-thumb {
@@ -164,9 +164,9 @@
 
         .card {
             padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.5);
             border-radius: 6px;
-            border: 1px solid rgba(74, 144, 226, 0.2);
+            border: 1px solid rgba(43, 87, 151, 0.2);
             font-size: 0.85rem;
         }
 
@@ -213,8 +213,8 @@
 
         .skills-compact span {
             padding: 0.3rem 0.8rem;
-            background: rgba(74, 144, 226, 0.1);
-            border: 1px solid rgba(74, 144, 226, 0.3);
+            background: rgba(43, 87, 151, 0.15);
+            border: 1px solid rgba(43, 87, 151, 0.3);
             border-radius: 4px;
         }
 
@@ -439,7 +439,7 @@
                 this.y = Math.random() * h;
                 this.vx = (Math.random() - 0.5) * 1.5; 
                 this.vy = (Math.random() - 0.5) * 1.5;
-                this.size = Math.random() * 0.7 + 0.3;
+                this.size = Math.random() * 1.2 + 0.5;
             }
 
             update() {
@@ -483,30 +483,31 @@
             }
 
             draw() {
-                // Calculate color based on velocity and distance from mouse
-                let r = 100, g = 150, b = 226; // Default blue
+                // Calculate color based on velocity and distance from mouse - subtle RGB shifts
+                let r = 100, g = 130, b = 170; // Slightly brighter muted blue
                 
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     
-                    // Color changes based on proximity to mouse
+                    // Subtle color changes based on proximity to mouse
                     if (dist < mouse.radius) {
                         const intensity = 1 - (dist / mouse.radius);
-                        r = Math.floor(74 + intensity * 180);  // Red increases
-                        g = Math.floor(144 - intensity * 50);   // Green decreases
-                        b = Math.floor(226 - intensity * 126);  // Blue varies
+                        r = Math.floor(100 + intensity * 70);   // Subtle shift to warmer
+                        g = Math.floor(130 - intensity * 35);   // Slight green reduction
+                        b = Math.floor(170 - intensity * 50);   // Blue decreases slightly
                     }
                 }
                 
-                // Add velocity-based color variation
+                // Very subtle velocity-based color variation
                 const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
                 const velFactor = Math.min(vel / 4, 1);
-                r = Math.floor(r + velFactor * 120);
-                g = Math.floor(g + velFactor * 60);
+                r = Math.floor(r + velFactor * 40);
+                g = Math.floor(g + velFactor * 25);
+                b = Math.floor(b + velFactor * 20);
                 
-                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.65)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
