@@ -410,10 +410,10 @@
         const canvas = document.getElementById('automation-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const maxParticles = 10000;
+        const maxParticles = 3000;
 
         let w, h;
-        let mouse = { x: null, y: null, radius: 300 };
+        let mouse = { x: null, y: null, radius: 350 };
 
         function resize() {
             w = canvas.width = window.innerWidth;
@@ -437,9 +437,9 @@
             constructor() {
                 this.x = Math.random() * w;
                 this.y = Math.random() * h;
-                this.vx = (Math.random() - 0.5) * 1.2; 
-                this.vy = (Math.random() - 0.5) * 1.2;
-                this.size = Math.random() * 0.5 + 0.2;
+                this.vx = (Math.random() - 0.5) * 1.5; 
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 0.7 + 0.3;
             }
 
             update() {
@@ -452,15 +452,15 @@
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Very strong gravitational attraction to mouse cursor
+                // Extremely strong gravitational attraction to mouse cursor
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist > 1) {
-                        // Double the gravity force
-                        const force = (mouse.radius * 2.4) / (dist * dist);
+                        // Very strong gravity force
+                        const force = (mouse.radius * 3.5) / (dist * dist);
                         const forceX = (dx / dist) * force;
                         const forceY = (dy / dist) * force;
 
@@ -469,12 +469,12 @@
                     }
                 }
 
-                // Less drag for more fluid motion
-                this.vx *= 0.96;
-                this.vy *= 0.96;
+                // Minimal drag for fluid motion
+                this.vx *= 0.95;
+                this.vy *= 0.95;
 
-                // Higher velocity limit
-                const maxVel = 8;
+                // High velocity limit
+                const maxVel = 10;
                 const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
                 if (vel > maxVel) {
                     this.vx = (this.vx / vel) * maxVel;
@@ -502,11 +502,11 @@
                 
                 // Add velocity-based color variation
                 const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                const velFactor = Math.min(vel / 3, 1);
-                r = Math.floor(r + velFactor * 100);
-                g = Math.floor(g + velFactor * 50);
+                const velFactor = Math.min(vel / 4, 1);
+                r = Math.floor(r + velFactor * 120);
+                g = Math.floor(g + velFactor * 60);
                 
-                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
