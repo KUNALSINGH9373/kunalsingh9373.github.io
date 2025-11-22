@@ -51,6 +51,9 @@
         header {
             text-align: center;
             padding: 1.5rem 0;
+            background: rgba(10, 10, 10, 0.85);
+            border-radius: 8px;
+            margin-bottom: 1rem;
         }
 
         h1 {
@@ -154,6 +157,10 @@
             margin-bottom: 1rem;
             color: var(--accent-color);
             font-weight: 400;
+            background: rgba(10, 10, 10, 0.7);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            display: inline-block;
         }
 
         .grid {
@@ -175,13 +182,13 @@
         .card h3 {
             font-size: 1rem;
             margin-bottom: 0.3rem;
-            color: var(--text-color);
-            font-weight: 500;
+            color: #1a1a1a;
+            font-weight: 600;
         }
 
         .card .meta {
             font-size: 0.8rem;
-            color: var(--secondary-text);
+            color: #4a4a4a;
             margin-bottom: 0.5rem;
         }
 
@@ -279,15 +286,14 @@
         </header>
 
         <nav>
-            <button class="nav-btn active" data-section="research">Research</button>
+            <button class="nav-btn active" data-section="research">Research & Publications</button>
             <button class="nav-btn" data-section="experience">Experience</button>
             <button class="nav-btn" data-section="projects">Projects</button>
             <button class="nav-btn" data-section="education">Education</button>
-            <button class="nav-btn" data-section="publications">Publications</button>
         </nav>
 
         <div class="content-area">
-            <!-- Research Section -->
+            <!-- Research & Publications Section -->
             <div class="section active" id="research">
                 <h2>Research Interests</h2>
                 <div class="skills-compact">
@@ -317,6 +323,14 @@
                     <span>Vector Databases</span>
                     <span>Fine-tuning</span>
                 </div>
+
+                <h2 style="margin-top: 2rem;">Publications</h2>
+                <div class="card" style="max-width: 700px;">
+                    <h3>Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</h3>
+                    <p class="meta">Kunal Singh, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">20th International Conference on Computing and Machine Learning (CML) · March 2024<br>
+                    Computing and Machine Learning, Volume 2</p>
+                </div>
             </div>
 
             <!-- Experience Section -->
@@ -325,8 +339,12 @@
                     <p><strong>AI Engineer</strong> · Indicus Software, Pune · Sept 2024 - Present</p>
                     <p><strong>Technical Intern - AI</strong> · Indicus Software, Pune · June 2024 - Sept 2024</p>
                     <p><strong>AI Intern</strong> · Resumepal, Quoppo Ventures, Pune · April 2024 - June 2024</p>
-                    <p style="margin-top: 1.5rem;"><strong>Advanced School on Applied Machine Learning</strong> · International Centre for Theoretical Physics (ICTP), Italy · May-June 2024<br>
-                    <span style="font-size: 0.8rem; color: var(--secondary-text);">Selected among 350+ global applicants (1 of 2 from India) · Fully-funded program</span></p>
+                </div>
+
+                <h2 style="margin-top: 2rem;">International Experience</h2>
+                <div class="simple-list">
+                    <p><strong>Advanced School on Applied Machine Learning</strong> · International Centre for Theoretical Physics (ICTP), Italy · May-June 2024<br>
+                    <span style="font-size: 0.8rem; color: #1a1a1a;">Selected among 350+ global applicants (1 of 2 from India) · Fully-funded program</span></p>
                 </div>
             </div>
 
@@ -391,17 +409,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Publications Section -->
-            <div class="section" id="publications">
-                <h2>Publications</h2>
-                <div class="card" style="max-width: 700px;">
-                    <h3>Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</h3>
-                    <p class="meta">Kunal Singh, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">20th International Conference on Computing and Machine Learning (CML) · March 2024<br>
-                    Computing and Machine Learning, Volume 2</p>
-                </div>
 
                 <h2 style="margin-top: 2rem;">Additional</h2>
                 <div class="simple-list" style="font-size: 0.85rem;">
@@ -410,6 +417,10 @@
                     <p>• <strong>Scholarship:</strong> 50% tuition grant from Government of Maharashtra (EBC)</p>
                     <p>• <strong>Amateur Astronomer:</strong> Executive Member of India's oldest amateur astronomy organization · 4+ years</p>
                 </div>
+            </div>
+
+            <!-- Publications Section -->
+            <div class="section" id="publications">
             </div>
         </div>
     </div>
@@ -447,7 +458,7 @@
                 this.y = Math.random() * h;
                 this.vx = (Math.random() - 0.5) * 1.5; 
                 this.vy = (Math.random() - 0.5) * 1.5;
-                this.size = Math.random() * 1.2 + 0.5;
+                this.size = Math.random() * 0.6 + 0.2;
             }
 
             update() {
