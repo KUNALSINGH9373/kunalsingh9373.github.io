@@ -482,12 +482,6 @@
 
         let w, h;
         let mouse = { x: null, y: null, radius: isMobile ? 300 : 500 };
-        let pageLoaded = true;
-        let collapsePhase = true;
-        let collapseTime = 0;
-        const collapseDuration = 2000; // 2 seconds for collapse
-        const explosionDuration = 2000; // 2 seconds for explosion
-        let phase = 'collapse'; // 'collapse', 'explosion', 'normal'
 
         function resize() {
             w = canvas.width = window.innerWidth;
@@ -500,10 +494,6 @@
         window.addEventListener('mousemove', (event) => {
             mouse.x = event.x;
             mouse.y = event.y;
-            // Don't interrupt the animation on first load
-            if (collapseTime > collapseDuration + explosionDuration) {
-                phase = 'normal';
-            }
         });
 
         window.addEventListener('mouseout', () => {
@@ -522,80 +512,43 @@
                 this.size = Math.random() * 0.6 + 0.2;
             }
 
-            update(animationTime) {
-                const centerX = w / 2;
-                const centerY = h / 2;
-                
-                if (phase === 'collapse') {
-                    // COLLAPSE - particles rush to center
-                    const progress = Math.min(animationTime / collapseDuration, 1);
-                    const easeProgress = progress * progress * progress; // Ease-in
-                    
-                    this.x = this.startX + (centerX - this.startX) * easeProgress;
-                    this.y = this.startY + (centerY - this.startY) * easeProgress;
-                    this.vx = 0;
-                    this.vy = 0;
-                } else if (phase === 'explosion') {
-                    // EXPLOSION - particles explode outward
-                    const explosionStart = collapseDuration;
-                    const timeInExplosion = animationTime - explosionStart;
-                    const explosionProgress = Math.min(timeInExplosion / explosionDuration, 1);
-                    
-                    if (timeInExplosion < 0) {
-                        // Hold at center briefly
-                        this.x = centerX;
-                        this.y = centerY;
-                        this.vx = 0;
-                        this.vy = 0;
-                    } else {
-                        // Launch outward from center
-                        const angle = Math.atan2(this.startY - centerY, this.startX - centerX);
-                        const speed = 4 + explosionProgress * 6; // Accelerates outward
-                        
-                        this.vx = Math.cos(angle) * speed;
-                        this.vy = Math.sin(angle) * speed;
-                        
-                        this.x += this.vx;
-                        this.y += this.vy;
+            update() {
+                // Wrap around edges
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Cursor gravity
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist > 1) {
+                        // Strong gravity pull towards cursor
+                        const force = (mouse.radius * 8) / (dist * dist);
+                        const forceX = (dx / dist) * force;
+                        const forceY = (dy / dist) * force;
+
+                        this.vx += forceX;
+                        this.vy += forceY;
                     }
-                } else {
-                    // NORMAL - cursor gravity mode
-                    // Wrap around edges
-                    if (this.x < 0) this.x = w;
-                    if (this.x > w) this.x = 0;
-                    if (this.y < 0) this.y = h;
-                    if (this.y > h) this.y = 0;
+                }
 
-                    this.x += this.vx;
-                    this.y += this.vy;
+                // Minimal drag
+                this.vx *= 0.95;
+                this.vy *= 0.95;
 
-                    // Heavy cursor gravity
-                    if (mouse.x !== null && mouse.y !== null) {
-                        const dx = mouse.x - this.x;
-                        const dy = mouse.y - this.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist > 1) {
-                            const force = (mouse.radius * 8) / (dist * dist);
-                            const forceX = (dx / dist) * force;
-                            const forceY = (dy / dist) * force;
-
-                            this.vx += forceX;
-                            this.vy += forceY;
-                        }
-                    }
-
-                    // Minimal drag
-                    this.vx *= 0.95;
-                    this.vy *= 0.95;
-
-                    // Velocity limit
-                    const maxVel = 10;
-                    const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                    if (vel > maxVel) {
-                        this.vx = (this.vx / vel) * maxVel;
-                        this.vy = (this.vy / vel) * maxVel;
-                    }
+                // Velocity limit
+                const maxVel = 12;
+                const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (vel > maxVel) {
+                    this.vx = (this.vx / vel) * maxVel;
+                    this.vy = (this.vy / vel) * maxVel;
                 }
             }
 
@@ -666,18 +619,8 @@
         function animate() {
             ctx.clearRect(0, 0, w, h);
             
-            // Manage animation phases
-            if (phase === 'collapse' && collapseTime >= collapseDuration) {
-                phase = 'explosion';
-            }
-            if (phase === 'explosion' && collapseTime >= collapseDuration + explosionDuration) {
-                phase = 'normal';
-            }
-            
-            collapseTime += 16; // Approximate frame time (60fps)
-            
             for (let i = 0; i < particles.length; i++) {
-                particles[i].update(collapseTime);
+                particles[i].update();
                 particles[i].draw();
             }
             
