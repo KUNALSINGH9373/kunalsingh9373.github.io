@@ -6,12 +6,12 @@
     <title>Kunal Singh | AI Researcher</title>
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-color: #e0e0e0;
-            --accent-color: #4a90e2;
-            --secondary-text: #a0a0a0;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --link-color: #6ba3eb;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --accent-color: #5a7bb5;
+            --secondary-text: #666666;
+            --card-bg: rgba(245, 245, 245, 0.95);
+            --link-color: #5a7bb5;
         }
 
         * {
@@ -111,7 +111,8 @@
             border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
-            background: linear-gradient(135deg, var(--accent-color), #2d5a8a);
+            background: #f0f0f0;
+            border: 3px solid #ddd;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,7 +134,7 @@
         nav {
             display: flex;
             gap: 2rem;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #ddd;
             padding-bottom: 0.5rem;
             margin-bottom: 2rem;
         }
@@ -195,8 +196,8 @@
 
         .tags span {
             padding: 0.3rem 0.8rem;
-            background: rgba(74, 144, 226, 0.15);
-            border: 1px solid rgba(74, 144, 226, 0.3);
+            background: rgba(90, 123, 181, 0.1);
+            border: 1px solid rgba(90, 123, 181, 0.3);
             border-radius: 20px;
             font-size: 0.85rem;
             color: var(--text-color);
@@ -204,8 +205,8 @@
 
         /* Publication Card - Clean style */
         .publication-card {
-            background: rgba(30, 30, 30, 0.9);
-            border: 1px solid #333;
+            background: rgba(245, 245, 245, 0.9);
+            border: 1px solid #ddd;
             border-radius: 8px;
             padding: 1.2rem;
             margin-bottom: 1rem;
@@ -233,7 +234,7 @@
         .experience-item {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #eee;
         }
 
         .experience-item:last-child {
@@ -267,8 +268,8 @@
         }
 
         .project-card {
-            background: rgba(30, 30, 30, 0.9);
-            border: 1px solid #333;
+            background: rgba(245, 245, 245, 0.9);
+            border: 1px solid #ddd;
             border-radius: 8px;
             padding: 1.2rem;
             transition: transform 0.2s, border-color 0.2s;
@@ -347,7 +348,7 @@
             font-size: 0.9rem;
             color: var(--secondary-text);
             padding: 0.4rem 0;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #eee;
         }
 
         .workshop-list li:last-child {
@@ -720,9 +721,10 @@
                         b = Math.floor(255 - t * 55);
                     }
                 } else {
-                    r = 70;
-                    g = 120;
-                    b = 200;
+                    // Default grey-blue when no cursor (visible on white)
+                    r = 180;
+                    g = 190;
+                    b = 210;
                 }
                 
                 ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
@@ -771,10 +773,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
