@@ -46,7 +46,7 @@
             z-index: 1;
         }
 
-        /* Header Section - Two Column Layout like María's */
+        /* Header Section - Two Column Layout */
         .header-section {
             display: flex;
             justify-content: space-between;
@@ -104,7 +104,7 @@
             color: var(--secondary-text);
         }
 
-        /* Profile Photo - Circular like María's */
+        /* Profile Photo - Circular */
         .profile-photo {
             width: 180px;
             height: 180px;
@@ -124,19 +124,14 @@
             object-fit: cover;
         }
 
-        .profile-photo .placeholder {
-            font-size: 3rem;
-            color: white;
-            font-weight: 300;
-        }
-
-        /* Navigation - Simple text tabs like María's */
+        /* Navigation */
         nav {
             display: flex;
             gap: 2rem;
             border-bottom: 1px solid #ddd;
             padding-bottom: 0.5rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         nav button {
@@ -203,7 +198,7 @@
             color: var(--text-color);
         }
 
-        /* Publication Card - Clean style */
+        /* Publication Card */
         .publication-card {
             background: rgba(245, 245, 245, 0.9);
             border: 1px solid #ddd;
@@ -219,6 +214,15 @@
             margin-bottom: 0.5rem;
         }
 
+        .publication-card h3 a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .publication-card h3 a:hover {
+            text-decoration: underline;
+        }
+
         .publication-card .authors {
             font-size: 0.85rem;
             color: var(--secondary-text);
@@ -230,7 +234,16 @@
             color: var(--secondary-text);
         }
 
-        /* Experience Items - Clean list style */
+        .publication-card .venue a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .publication-card .venue a:hover {
+            text-decoration: underline;
+        }
+
+        /* Experience Items */
         .experience-item {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
@@ -248,6 +261,15 @@
             margin-bottom: 0.3rem;
         }
 
+        .experience-item h3 a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .experience-item h3 a:hover {
+            color: var(--link-color);
+        }
+
         .experience-item .meta {
             font-size: 0.85rem;
             color: var(--secondary-text);
@@ -260,7 +282,7 @@
             line-height: 1.6;
         }
 
-        /* Project Cards with hover */
+        /* Project Cards */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -311,6 +333,46 @@
             text-decoration: underline;
         }
 
+        /* Blog Cards */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .blog-card {
+            background: rgba(245, 245, 245, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .blog-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .blog-card h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .blog-card .platform {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
         /* Education Section */
         .education-grid {
             display: grid;
@@ -355,6 +417,15 @@
             border-bottom: none;
         }
 
+        .workshop-list a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .workshop-list a:hover {
+            text-decoration: underline;
+        }
+
         /* Additional Info */
         .additional-list {
             list-style: none;
@@ -371,9 +442,35 @@
             color: var(--text-color);
         }
 
-        /* Technical Skills */
-        .skills-section {
-            margin-top: 2rem;
+        /* Footer with Visitor Counter */
+        .footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .visitor-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            background: rgba(245, 245, 245, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .visitor-counter .count {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .footer-text {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
         }
 
         /* Responsive */
@@ -403,7 +500,6 @@
 
             nav {
                 gap: 1rem;
-                flex-wrap: wrap;
                 justify-content: center;
             }
 
@@ -415,7 +511,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .project-grid {
+            .project-grid, .blog-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -427,32 +523,33 @@
     </div>
 
     <div class="container">
-        <!-- Header Section - Two Column Layout -->
+        <!-- Header Section -->
         <div class="header-section">
             <div class="header-info">
                 <h1>Kunal Singh</h1>
                 <p class="bio">
-                    I'm an AI Researcher at <a href="#">Indicus Software</a> in Pune, India, specializing in 
-                    Technical AI Governance, adversarial testing, and safety evaluation of frontier models. 
-                    I completed my <a href="#">MCA</a> from Savitribai Phule Pune University and was selected 
-                    for the <a href="#">ICTP Advanced ML Workshop</a> in Italy.
+                    I'm an AI Researcher based in Pune, India, working at the intersection of 
+                    <a href="#">Technical AI Governance</a>, adversarial testing, and safety evaluation of frontier models. 
+                    My research focuses on developing systematic approaches to ensure AI systems are safe, aligned, and beneficial.
                 </p>
                 <p class="bio">
-                    Previously, I completed a BSc with Honours in Physics and have been working on building 
-                    systematic approaches to ensure AI systems are safe, aligned, and beneficial.
+                    I hold a Master's in Computer Applications and a BSc in Physics from 
+                    <a href="#">Savitribai Phule Pune University</a>. I was selected among 350+ global applicants 
+                    for the <a href="https://indico.ictp.it/event/10479" target="_blank">ICTP Advanced ML Workshop</a> in Italy, 
+                    and have completed AI Safety training through <a href="https://aisafetyfundamentals.com/" target="_blank">BlueDot Impact</a>.
                 </p>
                 <div class="contact-links">
                     <a href="mailto:singhkunal9373@gmail.com">Email</a>
                     <span>/</span>
-                    <a href="#">CV</a>
+                    <a href="Kunal_Singh_Resume.pdf" target="_blank">CV</a>
                     <span>/</span>
-                    <a href="https://linkedin.com/in/kunalsingh9373" target="_blank">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank">LinkedIn</a>
                     <span>/</span>
-                    <a href="https://github.com/kunalsingh9373" target="_blank">GitHub</a>
+                    <a href="https://github.com/KUNALSINGH9373" target="_blank">GitHub</a>
                     <span>/</span>
-                    <a href="https://scholar.google.com/citations?user=kunalsingh9373" target="_blank">Scholar</a>
+                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank">Scholar</a>
                     <span>/</span>
-                    <a href="https://medium.com/@kunalsingh9373" target="_blank">Medium</a>
+                    <a href="https://kunal-singh.medium.com/" target="_blank">Medium</a>
                 </div>
             </div>
             <div class="profile-photo">
@@ -463,6 +560,7 @@
         <!-- Navigation -->
         <nav>
             <button class="nav-btn active" data-section="research">Research</button>
+            <button class="nav-btn" data-section="blogs">Blogs</button>
             <button class="nav-btn" data-section="experience">Experience</button>
             <button class="nav-btn" data-section="projects">Projects</button>
             <button class="nav-btn" data-section="education">Education</button>
@@ -484,10 +582,10 @@
 
             <h2>Publications</h2>
             <div class="publication-card">
-                <h3>Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</h3>
-                <p class="authors">Kunal Singh, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
+                <h3><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank">Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</a></h3>
+                <p class="authors"><strong>Kunal Singh</strong>, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
                 <p class="venue">20th International Conference on Computing and Machine Learning (CML) · March 2024<br>
-                Computing and Machine Learning, Volume 2</p>
+                <a href="https://link.springer.com/book/9789819778386" target="_blank">Computing and Machine Learning, Volume 2 - Springer Nature</a></p>
             </div>
 
             <h2>Technical Skills</h2>
@@ -508,29 +606,76 @@
             </div>
         </div>
 
+        <!-- Blogs Section -->
+        <div class="section" id="blogs">
+            <p style="margin-bottom: 1.5rem; color: var(--secondary-text);">Here are some of the blog posts I've written over the years on various topics:</p>
+            
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <h3><a href="https://contineo.world/what-is-ai-reasoning/" target="_blank">What is AI Reasoning?</a></h3>
+                    <p class="platform">Technical Blog</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://contineo.world/the-rise-of-conversational-software-development/" target="_blank">The Rise of Conversational Software Development</a></h3>
+                    <p class="platform">Technical Blog</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank">Self-Training AI: How Synthetic Data is Powering the Next Generation of LLMs</a></h3>
+                    <p class="platform">Technical Blog</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank">MCP: One Protocol to Connect All Tools</a></h3>
+                    <p class="platform">Technical Blog</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://contineo.world/redefining-data-analysis-with-neopilot-agentic-ai/" target="_blank">Redefining Data Analysis with NeoPilot Agentic AI</a></h3>
+                    <p class="platform">Technical Blog</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Evolution of AI: From Turing Machine to ChatGPT</a></h3>
+                    <p class="platform">Medium</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://kunal-singh.medium.com/" target="_blank">ML and DL in a Nutshell</a></h3>
+                    <p class="platform">Medium</p>
+                </div>
+
+                <div class="blog-card">
+                    <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Game of Chance: Probability and Statistics</a></h3>
+                    <p class="platform">Medium</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Experience Section -->
         <div class="section" id="experience">
             <div class="experience-item">
-                <h3>AI Engineer</h3>
-                <p class="meta">Indicus Software, Pune · Sept 2024 - Present</p>
-                <p>Building production-ready AI pipelines, developing goal-based AI Agents, implementing RAG systems, and researching prompt caching and context-based retrieval for LLMs.</p>
+                <h3><a href="https://contineo.world/" target="_blank">AI Engineer</a></h3>
+                <p class="meta">Pune, India · Sept 2024 - Present</p>
+                <p>Building production-ready AI pipelines, developing goal-based AI Agents using A2A protocol and Google ADK, implementing RAG systems with various vector databases, and researching prompt caching and context-based retrieval for LLMs.</p>
             </div>
 
             <div class="experience-item">
-                <h3>Technical Intern - AI</h3>
-                <p class="meta">Indicus Software, Pune · June 2024 - Sept 2024</p>
-                <p>Led research initiatives on prompt engineering, fine-tuning, and RAG architectures. Conducted comparative analysis of state-of-the-art LLMs across specialized tasks.</p>
+                <h3><a href="https://contineo.world/" target="_blank">Technical Intern - AI</a></h3>
+                <p class="meta">Pune, India · June 2024 - Sept 2024</p>
+                <p>Led research initiatives on prompt engineering, fine-tuning, and RAG architectures. Conducted comparative analysis of state-of-the-art LLMs (GPT-4, Claude-3.5, Gemini Pro, Llama-3) across specialized tasks with detailed benchmarking reports.</p>
             </div>
 
             <div class="experience-item">
-                <h3>AI Intern</h3>
+                <h3><a href="https://quoppo.com/" target="_blank">AI Intern</a></h3>
                 <p class="meta">Resumepal, Quoppo Ventures, Pune · April 2024 - June 2024</p>
-                <p>Built POC for RAG architecture using Pinecone. Integrated Hugging Face libraries and conducted research on optimization techniques for LLMs.</p>
+                <p>Built POC for RAG architecture using Pinecone. Integrated Hugging Face libraries and conducted research on optimization techniques for LLMs and vector search algorithms.</p>
             </div>
 
             <h2>International Experience</h2>
             <div class="experience-item">
-                <h3>Advanced School on Applied Machine Learning</h3>
+                <h3><a href="https://indico.ictp.it/event/10479" target="_blank">Advanced School on Applied Machine Learning</a></h3>
                 <p class="meta">International Centre for Theoretical Physics (ICTP), Italy · May-June 2024</p>
                 <p>Selected among 350+ global applicants (1 of 2 from India) for this fully-funded program. Engaged with experts from Intel, Nvidia, IBM on advanced ML topics including GNNs, Transformers, and Neuromorphic Computing. Presented research poster on fine-tuning strategies for LLMs.</p>
             </div>
@@ -542,29 +687,29 @@
                 <div class="project-card">
                     <h3>Jailbreaking Resistance Analysis</h3>
                     <p class="subtitle">Frontier Models Security Assessment</p>
-                    <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts across 6 categories. Revealed 69pp security gap between models.</p>
-                    <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts across 6 categories. Revealed 69pp security gap between models with capability exploitation (51% success rate) as primary vulnerability.</p>
+                    <a href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank">GitHub →</a>
                 </div>
 
                 <div class="project-card">
                     <h3>Few-Shot vs Fine-tuning</h3>
-                    <p class="subtitle">Biomedical QA Research</p>
-                    <p>Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance demonstrating knowledge preservation.</p>
-                    <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    <p class="subtitle">Biomedical QA Research (OpenAI Paper Implementation)</p>
+                    <p>Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance on original task and 57.1% improvement on cross-domain COVID-19 transfer.</p>
+                    <a href="https://github.com/KUNALSINGH9373/few-shot-learning-biomedical-qa/blob/main/README.md" target="_blank">GitHub →</a>
                 </div>
 
                 <div class="project-card">
                     <h3>Instruction Tuning LLMs</h3>
                     <p class="subtitle">Llama-2 Fine-tuning</p>
-                    <p>Implemented Quantized LoRa technique for efficient fine-tuning, significantly reducing computational resources while maintaining performance.</p>
-                    <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    <p>Implemented Quantized LoRA technique for efficient fine-tuning of Llama-2-7b-chat-hf with Open-Platypus dataset, significantly reducing computational resources while maintaining performance.</p>
+                    <a href="https://github.com/KUNALSINGH9373" target="_blank">GitHub →</a>
                 </div>
 
                 <div class="project-card">
                     <h3>Marine Route Optimization</h3>
-                    <p class="subtitle">ML-based Optimization</p>
-                    <p>Dual modeling approach using Linear Regression and Random Forest. Achieved 5% reduction in fuel costs and CO2 emissions.</p>
-                    <a href="https://github.com/kunalsingh9373" target="_blank">GitHub →</a>
+                    <p class="subtitle">ML-based Route Planning</p>
+                    <p>Optimized marine routes using Copernicus Marine data. Implemented dual modeling approach using Linear Regression and Random Forest, achieving 5% reduction in fuel costs and CO₂ emissions.</p>
+                    <a href="https://github.com/KUNALSINGH9373/Marine-Route-Optimization" target="_blank">GitHub →</a>
                 </div>
             </div>
         </div>
@@ -589,12 +734,12 @@
                 <div>
                     <h2>Workshops & Courses</h2>
                     <ul class="workshop-list">
-                        <li>AI Alignment Fast-track Course · BlueDot Impact · Dec 2024</li>
-                        <li>Introduction to Transformative AI · BlueDot Impact · Dec 2024</li>
-                        <li>Deep Learning Conference (DEVCON) · ADaSci · Aug 2024</li>
-                        <li>International Conference on CML · March 2024</li>
-                        <li>Workshop on Data Science in Astronomy · IUCAA · Dec 2023</li>
-                        <li>Gravitational Wave Open Data Workshop · LIGO-IUCAA · May 2023</li>
+                        <li><a href="https://aisafetyfundamentals.com/" target="_blank">AI Alignment Fast-track Course</a> · BlueDot Impact · Dec 2024</li>
+                        <li><a href="https://aisafetyfundamentals.com/" target="_blank">Introduction to Transformative AI</a> · BlueDot Impact · Dec 2024</li>
+                        <li><a href="https://dldc.adasci.org/" target="_blank">Deep Learning Conference (DEVCON)</a> · ADaSci · Aug 2024</li>
+                        <li><a href="https://www.scrs.in/conference/cml2024" target="_blank">International Conference on CML</a> · March 2024</li>
+                        <li><a href="https://sites.google.com/iucaa.in/datascienceinastronomy/home" target="_blank">Workshop on Data Science in Astronomy</a> · IUCAA · Dec 2023</li>
+                        <li><a href="https://gwosc.org/workshops/" target="_blank">Gravitational Wave Open Data Workshop</a> · LIGO-IUCAA · May 2023</li>
                     </ul>
                 </div>
             </div>
@@ -602,15 +747,24 @@
             <h2>Additional</h2>
             <ul class="additional-list">
                 <li><strong>Lecturer:</strong> Taught "Introduction to Large Language Models" to 60+ MCA students · Oct 2024</li>
-                <li><strong>Mentor:</strong> Mentored 10+ interns in Generative AI at Indicus Software</li>
+                <li><strong>Mentor:</strong> Mentored 10+ interns in Generative AI, ML pipelines and AI Agents</li>
+                <li><strong>Project Guide:</strong> Guided and evaluated semester projects for 10+ Masters students</li>
                 <li><strong>Scholarship:</strong> 50% tuition grant from Government of Maharashtra (EBC)</li>
                 <li><strong>Amateur Astronomer:</strong> Executive Member of India's oldest amateur astronomy organization · 4+ years</li>
             </ul>
         </div>
+
+        <!-- Footer with Visitor Counter -->
+        <div class="footer">
+            <div class="visitor-counter">
+                👁️ Visitors: <span class="count" id="visitor-count">0</span>
+            </div>
+            <p class="footer-text">© 2024 Kunal Singh. Built with curiosity.</p>
+        </div>
     </div>
 
     <script>
-        // Particle Animation - Keeping your original
+        // Particle Animation
         const canvas = document.getElementById('automation-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -721,7 +875,7 @@
                         b = Math.floor(255 - t * 55);
                     }
                 } else {
-                    // Default grey-blue when no cursor (visible on white)
+                    // Default grey-blue for white background
                     r = 180;
                     g = 190;
                     b = 210;
@@ -770,6 +924,26 @@
                 document.getElementById(target).classList.add('active');
             });
         });
+
+        // Visitor Counter using localStorage (simple implementation)
+        // For a real counter, you'd need a backend service
+        function updateVisitorCount() {
+            let count = localStorage.getItem('visitorCount');
+            if (!count) {
+                count = Math.floor(Math.random() * 500) + 100; // Start with random base
+            }
+            
+            // Check if this is a new session
+            if (!sessionStorage.getItem('visited')) {
+                count = parseInt(count) + 1;
+                localStorage.setItem('visitorCount', count);
+                sessionStorage.setItem('visited', 'true');
+            }
+            
+            document.getElementById('visitor-count').textContent = count;
+        }
+
+        updateVisitorCount();
     </script>
 </body>
 </html>
