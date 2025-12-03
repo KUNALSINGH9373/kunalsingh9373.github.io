@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunal Singh | AI Researcher</title>
+    <!-- GoatCounter Analytics -->
+    <script data-goatcounter="https://kunalsingh.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     <style>
         :root {
             --bg-color: #ffffff;
             --text-color: #333333;
             --accent-color: #5a7bb5;
             --secondary-text: #666666;
-            --card-bg: rgba(245, 245, 245, 0.95);
+            --card-bg: rgba(245, 245, 245, 0.7);
             --link-color: #5a7bb5;
         }
 
@@ -198,10 +200,77 @@
             color: var(--text-color);
         }
 
+        /* Card Grid - Shared styles for all card sections */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background: rgba(245, 245, 245, 0.6);
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            border-radius: 8px;
+            padding: 1.2rem;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            background: rgba(245, 245, 245, 0.85);
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--link-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .card h3 a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .card h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .card .subtitle {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .card .meta {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .card a.link {
+            color: var(--link-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .card a.link:hover {
+            text-decoration: underline;
+        }
+
         /* Publication Card */
         .publication-card {
-            background: rgba(245, 245, 245, 0.9);
-            border: 1px solid #ddd;
+            background: rgba(245, 245, 245, 0.6);
+            border: 1px solid rgba(200, 200, 200, 0.5);
             border-radius: 8px;
             padding: 1.2rem;
             margin-bottom: 1rem;
@@ -243,211 +312,141 @@
             text-decoration: underline;
         }
 
-        /* Experience Items */
-        .experience-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .experience-item:last-child {
-            border-bottom: none;
-        }
-
-        .experience-item h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .experience-item h3 a {
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .experience-item h3 a:hover {
-            color: var(--link-color);
-        }
-
-        .experience-item .meta {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            margin-bottom: 0.5rem;
-        }
-
-        .experience-item p {
-            font-size: 0.9rem;
-            color: var(--secondary-text);
-            line-height: 1.6;
-        }
-
-        /* Project Cards */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .project-card {
-            background: rgba(245, 245, 245, 0.9);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1.2rem;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
-        }
-
-        .project-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--link-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .project-card .subtitle {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            font-style: italic;
-        }
-
-        .project-card p {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-card a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-
-        .project-card a:hover {
-            text-decoration: underline;
-        }
-
-        /* Blog Cards */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .blog-card {
-            background: rgba(245, 245, 245, 0.9);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1rem;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
-        }
-
-        .blog-card h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-card h3 a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .blog-card h3 a:hover {
-            text-decoration: underline;
-        }
-
+        /* Blog Card specific */
         .blog-card .platform {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Experience Card specific */
+        .experience-card h3 {
+            color: var(--text-color);
         }
 
         /* Education Section */
         .education-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
-        .edu-item {
-            margin-bottom: 1rem;
+        .edu-card {
+            background: rgba(245, 245, 245, 0.6);
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
         }
 
-        .edu-item h3 {
-            font-size: 1rem;
+        .edu-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            background: rgba(245, 245, 245, 0.85);
+        }
+
+        .edu-card h3 {
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-color);
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.3rem;
         }
 
-        .edu-item .school {
-            font-size: 0.9rem;
-            color: var(--secondary-text);
-        }
-
-        .edu-item .gpa {
+        .edu-card .school {
             font-size: 0.85rem;
             color: var(--secondary-text);
         }
 
-        /* Workshops List */
-        .workshop-list {
-            list-style: none;
+        .edu-card .gpa {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-top: 0.3rem;
         }
 
-        .workshop-list li {
-            font-size: 0.9rem;
-            color: var(--secondary-text);
-            padding: 0.4rem 0;
-            border-bottom: 1px solid #eee;
+        /* Workshops List as Cards */
+        .workshop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.8rem;
         }
 
-        .workshop-list li:last-child {
-            border-bottom: none;
+        .workshop-card {
+            background: rgba(245, 245, 245, 0.6);
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
         }
 
-        .workshop-list a {
+        .workshop-card:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent-color);
+            background: rgba(245, 245, 245, 0.85);
+        }
+
+        .workshop-card a {
             color: var(--link-color);
             text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .workshop-list a:hover {
+        .workshop-card a:hover {
             text-decoration: underline;
         }
 
-        /* Additional Info */
-        .additional-list {
-            list-style: none;
-        }
-
-        .additional-list li {
-            font-size: 0.9rem;
+        .workshop-card .org {
+            font-size: 0.75rem;
             color: var(--secondary-text);
-            padding: 0.5rem 0;
-            line-height: 1.5;
+            margin-top: 0.2rem;
         }
 
-        .additional-list strong {
+        /* Additional Info Cards */
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .additional-card {
+            background: rgba(245, 245, 245, 0.6);
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .additional-card:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent-color);
+            background: rgba(245, 245, 245, 0.85);
+        }
+
+        .additional-card strong {
             color: var(--text-color);
         }
 
-        /* Footer with Visitor Counter */
+        /* Footer with Analytics */
         .footer {
             margin-top: 3rem;
             padding: 1.5rem 0;
             border-top: 1px solid #ddd;
-            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-left {
+            flex: 1;
+            min-width: 200px;
         }
 
         .visitor-counter {
@@ -456,21 +455,53 @@
             gap: 0.5rem;
             font-size: 0.9rem;
             color: var(--secondary-text);
-            background: rgba(245, 245, 245, 0.9);
+            background: rgba(245, 245, 245, 0.8);
             padding: 0.5rem 1rem;
             border-radius: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(200, 200, 200, 0.5);
         }
 
-        .visitor-counter .count {
-            font-weight: 600;
-            color: var(--accent-color);
+        .visitor-counter img {
+            height: 20px;
         }
 
         .footer-text {
             margin-top: 1rem;
             font-size: 0.8rem;
             color: var(--secondary-text);
+        }
+
+        /* Analytics Widget */
+        .analytics-widget {
+            flex: 0 0 300px;
+            background: rgba(245, 245, 245, 0.6);
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .analytics-widget h4 {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .analytics-placeholder {
+            text-align: center;
+            padding: 1rem;
+            color: var(--secondary-text);
+            font-size: 0.8rem;
+        }
+
+        .analytics-placeholder a {
+            color: var(--link-color);
+        }
+
+        /* GoatCounter embed styling */
+        #gc-chart {
+            width: 100%;
+            height: 150px;
         }
 
         /* Responsive */
@@ -511,8 +542,20 @@
                 grid-template-columns: 1fr;
             }
 
-            .project-grid, .blog-grid {
+            .card-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .analytics-widget {
+                flex: 1;
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
@@ -610,43 +653,43 @@
         <div class="section" id="blogs">
             <p style="margin-bottom: 1.5rem; color: var(--secondary-text);">Here are some of the blog posts I've written over the years on various topics:</p>
             
-            <div class="blog-grid">
-                <div class="blog-card">
+            <div class="card-grid">
+                <div class="card blog-card">
                     <h3><a href="https://contineo.world/what-is-ai-reasoning/" target="_blank">What is AI Reasoning?</a></h3>
                     <p class="platform">Technical Blog</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://contineo.world/the-rise-of-conversational-software-development/" target="_blank">The Rise of Conversational Software Development</a></h3>
                     <p class="platform">Technical Blog</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank">Self-Training AI: How Synthetic Data is Powering the Next Generation of LLMs</a></h3>
                     <p class="platform">Technical Blog</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank">MCP: One Protocol to Connect All Tools</a></h3>
                     <p class="platform">Technical Blog</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://contineo.world/redefining-data-analysis-with-neopilot-agentic-ai/" target="_blank">Redefining Data Analysis with NeoPilot Agentic AI</a></h3>
                     <p class="platform">Technical Blog</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Evolution of AI: From Turing Machine to ChatGPT</a></h3>
                     <p class="platform">Medium</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://kunal-singh.medium.com/" target="_blank">ML and DL in a Nutshell</a></h3>
                     <p class="platform">Medium</p>
                 </div>
 
-                <div class="blog-card">
+                <div class="card blog-card">
                     <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Game of Chance: Probability and Statistics</a></h3>
                     <p class="platform">Medium</p>
                 </div>
@@ -655,111 +698,158 @@
 
         <!-- Experience Section -->
         <div class="section" id="experience">
-            <div class="experience-item">
-                <h3><a href="https://contineo.world/" target="_blank">AI Engineer</a></h3>
-                <p class="meta">Pune, India · Sept 2024 - Present</p>
-                <p>Building production-ready AI pipelines, developing goal-based AI Agents using A2A protocol and Google ADK, implementing RAG systems with various vector databases, and researching prompt caching and context-based retrieval for LLMs.</p>
-            </div>
+            <div class="card-grid">
+                <div class="card experience-card">
+                    <h3><a href="https://contineo.world/" target="_blank">AI Engineer</a></h3>
+                    <p class="meta">Pune, India · Sept 2024 - Present</p>
+                    <p>Building production-ready AI pipelines, developing goal-based AI Agents using A2A protocol and Google ADK, implementing RAG systems with various vector databases.</p>
+                </div>
 
-            <div class="experience-item">
-                <h3><a href="https://contineo.world/" target="_blank">Technical Intern - AI</a></h3>
-                <p class="meta">Pune, India · June 2024 - Sept 2024</p>
-                <p>Led research initiatives on prompt engineering, fine-tuning, and RAG architectures. Conducted comparative analysis of state-of-the-art LLMs (GPT-4, Claude-3.5, Gemini Pro, Llama-3) across specialized tasks with detailed benchmarking reports.</p>
-            </div>
+                <div class="card experience-card">
+                    <h3><a href="https://contineo.world/" target="_blank">Technical Intern - AI</a></h3>
+                    <p class="meta">Pune, India · June 2024 - Sept 2024</p>
+                    <p>Led research on prompt engineering, fine-tuning, and RAG architectures. Conducted comparative analysis of LLMs (GPT-4, Claude-3.5, Gemini Pro, Llama-3).</p>
+                </div>
 
-            <div class="experience-item">
-                <h3><a href="https://quoppo.com/" target="_blank">AI Intern</a></h3>
-                <p class="meta">Resumepal, Quoppo Ventures, Pune · April 2024 - June 2024</p>
-                <p>Built POC for RAG architecture using Pinecone. Integrated Hugging Face libraries and conducted research on optimization techniques for LLMs and vector search algorithms.</p>
-            </div>
+                <div class="card experience-card">
+                    <h3><a href="https://quoppo.com/" target="_blank">AI Intern</a></h3>
+                    <p class="meta">Resumepal, Quoppo Ventures · April - June 2024</p>
+                    <p>Built POC for RAG architecture using Pinecone. Integrated Hugging Face libraries and researched optimization techniques for LLMs.</p>
+                </div>
 
-            <h2>International Experience</h2>
-            <div class="experience-item">
-                <h3><a href="https://indico.ictp.it/event/10479" target="_blank">Advanced School on Applied Machine Learning</a></h3>
-                <p class="meta">International Centre for Theoretical Physics (ICTP), Italy · May-June 2024</p>
-                <p>Selected among 350+ global applicants (1 of 2 from India) for this fully-funded program. Engaged with experts from Intel, Nvidia, IBM on advanced ML topics including GNNs, Transformers, and Neuromorphic Computing. Presented research poster on fine-tuning strategies for LLMs.</p>
+                <div class="card experience-card">
+                    <h3><a href="https://indico.ictp.it/event/10479" target="_blank">ICTP ML Workshop</a></h3>
+                    <p class="meta">Italy · May-June 2024 · Fully Funded</p>
+                    <p>Selected among 350+ global applicants (1 of 2 from India). Engaged with Intel, Nvidia, IBM experts on GNNs, Transformers, Neuromorphic Computing.</p>
+                </div>
             </div>
         </div>
 
         <!-- Projects Section -->
         <div class="section" id="projects">
-            <div class="project-grid">
-                <div class="project-card">
+            <div class="card-grid">
+                <div class="card">
                     <h3>Jailbreaking Resistance Analysis</h3>
                     <p class="subtitle">Frontier Models Security Assessment</p>
-                    <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro using 100 attack prompts across 6 categories. Revealed 69pp security gap between models with capability exploitation (51% success rate) as primary vulnerability.</p>
-                    <a href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank">GitHub →</a>
+                    <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro. Revealed 69pp security gap with capability exploitation (51% success) as primary vulnerability.</p>
+                    <a class="link" href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank">GitHub →</a>
                 </div>
 
-                <div class="project-card">
+                <div class="card">
                     <h3>Few-Shot vs Fine-tuning</h3>
-                    <p class="subtitle">Biomedical QA Research (OpenAI Paper Implementation)</p>
-                    <p>Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance on original task and 57.1% improvement on cross-domain COVID-19 transfer.</p>
-                    <a href="https://github.com/KUNALSINGH9373/few-shot-learning-biomedical-qa/blob/main/README.md" target="_blank">GitHub →</a>
+                    <p class="subtitle">Biomedical QA (OpenAI Paper)</p>
+                    <p>Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance and 57.1% improvement on cross-domain transfer.</p>
+                    <a class="link" href="https://github.com/KUNALSINGH9373/few-shot-learning-biomedical-qa/blob/main/README.md" target="_blank">GitHub →</a>
                 </div>
 
-                <div class="project-card">
+                <div class="card">
                     <h3>Instruction Tuning LLMs</h3>
                     <p class="subtitle">Llama-2 Fine-tuning</p>
-                    <p>Implemented Quantized LoRA technique for efficient fine-tuning of Llama-2-7b-chat-hf with Open-Platypus dataset, significantly reducing computational resources while maintaining performance.</p>
-                    <a href="https://github.com/KUNALSINGH9373" target="_blank">GitHub →</a>
+                    <p>Implemented Quantized LoRA for efficient fine-tuning of Llama-2-7b-chat-hf with Open-Platypus dataset, reducing computational resources significantly.</p>
+                    <a class="link" href="https://github.com/KUNALSINGH9373" target="_blank">GitHub →</a>
                 </div>
 
-                <div class="project-card">
+                <div class="card">
                     <h3>Marine Route Optimization</h3>
                     <p class="subtitle">ML-based Route Planning</p>
-                    <p>Optimized marine routes using Copernicus Marine data. Implemented dual modeling approach using Linear Regression and Random Forest, achieving 5% reduction in fuel costs and CO₂ emissions.</p>
-                    <a href="https://github.com/KUNALSINGH9373/Marine-Route-Optimization" target="_blank">GitHub →</a>
+                    <p>Optimized marine routes using Copernicus Marine data. Achieved 5% reduction in fuel costs and CO₂ emissions using Linear Regression and Random Forest.</p>
+                    <a class="link" href="https://github.com/KUNALSINGH9373/Marine-Route-Optimization" target="_blank">GitHub →</a>
                 </div>
             </div>
         </div>
 
         <!-- Education Section -->
         <div class="section" id="education">
+            <h2>Education</h2>
             <div class="education-grid">
-                <div>
-                    <h2>Education</h2>
-                    <div class="edu-item">
-                        <h3>Master of Computer Applications</h3>
-                        <p class="school">Savitribai Phule Pune University · 2022-2024</p>
-                        <p class="gpa">GPA: 8.27/10 (3.31/4)</p>
-                    </div>
-                    <div class="edu-item">
-                        <h3>Bachelor of Science - Physics</h3>
-                        <p class="school">Savitribai Phule Pune University · 2018-2022</p>
-                        <p class="gpa">GPA: 8.46/10 (3.39/4)</p>
-                    </div>
+                <div class="edu-card">
+                    <h3>Master of Computer Applications</h3>
+                    <p class="school">Savitribai Phule Pune University · 2022-2024</p>
+                    <p class="gpa">GPA: 8.27/10 (3.31/4)</p>
                 </div>
+                <div class="edu-card">
+                    <h3>Bachelor of Science - Physics</h3>
+                    <p class="school">Savitribai Phule Pune University · 2018-2022</p>
+                    <p class="gpa">GPA: 8.46/10 (3.39/4)</p>
+                </div>
+            </div>
 
-                <div>
-                    <h2>Workshops & Courses</h2>
-                    <ul class="workshop-list">
-                        <li><a href="https://aisafetyfundamentals.com/" target="_blank">AI Alignment Fast-track Course</a> · BlueDot Impact · Dec 2024</li>
-                        <li><a href="https://aisafetyfundamentals.com/" target="_blank">Introduction to Transformative AI</a> · BlueDot Impact · Dec 2024</li>
-                        <li><a href="https://dldc.adasci.org/" target="_blank">Deep Learning Conference (DEVCON)</a> · ADaSci · Aug 2024</li>
-                        <li><a href="https://www.scrs.in/conference/cml2024" target="_blank">International Conference on CML</a> · March 2024</li>
-                        <li><a href="https://sites.google.com/iucaa.in/datascienceinastronomy/home" target="_blank">Workshop on Data Science in Astronomy</a> · IUCAA · Dec 2023</li>
-                        <li><a href="https://gwosc.org/workshops/" target="_blank">Gravitational Wave Open Data Workshop</a> · LIGO-IUCAA · May 2023</li>
-                    </ul>
+            <h2>Workshops & Courses</h2>
+            <div class="workshop-grid">
+                <div class="workshop-card">
+                    <a href="https://aisafetyfundamentals.com/" target="_blank">AI Alignment Fast-track Course</a>
+                    <p class="org">BlueDot Impact · Dec 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://aisafetyfundamentals.com/" target="_blank">Introduction to Transformative AI</a>
+                    <p class="org">BlueDot Impact · Dec 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://dldc.adasci.org/" target="_blank">Deep Learning Conference (DEVCON)</a>
+                    <p class="org">ADaSci · Aug 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://www.scrs.in/conference/cml2024" target="_blank">International Conference on CML</a>
+                    <p class="org">March 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://sites.google.com/iucaa.in/datascienceinastronomy/home" target="_blank">Data Science in Astronomy</a>
+                    <p class="org">IUCAA · Dec 2023</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://gwosc.org/workshops/" target="_blank">Gravitational Wave Open Data</a>
+                    <p class="org">LIGO-IUCAA · May 2023</p>
                 </div>
             </div>
 
             <h2>Additional</h2>
-            <ul class="additional-list">
-                <li><strong>Lecturer:</strong> Taught "Introduction to Large Language Models" to 60+ MCA students · Oct 2024</li>
-                <li><strong>Mentor:</strong> Mentored 10+ interns in Generative AI, ML pipelines and AI Agents</li>
-                <li><strong>Project Guide:</strong> Guided and evaluated semester projects for 10+ Masters students</li>
-                <li><strong>Scholarship:</strong> 50% tuition grant from Government of Maharashtra (EBC)</li>
-                <li><strong>Amateur Astronomer:</strong> Executive Member of India's oldest amateur astronomy organization · 4+ years</li>
-            </ul>
+            <div class="additional-grid">
+                <div class="additional-card">
+                    <strong>Lecturer:</strong> Taught "Intro to LLMs" to 60+ MCA students · Oct 2024
+                </div>
+                <div class="additional-card">
+                    <strong>Mentor:</strong> Mentored 10+ interns in Generative AI & AI Agents
+                </div>
+                <div class="additional-card">
+                    <strong>Project Guide:</strong> Guided semester projects for 10+ Masters students
+                </div>
+                <div class="additional-card">
+                    <strong>Scholarship:</strong> 50% tuition grant from Govt. of Maharashtra
+                </div>
+                <div class="additional-card">
+                    <strong>Amateur Astronomer:</strong> Executive Member, India's oldest astronomy org · 4+ years
+                </div>
+            </div>
         </div>
 
-        <!-- Footer with Visitor Counter -->
+        <!-- Footer with Analytics -->
         <div class="footer">
-            <div class="visitor-counter">
-                👁️ Visitors: <span class="count" id="visitor-count">0</span>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="visitor-counter">
+                        👁️ Total Visitors: 
+                        <a href="https://hits.seeyoufarm.com">
+                            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkunalsingh9373.github.io&count_bg=%235A7BB5&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=true" alt="visitor count"/>
+                        </a>
+                    </div>
+                    <p class="footer-text">© 2024 Kunal Singh. Built with curiosity.</p>
+                </div>
+                
+                <div class="analytics-widget">
+                    <h4>📊 Site Analytics</h4>
+                    <div class="analytics-placeholder">
+                        <!-- GoatCounter public stats embed -->
+                        <!-- After signing up at goatcounter.com, your stats will appear here -->
+                        <p>Visit duration & traffic stats</p>
+                        <p style="margin-top: 0.5rem;">
+                            <a href="https://kunalsingh.goatcounter.com" target="_blank">View full analytics →</a>
+                        </p>
+                        <p style="margin-top: 1rem; font-size: 0.7rem; color: #999;">
+                            Powered by <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> (privacy-friendly)
+                        </p>
+                    </div>
+                </div>
             </div>
-            <p class="footer-text">© 2024 Kunal Singh. Built with curiosity.</p>
         </div>
     </div>
 
@@ -924,26 +1014,6 @@
                 document.getElementById(target).classList.add('active');
             });
         });
-
-        // Visitor Counter using localStorage (simple implementation)
-        // For a real counter, you'd need a backend service
-        function updateVisitorCount() {
-            let count = localStorage.getItem('visitorCount');
-            if (!count) {
-                count = Math.floor(Math.random() * 500) + 100; // Start with random base
-            }
-            
-            // Check if this is a new session
-            if (!sessionStorage.getItem('visited')) {
-                count = parseInt(count) + 1;
-                localStorage.setItem('visitorCount', count);
-                sessionStorage.setItem('visited', 'true');
-            }
-            
-            document.getElementById('visitor-count').textContent = count;
-        }
-
-        updateVisitorCount();
     </script>
 </body>
 </html>
