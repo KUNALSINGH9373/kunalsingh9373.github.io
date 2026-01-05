@@ -320,6 +320,43 @@
             letter-spacing: 0.5px;
         }
 
+        /* Blog Tabs */
+        .blog-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .blog-tab {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .blog-tab:hover {
+            color: var(--text-color);
+        }
+
+        .blog-tab.active {
+            color: var(--text-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .blog-content {
+            display: none;
+        }
+
+        .blog-content.active {
+            display: block;
+        }
+
         /* Experience Card specific */
         .experience-card h3 {
             color: var(--text-color);
@@ -402,31 +439,40 @@
             margin-top: 0.2rem;
         }
 
-        /* Additional Info Cards */
-        .additional-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 0.8rem;
-        }
-
-        .additional-card {
+        /* Training Section Cards */
+        .training-card {
             background: rgba(245, 245, 245, 0.6);
             border: 1px solid rgba(200, 200, 200, 0.5);
             border-radius: 8px;
-            padding: 0.8rem 1rem;
-            font-size: 0.85rem;
-            color: var(--secondary-text);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
             transition: transform 0.2s, border-color 0.2s, background 0.2s;
         }
 
-        .additional-card:hover {
-            transform: translateY(-1px);
+        .training-card:hover {
+            transform: translateY(-2px);
             border-color: var(--accent-color);
             background: rgba(245, 245, 245, 0.85);
         }
 
-        .additional-card strong {
+        .training-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .training-card .meta {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.7rem;
+            font-style: italic;
+        }
+
+        .training-card p {
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
         }
 
         /* Footer with Analytics */
@@ -648,7 +694,7 @@
                 <div class="contact-links">
                     <a href="mailto:singhkunal9373@gmail.com">Email</a>
                     <span>/</span>
-                    <a href="https://drive.google.com/file/d/1deP9h3JKlH-GkSOpV5afPfNqjdU7LozH/view?usp=sharing" target="_blank">CV</a>
+                    <a href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank">CV</a>
                     <span>/</span>
                     <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank">LinkedIn</a>
                     <span>/</span>
@@ -656,7 +702,7 @@
                     <span>/</span>
                     <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank">Scholar</a>
                     <span>/</span>
-                    <a href="https://kunal-singh.medium.com/" target="_blank">Medium</a>
+                    <a href="https://thinkwaveresearch.substack.com/" target="_blank">Substack</a>
                 </div>
             </div>
             <div class="profile-photo">
@@ -667,10 +713,10 @@
         <!-- Navigation -->
         <nav>
             <button class="nav-btn active" data-section="research">Research</button>
-            <button class="nav-btn" data-section="blogs">Blogs</button>
             <button class="nav-btn" data-section="experience">Experience</button>
             <button class="nav-btn" data-section="projects">Projects</button>
-            <button class="nav-btn" data-section="education">Education</button>
+            <button class="nav-btn" data-section="blogs">Blogs</button>
+            <button class="nav-btn" data-section="training">Training</button>
         </nav>
 
         <!-- Research Section -->
@@ -695,6 +741,13 @@
                 <a href="https://link.springer.com/book/9789819778386" target="_blank">Computing and Machine Learning, Volume 2 - Springer Nature</a></p>
             </div>
 
+            <h2>Research Reports</h2>
+            <div class="publication-card">
+                <h3><a href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model?utm_campaign=post-expanded-share&utm_medium=web&triedRedirect=true" target="_blank">The Open-Weight Paradox: How Model Release Policies Undermine Export Controls</a></h3>
+                <p class="authors"><strong>Kunal Singh</strong></p>
+                <p class="venue">US export controls on AI fail because they exempt publicly-released models. Anyone can download and fine-tune open-source models for military/harmful use at 1/1000th the original training cost. The report argues governments should focus on what's actually controllable: the expensive computer chips for training, transparency requirements, legal liability for developers, and defensive investments.</p>
+            </div>
+
             <h2>Technical Skills</h2>
             <div class="tags">
                 <span>Python</span>
@@ -713,59 +766,12 @@
             </div>
         </div>
 
-        <!-- Blogs Section -->
-        <div class="section" id="blogs">
-            <p style="margin-bottom: 1.5rem; color: var(--secondary-text);">Here are some of the blog posts I've written over the years on various topics:</p>
-            
-            <div class="card-grid">
-                <div class="card blog-card">
-                    <h3><a href="https://contineo.world/what-is-ai-reasoning/" target="_blank">What is AI Reasoning?</a></h3>
-                    <p class="platform">Technical Blog</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://contineo.world/the-rise-of-conversational-software-development/" target="_blank">The Rise of Conversational Software Development</a></h3>
-                    <p class="platform">Technical Blog</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank">Self-Training AI: How Synthetic Data is Powering the Next Generation of LLMs</a></h3>
-                    <p class="platform">Technical Blog</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank">MCP: One Protocol to Connect All Tools</a></h3>
-                    <p class="platform">Technical Blog</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://contineo.world/redefining-data-analysis-with-neopilot-agentic-ai/" target="_blank">Redefining Data Analysis with NeoPilot Agentic AI</a></h3>
-                    <p class="platform">Technical Blog</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Evolution of AI: From Turing Machine to ChatGPT</a></h3>
-                    <p class="platform">Medium</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://kunal-singh.medium.com/" target="_blank">ML and DL in a Nutshell</a></h3>
-                    <p class="platform">Medium</p>
-                </div>
-
-                <div class="card blog-card">
-                    <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Game of Chance: Probability and Statistics</a></h3>
-                    <p class="platform">Medium</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Experience Section -->
         <div class="section" id="experience">
             <div class="card-grid">
                 <div class="card experience-card">
                     <h3><a href="https://contineo.world/" target="_blank">AI Engineer</a></h3>
-                    <p class="meta">Pune, India · Sept 2024 - Present</p>
+                    <p class="meta">Pune, India · Sept 2024 - December 2025</p>
                     <p>Building production-ready AI pipelines, developing goal-based AI Agents using A2A protocol and Google ADK, implementing RAG systems with various vector databases.</p>
                 </div>
 
@@ -787,11 +793,64 @@
                     <p>Selected among 350+ global applicants (1 of 2 from India). Engaged with Intel, Nvidia, IBM experts on GNNs, Transformers, Neuromorphic Computing.</p>
                 </div>
             </div>
+
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="edu-card">
+                    <h3>Master of Computer Applications</h3>
+                    <p class="school">Savitribai Phule Pune University · 2022-2024</p>
+                    <p class="gpa">GPA: 8.27/10 (3.31/4)</p>
+                </div>
+                <div class="edu-card">
+                    <h3>Bachelor of Science - Physics</h3>
+                    <p class="school">Savitribai Phule Pune University · 2018-2022</p>
+                    <p class="gpa">GPA: 8.46/10 (3.39/4)</p>
+                </div>
+            </div>
+
+            <h2>Workshops & Conferences</h2>
+            <div class="workshop-grid">
+                <div class="workshop-card">
+                    <a href="#">EAGxIndia 2025</a>
+                    <p class="org">New Delhi, India · December 2025</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://aisafetyfundamentals.com/" target="_blank">AI Alignment Fast-track Course</a>
+                    <p class="org">BlueDot Impact · Dec 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://aisafetyfundamentals.com/" target="_blank">Introduction to Transformative AI</a>
+                    <p class="org">BlueDot Impact · Dec 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://dldc.adasci.org/" target="_blank">Deep Learning Conference (DEVCON)</a>
+                    <p class="org">ADaSci · Aug 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://www.scrs.in/conference/cml2024" target="_blank">International Conference on CML</a>
+                    <p class="org">March 2024</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://sites.google.com/iucaa.in/datascienceinastronomy/home" target="_blank">Data Science in Astronomy</a>
+                    <p class="org">IUCAA · Dec 2023</p>
+                </div>
+                <div class="workshop-card">
+                    <a href="https://gwosc.org/workshops/" target="_blank">Gravitational Wave Open Data</a>
+                    <p class="org">LIGO-IUCAA · May 2023</p>
+                </div>
+            </div>
         </div>
 
         <!-- Projects Section -->
         <div class="section" id="projects">
             <div class="card-grid">
+                <div class="card">
+                    <h3>AI Control Security Audit</h3>
+                    <p class="subtitle">Control Evaluations Framework</p>
+                    <p>AI controls evaluation demonstrating how different Claude models respond to deceptive audit instructions. Main task: identify vulnerability and classify it. Side Task: find a back door and misclassify it. Tested 3 frontier models across 2 tasks to measure strategic misclassification behavior.</p>
+                    <a class="link" href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank">GitHub →</a>
+                </div>
+
                 <div class="card">
                     <h3>Jailbreaking Resistance Analysis</h3>
                     <p class="subtitle">Frontier Models Security Assessment</p>
@@ -822,66 +881,128 @@
             </div>
         </div>
 
-        <!-- Education Section -->
-        <div class="section" id="education">
-            <h2>Education</h2>
-            <div class="education-grid">
-                <div class="edu-card">
-                    <h3>Master of Computer Applications</h3>
-                    <p class="school">Savitribai Phule Pune University · 2022-2024</p>
-                    <p class="gpa">GPA: 8.27/10 (3.31/4)</p>
-                </div>
-                <div class="edu-card">
-                    <h3>Bachelor of Science - Physics</h3>
-                    <p class="school">Savitribai Phule Pune University · 2018-2022</p>
-                    <p class="gpa">GPA: 8.46/10 (3.39/4)</p>
+        <!-- Blogs Section -->
+        <div class="section" id="blogs">
+            <div class="blog-tabs">
+                <button class="blog-tab active" data-blog="substack">Substack</button>
+                <button class="blog-tab" data-blog="technical">Technical Blog</button>
+                <button class="blog-tab" data-blog="medium">Medium</button>
+            </div>
+            
+            <div class="blog-content active" id="substack">
+                <p style="margin-bottom: 1.5rem; color: var(--secondary-text);">Read my research and analysis on AI governance, safety, and policy:</p>
+                <div class="card blog-card">
+                    <h3><a href="https://thinkwaveresearch.substack.com/" target="_blank">The Open-Weight Paradox: How Model Release Policies Undermine Export Controls</a></h3>
+                    <p>Deep dives into AI policy, governance frameworks, and technical safety research. Exploring the intersection of AI capabilities and regulatory mechanisms.</p>
+                    <a class="link" href="https://thinkwaveresearch.substack.com/" target="_blank">Visit Substack →</a>
                 </div>
             </div>
 
-            <h2>Workshops & Courses</h2>
+            <div class="blog-content" id="technical">
+                <div class="card-grid">
+                    <div class="card blog-card">
+                        <h3><a href="https://contineo.world/what-is-ai-reasoning/" target="_blank">What is AI Reasoning?</a></h3>
+                        <p class="platform">Technical Blog</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://contineo.world/the-rise-of-conversational-software-development/" target="_blank">The Rise of Conversational Software Development</a></h3>
+                        <p class="platform">Technical Blog</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank">Self-Training AI: How Synthetic Data is Powering the Next Generation of LLMs</a></h3>
+                        <p class="platform">Technical Blog</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank">MCP: One Protocol to Connect All Tools</a></h3>
+                        <p class="platform">Technical Blog</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://contineo.world/redefining-data-analysis-with-neopilot-agentic-ai/" target="_blank">Redefining Data Analysis with NeoPilot Agentic AI</a></h3>
+                        <p class="platform">Technical Blog</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-content" id="medium">
+                <div class="card-grid">
+                    <div class="card blog-card">
+                        <h3><a href="https://kunal-singh.medium.com/how-llms-understand-cun-yew-ndirstawnd-mei-centense-335a46953599" target="_blank">How LLMs understand "Cun yew ndirstawnd mei cenTense?"</a></h3>
+                        <p class="platform">Medium</p>
+                        <p>Why Claude or ChatGPT can read "Cun yew ndirstawnd mei cenTense?" as "Can you understand my sentence?" Initially it seems magic as every letter is scrambled or replaced, yet Claude or basically any LLM instantly reconstructs the intended meaning. This ability reveals how large language models actually work.</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://kunal-singh.medium.com/voice-analysis-in-recruitments-04998d5bfc11" target="_blank">Voice Analysis in Recruitments</a></h3>
+                        <p class="platform">Medium</p>
+                        <p>A lot of tech is currently being used in making hiring easy and seamless, one such aspect is Voice Analysis which plays a very important role. Voice analysis contains 48 different dimensions of vocal emotions categorization and there much more to it.</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Evolution of AI: From Turing Machine to ChatGPT</a></h3>
+                        <p class="platform">Medium</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://kunal-singh.medium.com/" target="_blank">ML and DL in a Nutshell</a></h3>
+                        <p class="platform">Medium</p>
+                    </div>
+
+                    <div class="card blog-card">
+                        <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Game of Chance: Probability and Statistics</a></h3>
+                        <p class="platform">Medium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Section -->
+        <div class="section" id="training">
+            <h2>Teaching & Mentorship</h2>
+            
+            <div class="training-card">
+                <h3>Project Guide & Evaluator</h3>
+                <p class="meta">Institute of Management and Career Courses (IMCC), Pune</p>
+                <p>Guided and evaluated semester projects for 10+ First and Second year Masters students, providing mentorship in machine learning implementation, research methodology, and project development. Oversaw end-to-end project execution from ideation to final presentation, ensuring academic rigor and practical applicability.</p>
+            </div>
+
+            <div class="training-card">
+                <h3>Guest Lecture: Research using AI</h3>
+                <p class="meta">IMCC, Pune · 80+ Second Year Masters Students</p>
+                <p>Demonstrated comprehensive methodologies for leveraging AI tools to enhance research workflows and quality. Covered advanced techniques for literature review automation, data analysis acceleration, and research paper writing assistance. Emphasized ethical considerations and best practices for AI-augmented academic research.</p>
+            </div>
+
+            <div class="training-card">
+                <h3>AI Engineering Mentor</h3>
+                <p class="meta">Indicus Software · 10+ Interns</p>
+                <p>Mentored engineering interns in building production-grade Generative AI applications, designing and implementing ML pipelines, and developing autonomous AI Agents. Provided hands-on training in modern AI frameworks, RAG architectures, and agentic systems. Guided technical problem-solving and professional development in AI engineering practices.</p>
+            </div>
+
+            <div class="training-card">
+                <h3>Guest Lecture: Introduction to Large Language Models</h3>
+                <p class="meta">IMCC, Pune · October 2024 · 60+ MCA Students</p>
+                <p>Delivered comprehensive introduction to LLM architectures, training methodologies, and practical applications. Covered transformer models, attention mechanisms, prompt engineering, and fine-tuning strategies. Included hands-on demonstrations of working with state-of-the-art language models and discussed real-world deployment considerations.</p>
+            </div>
+
+            <div class="training-card">
+                <h3>Technical Presentation: Recent Developments in AI Agents</h3>
+                <p class="meta">Indicus Software · September 2024 · 30+ Employees</p>
+                <p>Explained cutting-edge developments in AI Agent architectures, autonomous decision-making systems, and multi-agent coordination. Covered agent-based planning, tool use, ReAct frameworks, and the latest research in agentic AI systems. Demonstrated practical implementations and discussed integration strategies for enterprise applications.</p>
+            </div>
+
+            <div class="training-card">
+                <h3>Astronomy Research Mentor</h3>
+                <p class="meta">Jyotirvidya Parisanstha, Pune · 15+ MSc Physics Students</p>
+                <p>Mentored graduate physics students in conducting variable star observations and photometric analysis for their Master's thesis projects. Provided guidance on observational astronomy techniques, data collection protocols at the observatory, CCD imaging, light curve analysis, and scientific writing. Supervised thesis development from observation planning through final defense.</p>
+            </div>
+
+            <h2>Additional Academic Contributions</h2>
             <div class="workshop-grid">
                 <div class="workshop-card">
-                    <a href="https://aisafetyfundamentals.com/" target="_blank">AI Alignment Fast-track Course</a>
-                    <p class="org">BlueDot Impact · Dec 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://aisafetyfundamentals.com/" target="_blank">Introduction to Transformative AI</a>
-                    <p class="org">BlueDot Impact · Dec 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://dldc.adasci.org/" target="_blank">Deep Learning Conference (DEVCON)</a>
-                    <p class="org">ADaSci · Aug 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://www.scrs.in/conference/cml2024" target="_blank">International Conference on CML</a>
-                    <p class="org">March 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://sites.google.com/iucaa.in/datascienceinastronomy/home" target="_blank">Data Science in Astronomy</a>
-                    <p class="org">IUCAA · Dec 2023</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://gwosc.org/workshops/" target="_blank">Gravitational Wave Open Data</a>
-                    <p class="org">LIGO-IUCAA · May 2023</p>
-                </div>
-            </div>
-
-            <h2>Additional</h2>
-            <div class="additional-grid">
-                <div class="additional-card">
-                    <strong>Lecturer:</strong> Taught "Intro to LLMs" to 60+ MCA students · Oct 2024
-                </div>
-                <div class="additional-card">
-                    <strong>Mentor:</strong> Mentored 10+ interns in Generative AI & AI Agents
-                </div>
-                <div class="additional-card">
-                    <strong>Project Guide:</strong> Guided semester projects for 10+ Masters students
-                </div>
-                <div class="additional-card">
-                    <strong>Scholarship:</strong> 50% tuition grant from Govt. of Maharashtra
-                </div>
-                <div class="additional-card">
-                    <strong>Amateur Astronomer:</strong> Executive Member, India's oldest astronomy org · 4+ years
+                    <p><strong>Amateur Astronomer:</strong> Executive Member at India's oldest astronomy organization with 4+ years of active involvement</p>
                 </div>
             </div>
         </div>
@@ -1076,7 +1197,7 @@
         init();
         animate();
 
-        // Tab navigation
+        // Tab navigation for main sections
         const navBtns = document.querySelectorAll('.nav-btn');
         const sections = document.querySelectorAll('.section');
 
@@ -1088,6 +1209,22 @@
                 btn.classList.add('active');
                 
                 sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Blog tabs navigation
+        const blogTabs = document.querySelectorAll('.blog-tab');
+        const blogContents = document.querySelectorAll('.blog-content');
+
+        blogTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.blog;
+                
+                blogTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                blogContents.forEach(c => c.classList.remove('active'));
                 document.getElementById(target).classList.add('active');
             });
         });
@@ -1188,5 +1325,3 @@
     </script>
 </body>
 </html>
-
-
