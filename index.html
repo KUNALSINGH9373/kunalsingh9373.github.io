@@ -374,7 +374,7 @@
                     <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">scholar</a>
                     <span class="sep">·</span>
                     <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">substack</a>
-                    <p class="copyright">© 2026 Kunal Singh</p>
+                    <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span></p>
                 </div>
                 </div>
 
@@ -501,6 +501,20 @@
 
         updateClocks();
         setInterval(updateClocks, 1000);
+
+        // Visitor count (GoatCounter public counter; hidden until enabled in settings)
+        (async function () {
+            try {
+                const res = await fetch('https://kunalsingh.goatcounter.com/counter/TOTAL.json');
+                if (!res.ok) return;
+                const data = await res.json();
+                const n = parseInt(String(data.count).replace(/\D/g, ''), 10);
+                if (n > 0) {
+                    document.getElementById('visitors').textContent =
+                        ' · ' + n.toLocaleString('en-IN') + ' visitors';
+                }
+            } catch (e) { /* counter stays hidden */ }
+        })();
     </script>
 </body>
 </html>
