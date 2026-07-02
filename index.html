@@ -386,7 +386,7 @@
                             <span class="time" id="clock-pt">--:--:--</span>
                         </div>
                         <div class="row">
-                            <span class="label">pune · ist</span>
+                            <span class="label">passport · ist</span>
                             <span class="time" id="clock-ist">--:--:--</span>
                         </div>
                     </div>
@@ -487,15 +487,32 @@
             } catch (e) { /* no news bar if offline or API unavailable */ }
         })();
 
-        // Dual clocks: PT (current) and IST (home)
-        const fmtPT = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-        const fmtIST = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        // Dual clocks: current (timezone published from my machine via tz.json) and IST (home)
+        const timeOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        let fmtCurrent = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Los_Angeles', ...timeOpts });
+        const fmtIST = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', ...timeOpts });
         const ptEl = document.getElementById('clock-pt');
         const istEl = document.getElementById('clock-ist');
 
+        function setCurrentTz(tz) {
+            try {
+                fmtCurrent = new Intl.DateTimeFormat('en-GB', { timeZone: tz, ...timeOpts });
+                const abbr = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
+                    .formatToParts(new Date())
+                    .find(p => p.type === 'timeZoneName').value;
+                document.querySelector('#clock-pt').previousElementSibling.textContent =
+                    'current · ' + abbr.toLowerCase();
+            } catch (e) { /* keep default */ }
+        }
+
+        fetch('tz.json', { cache: 'no-store' })
+            .then(r => r.json())
+            .then(d => { if (d.tz) setCurrentTz(d.tz); })
+            .catch(() => {});
+
         function updateClocks() {
             const now = new Date();
-            ptEl.textContent = fmtPT.format(now);
+            ptEl.textContent = fmtCurrent.format(now);
             istEl.textContent = fmtIST.format(now);
         }
 
