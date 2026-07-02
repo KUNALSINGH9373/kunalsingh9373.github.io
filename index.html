@@ -505,7 +505,7 @@
         // Visitor count (GoatCounter public counter; hidden until enabled in settings)
         (async function () {
             try {
-                const res = await fetch('https://kunalsingh.goatcounter.com/counter/TOTAL.json');
+                const res = await fetch('https://kunalsingh.goatcounter.com/counter/TOTAL.json', { cache: 'no-store' });
                 if (!res.ok) return;
                 const data = await res.json();
                 const n = parseInt(String(data.count).replace(/\D/g, ''), 10);
