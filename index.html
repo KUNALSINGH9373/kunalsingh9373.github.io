@@ -3,625 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kunal Singh — AI Safety Researcher</title>
+    <title>Kunal Singh</title>
     <meta name="description" content="Kunal Singh is an AI researcher working on red teaming, safety evaluations, and technical AI governance of frontier models.">
     <meta property="og:title" content="Kunal Singh — AI Safety Researcher">
     <meta property="og:description" content="Red teaming, safety evaluations, and technical AI governance of frontier models.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kunalsingh9373.github.io/">
+    <meta property="og:image" content="https://kunalsingh9373.github.io/photo.jpg">
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://kunalsingh.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0b0d12;
-            --bg-elevated: #12151d;
-            --border: #21252f;
-            --border-hover: #3a4150;
-            --text: #e8eaf0;
-            --text-muted: #9aa3b2;
-            --text-faint: #6b7280;
-            --accent: #6ee7b7;
-            --accent-dim: rgba(110, 231, 183, 0.12);
+            --bg: #1d1e20;
+            --bar: #252627;
+            --text: #a9a9b3;
+            --bright: #eeeeee;
+            --faint: #73747e;
+            --border: #3b3d42;
+            --accent: #23b0ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; }
+        html, body { height: 100%; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Fira Code', Monaco, Consolas, monospace;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.65;
+            line-height: 1.6;
+            font-size: 15px;
             -webkit-font-smoothing: antialiased;
         }
 
         ::selection { background: var(--accent); color: var(--bg); }
 
-        .wrap {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: var(--faint);
+            text-underline-offset: 3px;
+            transition: color 0.15s, text-decoration-color 0.15s;
         }
 
-        /* ---------- Nav ---------- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: rgba(11, 13, 18, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
+        a:hover { color: var(--bright); text-decoration-color: var(--bright); }
 
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-
-        .nav-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-name span { color: var(--accent); }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.75rem;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover { color: var(--text); }
-
-        .nav-cv {
-            padding: 0.4rem 0.95rem;
-            border: 1px solid var(--border-hover);
-            border-radius: 8px;
-            color: var(--text) !important;
-            transition: border-color 0.2s, background 0.2s;
-        }
-
-        .nav-cv:hover {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-        }
-
-        /* ---------- Hero ---------- */
-        .hero {
-            padding: 7rem 0 6rem;
-            position: relative;
+        .page {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            height: 100dvh;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(110, 231, 183, 0.07) 0%, transparent 65%);
-            pointer-events: none;
+        /* ---------- Content ---------- */
+        .content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
         }
 
-        .hero-eyebrow {
-            display: inline-flex;
+        .bar {
+            background: var(--bar);
+            padding: 0.9rem clamp(1.5rem, 3.5vw, 3.5rem);
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--accent);
-            background: var(--accent-dim);
-            border: 1px solid rgba(110, 231, 183, 0.25);
-            padding: 0.3rem 0.85rem;
-            border-radius: 999px;
-            margin-bottom: 1.75rem;
+            justify-content: space-between;
+            flex-shrink: 0;
         }
 
-        .hero-eyebrow::before {
+        .logo {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--bright);
+            text-decoration: none;
+        }
+
+        .logo::after {
             content: '';
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
+            display: inline-block;
+            width: 9px;
+            height: 1.1rem;
+            margin-left: 6px;
+            vertical-align: text-bottom;
             background: var(--accent);
+            animation: blink 1.4s steps(1) infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .bar nav { display: flex; gap: 1.5rem; font-size: 0.85rem; }
+        .bar nav a { text-decoration: none; color: var(--text); }
+        .bar nav a:hover { color: var(--bright); }
+
+        .inner {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: clamp(1rem, 2.6vh, 1.9rem);
+            padding: clamp(1.25rem, 3vh, 2.5rem) clamp(1.5rem, 3.5vw, 3.5rem);
+            min-height: 0;
         }
 
         h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.4rem, 6vw, 4rem);
+            color: var(--bright);
+            font-size: clamp(1.35rem, 2vw, 1.8rem);
             font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            max-width: 15em;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
         }
 
-        h1 .accent {
-            background: linear-gradient(90deg, var(--accent), #4fc3f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        h1 .dim { color: var(--faint); font-weight: 400; }
+
+        .about p {
+            font-size: clamp(0.82rem, 0.95vw, 0.92rem);
+            margin-bottom: 0.8em;
         }
 
-        .hero-sub {
-            margin-top: 1.5rem;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 38em;
-        }
-
-        .hero-sub a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-hover); }
-        .hero-sub a:hover { border-bottom-color: var(--accent); }
-
-        .hero-actions {
-            margin-top: 2.25rem;
-            display: flex;
-            gap: 0.9rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.65rem 1.4rem;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: transform 0.15s, background 0.2s, border-color 0.2s;
-        }
-
-        .btn:active { transform: scale(0.98); }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #06281c;
-        }
-
-        .btn-primary:hover { background: #8ff0c8; }
-
-        .btn-ghost {
-            border: 1px solid var(--border-hover);
-            color: var(--text);
-        }
-
-        .btn-ghost:hover { border-color: var(--accent); background: var(--accent-dim); }
-
-        .hero-links {
-            margin-top: 2.5rem;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-        }
-
-        .hero-links a {
-            color: var(--text-faint);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .hero-links a:hover { color: var(--accent); }
-
-        /* ---------- Sections ---------- */
-        section { padding: 4.5rem 0; }
-
-        .section-head {
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            margin-bottom: 2.25rem;
-        }
+        .about p:last-child { margin-bottom: 0; }
 
         h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.6rem;
+            color: var(--bright);
+            font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
-            white-space: nowrap;
+            margin-bottom: 0.6rem;
         }
 
-        .section-head::after {
-            content: '';
-            height: 1px;
-            flex: 1;
-            background: var(--border);
-        }
+        h2::before { content: '# '; color: var(--accent); }
 
-        /* ---------- Work cards ---------- */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-        }
+        .work ul { list-style: none; }
 
-        .work-card {
-            display: block;
-            text-decoration: none;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.6rem;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .work-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .work-tag {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--accent);
-            background: var(--accent-dim);
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-            margin-bottom: 0.9rem;
-        }
-
-        .work-card h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.55rem;
-            letter-spacing: -0.01em;
-        }
-
-        .work-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .work-card .card-link {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--accent);
-        }
-
-        /* ---------- Writing ---------- */
-        .writing-list { display: flex; flex-direction: column; }
-
-        .writing-item {
+        .work li {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
             gap: 1.5rem;
-            padding: 1.15rem 0.25rem;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            transition: background 0.2s;
+            padding: clamp(0.25rem, 0.9vh, 0.5rem) 0;
+            font-size: clamp(0.8rem, 0.92vw, 0.9rem);
         }
 
-        .writing-item:first-child { border-top: 1px solid var(--border); }
-        .writing-item:hover { background: var(--bg-elevated); }
+        .work li::before { content: none; }
 
-        .writing-item .title {
-            color: var(--text);
-            font-size: 0.98rem;
-            font-weight: 500;
-        }
-
-        .writing-item:hover .title { color: var(--accent); }
-
-        .writing-item .venue {
-            color: var(--text-faint);
-            font-size: 0.82rem;
+        .work .k {
+            color: var(--faint);
+            font-size: 0.75rem;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .writing-more {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .writing-more a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        .writing-more a:hover { color: var(--accent); }
-
-        /* ---------- About ---------- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .about-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 16px;
-            object-fit: cover;
-            border: 1px solid var(--border-hover);
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 1.1rem;
-            max-width: 42em;
-        }
-
-        .about-text a {
-            color: var(--text);
-            text-decoration: none;
-            border-bottom: 1px solid var(--border-hover);
-        }
-
-        .about-text a:hover { border-bottom-color: var(--accent); }
-
-        .about-highlights {
-            margin-top: 1.6rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .about-highlights span {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            background: var(--bg-elevated);
-            padding: 0.35rem 0.8rem;
-            border-radius: 999px;
-        }
-
-        /* ---------- Contact / footer ---------- */
         .contact {
-            text-align: center;
-            padding: 5.5rem 0;
-        }
-
-        .contact h2 { display: inline-block; }
-
-        .contact p {
-            color: var(--text-muted);
-            max-width: 34em;
-            margin: 1rem auto 2rem;
-        }
-
-        footer {
+            font-size: clamp(0.78rem, 0.9vw, 0.88rem);
             border-top: 1px solid var(--border);
-            padding: 2rem 0;
+            padding-top: clamp(0.8rem, 2vh, 1.25rem);
         }
 
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-faint);
+        .contact .sep { color: var(--faint); margin: 0 0.35rem; }
+
+        .copyright {
+            color: var(--faint);
+            font-size: 0.72rem;
+            margin-top: 0.5rem;
         }
 
-        .footer-inner a {
-            color: var(--text-faint);
-            text-decoration: none;
-            margin-left: 1.25rem;
+        /* ---------- Photo ---------- */
+        .photo {
+            position: relative;
+            overflow: hidden;
+            background: var(--bar);
         }
 
-        .footer-inner a:first-child { margin-left: 0; }
-        .footer-inner a:hover { color: var(--accent); }
-
-        /* ---------- Reveal animation ---------- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+            filter: saturate(0.88);
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
+        /* ---------- Small screens: stack, allow scroll ---------- */
+        @media (max-width: 880px) {
+            html, body { height: auto; }
 
-        @media (prefers-reduced-motion: reduce) {
-            .reveal { opacity: 1; transform: none; transition: none; }
-            html { scroll-behavior: auto; }
-        }
+            .page {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 100dvh;
+                overflow: visible;
+            }
 
-        /* ---------- Responsive ---------- */
-        @media (max-width: 720px) {
-            .nav-links a:not(.nav-cv) { display: none; }
-            .hero { padding: 4.5rem 0 4rem; }
-            .work-grid { grid-template-columns: 1fr; }
-            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .writing-item { flex-direction: column; gap: 0.25rem; }
-            section { padding: 3.25rem 0; }
+            .content { height: auto; overflow: visible; }
+
+            .photo { order: -1; height: 44dvh; }
+
+            .photo img { object-position: center 12%; }
+
+            .inner { padding: 1.75rem 1.5rem 2.25rem; gap: 1.4rem; }
+
+            .work li { flex-direction: column; gap: 0; }
+            .work .k { display: none; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="wrap nav">
-            <a class="nav-name" href="#">Kunal Singh<span>.</span></a>
-            <nav class="nav-links">
-                <a href="#work">Work</a>
-                <a href="#writing">Writing</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <a class="nav-cv" href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank" rel="noopener">CV</a>
-            </nav>
+    <div class="page">
+        <div class="content">
+            <div class="bar">
+                <a class="logo" href="#">Kunal Singh</a>
+                <nav>
+                    <a href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank" rel="noopener">cv</a>
+                    <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">blog</a>
+                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">research</a>
+                </nav>
+            </div>
+
+            <div class="inner">
+                <h1>AI Safety Researcher <span class="dim">// red teaming · evals · governance</span></h1>
+
+                <div class="about">
+                    <p>
+                        I stress-test frontier AI models before they ship — building systematic ways
+                        to find where models break, deceive, or resist control. My work spans adversarial
+                        testing, control evaluations, and the policy mechanisms that govern how capable
+                        models are built and released.
+                    </p>
+                    <p>
+                        Published at <a href="https://link.springer.com/book/9789819778386" target="_blank" rel="noopener">Springer CML 2024</a>,
+                        trained through <a href="https://aisafetyfundamentals.com/" target="_blank" rel="noopener">BlueDot Impact</a>,
+                        and selected for the <a href="https://indico.ictp.it/event/10479" target="_blank" rel="noopener">ICTP Advanced ML Workshop</a> in Italy.
+                        Based in Pune, India.
+                    </p>
+                </div>
+
+                <div class="work">
+                    <h2>Selected work</h2>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">AI Control Security Audit</a>
+                            <span class="k">control evals</span>
+                        </li>
+                        <li>
+                            <a href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">Jailbreak Resistance Analysis</a>
+                            <span class="k">red teaming</span>
+                        </li>
+                        <li>
+                            <a href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">The Open-Weight Paradox</a>
+                            <span class="k">governance</span>
+                        </li>
+                        <li>
+                            <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">Refining the Giants — LLM Fine-tuning Review</a>
+                            <span class="k">publication</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="contact">
+                    <a href="mailto:singhkunal9373@gmail.com">singhkunal9373 ät gmail.com</a>
+                    <span class="sep">·</span>
+                    <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">github</a>
+                    <span class="sep">·</span>
+                    <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">linkedin</a>
+                    <span class="sep">·</span>
+                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">scholar</a>
+                    <span class="sep">·</span>
+                    <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">substack</a>
+                    <p class="copyright">© 2026 Kunal Singh</p>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <main>
-        <!-- Hero -->
-        <div class="hero">
-            <div class="wrap">
-                <span class="hero-eyebrow">AI Safety Researcher · Pune, India</span>
-                <h1>I stress-test <span class="accent">frontier AI models</span> so their failures surface before deployment.</h1>
-                <p class="hero-sub">
-                    I work on red teaming, safety evaluations, and technical AI governance —
-                    building systematic ways to find where models break, deceive, or resist control.
-                    Published at <a href="https://link.springer.com/book/9789819778386" target="_blank" rel="noopener">Springer CML 2024</a>,
-                    trained through <a href="https://aisafetyfundamentals.com/" target="_blank" rel="noopener">BlueDot Impact</a>,
-                    and selected for the <a href="https://indico.ictp.it/event/10479" target="_blank" rel="noopener">ICTP Advanced ML Workshop</a> in Italy.
-                </p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="#work">View Work</a>
-                    <a class="btn btn-ghost" href="mailto:singhkunal9373@gmail.com">Get in Touch</a>
-                </div>
-                <div class="hero-links">
-                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
-                    <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">GitHub</a>
-                    <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">LinkedIn</a>
-                    <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">Substack</a>
-                </div>
-            </div>
+        <div class="photo">
+            <img src="photo.jpg" alt="Kunal Singh">
         </div>
-
-        <!-- Featured Work -->
-        <section id="work">
-            <div class="wrap">
-                <div class="section-head reveal"><h2>Featured Work</h2></div>
-                <div class="work-grid">
-                    <a class="work-card reveal" href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">
-                        <span class="work-tag">Control Evaluations</span>
-                        <h3>AI Control Security Audit</h3>
-                        <p>An evaluation of how frontier Claude models respond to deceptive audit instructions — measuring whether models strategically misclassify a planted backdoor when covertly instructed to. Three frontier models tested across paired main/side tasks.</p>
-                        <span class="card-link">View on GitHub →</span>
-                    </a>
-
-                    <a class="work-card reveal" href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">
-                        <span class="work-tag">Red Teaming</span>
-                        <h3>Jailbreak Resistance Analysis</h3>
-                        <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro. Found a 69-percentage-point security gap across models, with capability exploitation succeeding in 51% of attempts as the dominant vulnerability class.</p>
-                        <span class="card-link">Read the report →</span>
-                    </a>
-
-                    <a class="work-card reveal" href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">
-                        <span class="work-tag">Governance Report</span>
-                        <h3>The Open-Weight Paradox</h3>
-                        <p>How model release policies undermine export controls: open-weight releases let anyone fine-tune frontier capabilities at a fraction of training cost. Argues for shifting policy toward compute controls, transparency, and developer liability.</p>
-                        <span class="card-link">Read on Substack →</span>
-                    </a>
-
-                    <a class="work-card reveal" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">
-                        <span class="work-tag">Publication · Springer</span>
-                        <h3>Refining the Giants</h3>
-                        <p>A comprehensive review of fine-tuning strategies for large language models. Published in <em>Computing and Machine Learning, Vol. 2</em> (Springer Nature), presented at the 20th International Conference on CML, 2024.</p>
-                        <span class="card-link">View publication →</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Writing -->
-        <section id="writing">
-            <div class="wrap">
-                <div class="section-head reveal"><h2>Selected Writing</h2></div>
-                <div class="writing-list reveal">
-                    <a class="writing-item" href="https://kunal-singh.medium.com/how-llms-understand-cun-yew-ndirstawnd-mei-centense-335a46953599" target="_blank" rel="noopener">
-                        <span class="title">How LLMs understand "Cun yew ndirstawnd mei cenTense?"</span>
-                        <span class="venue">Medium</span>
-                    </a>
-                    <a class="writing-item" href="https://contineo.world/what-is-ai-reasoning/" target="_blank" rel="noopener">
-                        <span class="title">What is AI Reasoning?</span>
-                        <span class="venue">Contineo</span>
-                    </a>
-                    <a class="writing-item" href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank" rel="noopener">
-                        <span class="title">MCP: One Protocol to Connect All Tools</span>
-                        <span class="venue">Contineo</span>
-                    </a>
-                    <a class="writing-item" href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank" rel="noopener">
-                        <span class="title">Self-Training AI: How Synthetic Data Powers the Next Generation of LLMs</span>
-                        <span class="venue">Contineo</span>
-                    </a>
-                </div>
-                <p class="writing-more reveal">
-                    More on <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">Substack</a> and
-                    <a href="https://kunal-singh.medium.com/" target="_blank" rel="noopener">Medium</a> →
-                </p>
-            </div>
-        </section>
-
-        <!-- About -->
-        <section id="about">
-            <div class="wrap">
-                <div class="section-head reveal"><h2>About</h2></div>
-                <div class="about-grid reveal">
-                    <img class="about-photo" src="photo.jpg" alt="Kunal Singh">
-                    <div class="about-text">
-                        <p>
-                            I'm an AI researcher focused on making frontier models safer before they ship.
-                            My work sits at the intersection of adversarial testing, control evaluations,
-                            and the policy mechanisms that govern how capable models are built and released.
-                        </p>
-                        <p>
-                            Most recently I worked as an AI Engineer building production agent systems and RAG
-                            pipelines, and I've mentored 20+ students and engineers in ML and AI engineering.
-                            I hold a Master's in Computer Applications and a BSc in Physics from
-                            <a href="http://www.unipune.ac.in/" target="_blank" rel="noopener">Savitribai Phule Pune University</a>.
-                        </p>
-                        <div class="about-highlights">
-                            <span>ICTP Advanced ML Workshop, Italy — 1 of 2 selected from India</span>
-                            <span>BlueDot Impact — AI Alignment Fast-track</span>
-                            <span>EAGxIndia 2025</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="contact">
-            <div class="wrap reveal">
-                <h2>Let's talk</h2>
-                <p>
-                    I'm open to research collaborations, red-teaming engagements,
-                    and roles in AI safety and evaluations.
-                </p>
-                <a class="btn btn-primary" href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com</a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="wrap footer-inner">
-            <span>© 2026 Kunal Singh</span>
-            <span>
-                <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">Scholar</a>
-                <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">GitHub</a>
-                <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">Substack</a>
-            </span>
-        </div>
-    </footer>
-
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    observer.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.12 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
+    </div>
 </body>
 </html>
