@@ -188,22 +188,15 @@
             margin-top: 0.5rem;
         }
 
-        /* ---------- Framed photo ---------- */
+        /* ---------- Photo ---------- */
         .frame {
-            background: var(--bar);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: clamp(10px, 1.2vw, 16px);
-            padding-bottom: clamp(28px, 3.2vw, 44px);
-            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
-            transform: rotate(1.2deg);
             justify-self: end;
         }
 
         .frame img {
             display: block;
             width: clamp(200px, 21vw, 300px);
-            border-radius: 2px;
+            border-radius: 8px;
             filter: saturate(0.88);
         }
 
@@ -228,7 +221,6 @@
             .frame {
                 order: -1;
                 justify-self: center;
-                transform: rotate(0.8deg);
             }
 
             .frame img { width: min(55vw, 240px); }
