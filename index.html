@@ -3,1325 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kunal Singh | AI Researcher</title>
+    <title>Kunal Singh — AI Safety Researcher</title>
+    <meta name="description" content="Kunal Singh is an AI researcher working on red teaming, safety evaluations, and technical AI governance of frontier models.">
+    <meta property="og:title" content="Kunal Singh — AI Safety Researcher">
+    <meta property="og:description" content="Red teaming, safety evaluations, and technical AI governance of frontier models.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kunalsingh9373.github.io/">
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://kunalsingh.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --accent-color: #5a7bb5;
-            --secondary-text: #666666;
-            --card-bg: rgba(245, 245, 245, 0.7);
-            --link-color: #5a7bb5;
+            --bg: #0b0d12;
+            --bg-elevated: #12151d;
+            --border: #21252f;
+            --border-hover: #3a4150;
+            --text: #e8eaf0;
+            --text-muted: #9aa3b2;
+            --text-faint: #6b7280;
+            --accent: #6ee7b7;
+            --accent-dim: rgba(110, 231, 183, 0.12);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
 
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 1;
-        }
+        ::selection { background: var(--accent); color: var(--bg); }
 
-        .container {
-            max-width: 900px;
+        .wrap {
+            max-width: 1024px;
             margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
+            padding: 0 1.5rem;
         }
 
-        /* Header Section - Two Column Layout */
-        .header-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 2rem;
-            padding: 2rem 0;
-            margin-bottom: 1rem;
+        /* ---------- Nav ---------- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(11, 13, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
         }
 
-        .header-info {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-
-        .bio {
-            font-size: 0.95rem;
-            color: var(--secondary-text);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .bio a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .bio a:hover {
-            text-decoration: underline;
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-links a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .contact-links a:hover {
-            text-decoration: underline;
-        }
-
-        .contact-links span {
-            color: var(--secondary-text);
-        }
-
-        /* Profile Photo - Circular */
-        .profile-photo {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #f0f0f0;
-            border: 3px solid #ddd;
+        .nav {
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-
-        .profile-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            gap: 2rem;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        nav button {
-            background: none;
-            border: none;
-            color: var(--secondary-text);
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        nav button:hover {
-            color: var(--text-color);
-        }
-
-        nav button.active {
-            color: var(--text-color);
-            border-bottom-color: var(--accent-color);
-        }
-
-        /* Content Sections */
-        .section {
-            display: none;
-            animation: fadeIn 0.4s ease-in;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            margin: 2rem 0 1rem 0;
-            color: var(--accent-color);
-            font-weight: 500;
-        }
-
-        h2:first-child {
-            margin-top: 0;
-        }
-
-        /* Research Interests Tags */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tags span {
-            padding: 0.3rem 0.8rem;
-            background: rgba(90, 123, 181, 0.1);
-            border: 1px solid rgba(90, 123, 181, 0.3);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--text-color);
-        }
-
-        /* Card Grid - Shared styles for all card sections */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .card {
-            background: rgba(245, 245, 245, 0.6);
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            border-radius: 8px;
-            padding: 1.2rem;
-            transition: transform 0.2s, border-color 0.2s, background 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
-            background: rgba(245, 245, 245, 0.85);
-        }
-
-        .card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--link-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .card h3 a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .card h3 a:hover {
-            text-decoration: underline;
-        }
-
-        .card .subtitle {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            font-style: italic;
-        }
-
-        .card .meta {
-            font-size: 0.8rem;
-            color: var(--secondary-text);
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-
-        .card a.link {
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-
-        .card a.link:hover {
-            text-decoration: underline;
-        }
-
-        /* Publication Card */
-        .publication-card {
-            background: rgba(245, 245, 245, 0.6);
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            border-radius: 8px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .publication-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--link-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .publication-card h3 a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .publication-card h3 a:hover {
-            text-decoration: underline;
-        }
-
-        .publication-card .authors {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            margin-bottom: 0.5rem;
-        }
-
-        .publication-card .venue {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-        }
-
-        .publication-card .venue a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .publication-card .venue a:hover {
-            text-decoration: underline;
-        }
-
-        /* Blog Card specific */
-        .blog-card .platform {
-            font-size: 0.75rem;
-            color: var(--secondary-text);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Blog Tabs */
-        .blog-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .blog-tab {
-            background: none;
-            border: none;
-            color: var(--secondary-text);
-            cursor: pointer;
-            font-size: 0.95rem;
-            padding: 0.5rem 1rem;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .blog-tab:hover {
-            color: var(--text-color);
-        }
-
-        .blog-tab.active {
-            color: var(--text-color);
-            border-bottom-color: var(--accent-color);
-        }
-
-        .blog-content {
-            display: none;
-        }
-
-        .blog-content.active {
-            display: block;
-        }
-
-        /* Experience Card specific */
-        .experience-card h3 {
-            color: var(--text-color);
-        }
-
-        /* Education Section */
-        .education-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .edu-card {
-            background: rgba(245, 245, 245, 0.6);
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-            transition: transform 0.2s, border-color 0.2s, background 0.2s;
-        }
-
-        .edu-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
-            background: rgba(245, 245, 245, 0.85);
-        }
-
-        .edu-card h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .edu-card .school {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-        }
-
-        .edu-card .gpa {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-top: 0.3rem;
-        }
-
-        /* Workshops List as Cards */
-        .workshop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 0.8rem;
-        }
-
-        .workshop-card {
-            background: rgba(245, 245, 245, 0.6);
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            border-radius: 8px;
-            padding: 0.8rem 1rem;
-            transition: transform 0.2s, border-color 0.2s, background 0.2s;
-        }
-
-        .workshop-card:hover {
-            transform: translateY(-1px);
-            border-color: var(--accent-color);
-            background: rgba(245, 245, 245, 0.85);
-        }
-
-        .workshop-card a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .workshop-card a:hover {
-            text-decoration: underline;
-        }
-
-        .workshop-card .org {
-            font-size: 0.75rem;
-            color: var(--secondary-text);
-            margin-top: 0.2rem;
-        }
-
-        /* Training Section Cards */
-        .training-card {
-            background: rgba(245, 245, 245, 0.6);
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            border-radius: 8px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            transition: transform 0.2s, border-color 0.2s, background 0.2s;
-        }
-
-        .training-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
-            background: rgba(245, 245, 245, 0.85);
-        }
-
-        .training-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .training-card .meta {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 0.7rem;
-            font-style: italic;
-        }
-
-        .training-card p {
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            line-height: 1.6;
-        }
-
-        /* Footer with Analytics */
-        .footer {
-            margin-top: 3rem;
-            padding: 1.5rem 0;
-            border-top: 1px solid #ddd;
-        }
-
-        .footer-content {
-            display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 2rem;
+            height: 64px;
         }
 
-        .footer-left {
-            flex: 1;
-            min-width: 200px;
+        .nav-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
         }
 
-        .visitor-counter {
+        .nav-name span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cv {
+            padding: 0.4rem 0.95rem;
+            border: 1px solid var(--border-hover);
+            border-radius: 8px;
+            color: var(--text) !important;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .nav-cv:hover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 7rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(110, 231, 183, 0.07) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--secondary-text);
-            background: rgba(245, 245, 245, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            border: 1px solid rgba(200, 200, 200, 0.5);
-        }
-
-        .visitor-counter img {
-            height: 22px;
-            vertical-align: middle;
-        }
-
-        .footer-text {
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            color: var(--secondary-text);
-        }
-
-        /* Analytics Widget */
-        .analytics-widget {
-            flex: 0 0 320px;
-            background: rgba(245, 245, 245, 0.6);
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        .analytics-widget h4 {
             font-size: 0.85rem;
-            color: var(--text-color);
-            margin-bottom: 0.8rem;
+            color: var(--accent);
+            background: var(--accent-dim);
+            border: 1px solid rgba(110, 231, 183, 0.25);
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            max-width: 15em;
+        }
+
+        h1 .accent {
+            background: linear-gradient(90deg, var(--accent), #4fc3f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 38em;
+        }
+
+        .hero-sub a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-hover); }
+        .hero-sub a:hover { border-bottom-color: var(--accent); }
+
+        .hero-actions {
+            margin-top: 2.25rem;
+            display: flex;
+            gap: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.65rem 1.4rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: transform 0.15s, background 0.2s, border-color 0.2s;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #06281c;
+        }
+
+        .btn-primary:hover { background: #8ff0c8; }
+
+        .btn-ghost {
+            border: 1px solid var(--border-hover);
+            color: var(--text);
+        }
+
+        .btn-ghost:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+        .hero-links {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        .hero-links a {
+            color: var(--text-faint);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .hero-links a:hover { color: var(--accent); }
+
+        /* ---------- Sections ---------- */
+        section { padding: 4.5rem 0; }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 2.25rem;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        .section-head::after {
+            content: '';
+            height: 1px;
+            flex: 1;
+            background: var(--border);
+        }
+
+        /* ---------- Work cards ---------- */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .work-card {
+            display: block;
+            text-decoration: none;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.6rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .work-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .work-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            margin-bottom: 0.9rem;
+        }
+
+        .work-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.55rem;
+            letter-spacing: -0.01em;
+        }
+
+        .work-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .work-card .card-link {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        /* ---------- Writing ---------- */
+        .writing-list { display: flex; flex-direction: column; }
+
+        .writing-item {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1.15rem 0.25rem;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .writing-item:first-child { border-top: 1px solid var(--border); }
+        .writing-item:hover { background: var(--bg-elevated); }
+
+        .writing-item .title {
+            color: var(--text);
+            font-size: 0.98rem;
             font-weight: 500;
         }
 
-        .analytics-stats {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .writing-item:hover .title { color: var(--accent); }
+
+        .writing-item .venue {
+            color: var(--text-faint);
+            font-size: 0.82rem;
+            white-space: nowrap;
         }
 
-        .stat-box {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 6px;
-            padding: 0.6rem;
-            text-align: center;
-            border: 1px solid rgba(200, 200, 200, 0.3);
+        .writing-more {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
         }
 
-        .stat-box .stat-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--accent-color);
-        }
-
-        .stat-box .stat-label {
-            font-size: 0.65rem;
-            color: var(--secondary-text);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .mini-chart {
-            height: 60px;
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            margin-bottom: 0.8rem;
-            padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 6px;
-        }
-
-        .chart-bar {
-            flex: 1;
-            background: linear-gradient(to top, var(--accent-color), rgba(90, 123, 181, 0.4));
-            border-radius: 2px 2px 0 0;
-            min-height: 4px;
-            transition: height 0.3s ease;
-        }
-
-        .chart-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.6rem;
-            color: var(--secondary-text);
-            margin-bottom: 0.5rem;
-        }
-
-        .analytics-link {
-            text-align: center;
-            font-size: 0.75rem;
-        }
-
-        .analytics-link a {
-            color: var(--link-color);
+        .writing-more a {
+            color: var(--text-muted);
             text-decoration: none;
         }
 
-        .analytics-link a:hover {
-            text-decoration: underline;
+        .writing-more a:hover { color: var(--accent); }
+
+        /* ---------- About ---------- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+            align-items: start;
         }
 
-        .powered-by {
+        .about-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 1px solid var(--border-hover);
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.1rem;
+            max-width: 42em;
+        }
+
+        .about-text a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border-hover);
+        }
+
+        .about-text a:hover { border-bottom-color: var(--accent); }
+
+        .about-highlights {
+            margin-top: 1.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .about-highlights span {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+        }
+
+        /* ---------- Contact / footer ---------- */
+        .contact {
             text-align: center;
-            font-size: 0.65rem;
-            color: #999;
-            margin-top: 0.5rem;
+            padding: 5.5rem 0;
         }
 
-        .powered-by a {
-            color: var(--link-color);
+        .contact h2 { display: inline-block; }
+
+        .contact p {
+            color: var(--text-muted);
+            max-width: 34em;
+            margin: 1rem auto 2rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+        }
 
-            .header-section {
-                flex-direction: column-reverse;
-                align-items: center;
-                text-align: center;
-            }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-faint);
+        }
 
-            .profile-photo {
-                width: 150px;
-                height: 150px;
-            }
+        .footer-inner a {
+            color: var(--text-faint);
+            text-decoration: none;
+            margin-left: 1.25rem;
+        }
 
-            h1 {
-                font-size: 2rem;
-            }
+        .footer-inner a:first-child { margin-left: 0; }
+        .footer-inner a:hover { color: var(--accent); }
 
-            .contact-links {
-                justify-content: center;
-            }
+        /* ---------- Reveal animation ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
 
-            nav {
-                gap: 1rem;
-                justify-content: center;
-            }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
 
-            nav button {
-                font-size: 0.9rem;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            html { scroll-behavior: auto; }
+        }
 
-            .education-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .analytics-widget {
-                flex: 1;
-                width: 100%;
-                max-width: 300px;
-            }
+        /* ---------- Responsive ---------- */
+        @media (max-width: 720px) {
+            .nav-links a:not(.nav-cv) { display: none; }
+            .hero { padding: 4.5rem 0 4rem; }
+            .work-grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .writing-item { flex-direction: column; gap: 0.25rem; }
+            section { padding: 3.25rem 0; }
         }
     </style>
 </head>
 <body>
-    <div id="canvas-container">
-        <canvas id="automation-canvas"></canvas>
-    </div>
+    <header>
+        <div class="wrap nav">
+            <a class="nav-name" href="#">Kunal Singh<span>.</span></a>
+            <nav class="nav-links">
+                <a href="#work">Work</a>
+                <a href="#writing">Writing</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a class="nav-cv" href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank" rel="noopener">CV</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="container">
-        <!-- Header Section -->
-        <div class="header-section">
-            <div class="header-info">
-                <h1>Kunal Singh</h1>
-                <p class="bio">
-                    I'm an AI Researcher based in Pune, India, working at the intersection of 
-                    <a href="#">Technical AI Governance</a>, adversarial testing, and safety evaluation of frontier models. 
-                    My research focuses on developing systematic approaches to ensure AI systems are safe, aligned, and beneficial.
+    <main>
+        <!-- Hero -->
+        <div class="hero">
+            <div class="wrap">
+                <span class="hero-eyebrow">AI Safety Researcher · Pune, India</span>
+                <h1>I stress-test <span class="accent">frontier AI models</span> so their failures surface before deployment.</h1>
+                <p class="hero-sub">
+                    I work on red teaming, safety evaluations, and technical AI governance —
+                    building systematic ways to find where models break, deceive, or resist control.
+                    Published at <a href="https://link.springer.com/book/9789819778386" target="_blank" rel="noopener">Springer CML 2024</a>,
+                    trained through <a href="https://aisafetyfundamentals.com/" target="_blank" rel="noopener">BlueDot Impact</a>,
+                    and selected for the <a href="https://indico.ictp.it/event/10479" target="_blank" rel="noopener">ICTP Advanced ML Workshop</a> in Italy.
                 </p>
-                <p class="bio">
-                    I hold a Master's in Computer Applications and a BSc in Physics from 
-                    <a href="#">Savitribai Phule Pune University</a>. I was selected among 350+ global applicants 
-                    for the <a href="https://indico.ictp.it/event/10479" target="_blank">ICTP Advanced ML Workshop</a> in Italy, 
-                    and have completed AI Safety training through <a href="https://aisafetyfundamentals.com/" target="_blank">BlueDot Impact</a>.
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#work">View Work</a>
+                    <a class="btn btn-ghost" href="mailto:singhkunal9373@gmail.com">Get in Touch</a>
+                </div>
+                <div class="hero-links">
+                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+                    <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">Substack</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Work -->
+        <section id="work">
+            <div class="wrap">
+                <div class="section-head reveal"><h2>Featured Work</h2></div>
+                <div class="work-grid">
+                    <a class="work-card reveal" href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">
+                        <span class="work-tag">Control Evaluations</span>
+                        <h3>AI Control Security Audit</h3>
+                        <p>An evaluation of how frontier Claude models respond to deceptive audit instructions — measuring whether models strategically misclassify a planted backdoor when covertly instructed to. Three frontier models tested across paired main/side tasks.</p>
+                        <span class="card-link">View on GitHub →</span>
+                    </a>
+
+                    <a class="work-card reveal" href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">
+                        <span class="work-tag">Red Teaming</span>
+                        <h3>Jailbreak Resistance Analysis</h3>
+                        <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro. Found a 69-percentage-point security gap across models, with capability exploitation succeeding in 51% of attempts as the dominant vulnerability class.</p>
+                        <span class="card-link">Read the report →</span>
+                    </a>
+
+                    <a class="work-card reveal" href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">
+                        <span class="work-tag">Governance Report</span>
+                        <h3>The Open-Weight Paradox</h3>
+                        <p>How model release policies undermine export controls: open-weight releases let anyone fine-tune frontier capabilities at a fraction of training cost. Argues for shifting policy toward compute controls, transparency, and developer liability.</p>
+                        <span class="card-link">Read on Substack →</span>
+                    </a>
+
+                    <a class="work-card reveal" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">
+                        <span class="work-tag">Publication · Springer</span>
+                        <h3>Refining the Giants</h3>
+                        <p>A comprehensive review of fine-tuning strategies for large language models. Published in <em>Computing and Machine Learning, Vol. 2</em> (Springer Nature), presented at the 20th International Conference on CML, 2024.</p>
+                        <span class="card-link">View publication →</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writing -->
+        <section id="writing">
+            <div class="wrap">
+                <div class="section-head reveal"><h2>Selected Writing</h2></div>
+                <div class="writing-list reveal">
+                    <a class="writing-item" href="https://kunal-singh.medium.com/how-llms-understand-cun-yew-ndirstawnd-mei-centense-335a46953599" target="_blank" rel="noopener">
+                        <span class="title">How LLMs understand "Cun yew ndirstawnd mei cenTense?"</span>
+                        <span class="venue">Medium</span>
+                    </a>
+                    <a class="writing-item" href="https://contineo.world/what-is-ai-reasoning/" target="_blank" rel="noopener">
+                        <span class="title">What is AI Reasoning?</span>
+                        <span class="venue">Contineo</span>
+                    </a>
+                    <a class="writing-item" href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank" rel="noopener">
+                        <span class="title">MCP: One Protocol to Connect All Tools</span>
+                        <span class="venue">Contineo</span>
+                    </a>
+                    <a class="writing-item" href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank" rel="noopener">
+                        <span class="title">Self-Training AI: How Synthetic Data Powers the Next Generation of LLMs</span>
+                        <span class="venue">Contineo</span>
+                    </a>
+                </div>
+                <p class="writing-more reveal">
+                    More on <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">Substack</a> and
+                    <a href="https://kunal-singh.medium.com/" target="_blank" rel="noopener">Medium</a> →
                 </p>
-                <div class="contact-links">
-                    <a href="mailto:singhkunal9373@gmail.com">Email</a>
-                    <span>/</span>
-                    <a href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank">CV</a>
-                    <span>/</span>
-                    <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank">LinkedIn</a>
-                    <span>/</span>
-                    <a href="https://github.com/KUNALSINGH9373" target="_blank">GitHub</a>
-                    <span>/</span>
-                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank">Scholar</a>
-                    <span>/</span>
-                    <a href="https://thinkwaveresearch.substack.com/" target="_blank">Substack</a>
-                </div>
             </div>
-            <div class="profile-photo">
-                <img src="photo.jpg" alt="Kunal Singh">
-            </div>
-        </div>
+        </section>
 
-        <!-- Navigation -->
-        <nav>
-            <button class="nav-btn active" data-section="research">Research</button>
-            <button class="nav-btn" data-section="experience">Experience</button>
-            <button class="nav-btn" data-section="projects">Projects</button>
-            <button class="nav-btn" data-section="blogs">Blogs</button>
-            <button class="nav-btn" data-section="training">Training</button>
-        </nav>
-
-        <!-- Research Section -->
-        <div class="section active" id="research">
-            <h2>Research Interests</h2>
-            <div class="tags">
-                <span>Technical AI Governance</span>
-                <span>AI Safety Evaluations</span>
-                <span>Red Teaming</span>
-                <span>Adversarial Testing</span>
-                <span>Model Robustness</span>
-                <span>Safety Benchmarking</span>
-                <span>AI Policy & Regulation</span>
-                <span>Control Evaluations</span>
-            </div>
-
-            <h2>Publications</h2>
-            <div class="publication-card">
-                <h3><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank">Refining the Giants: A Comprehensive Review of Finetuning Strategies for Large Language Models</a></h3>
-                <p class="authors"><strong>Kunal Singh</strong>, Dr. Santosh Deshpande, Dr. Swapnaja Patwardhan</p>
-                <p class="venue">20th International Conference on Computing and Machine Learning (CML) · March 2024<br>
-                <a href="https://link.springer.com/book/9789819778386" target="_blank">Computing and Machine Learning, Volume 2 - Springer Nature</a></p>
-            </div>
-
-            <h2>Research Reports</h2>
-            <div class="publication-card">
-                <h3><a href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model?utm_campaign=post-expanded-share&utm_medium=web&triedRedirect=true" target="_blank">The Open-Weight Paradox: How Model Release Policies Undermine Export Controls</a></h3>
-                <p class="authors"><strong>Kunal Singh</strong></p>
-                <p class="venue">US export controls on AI fail because they exempt publicly-released models. Anyone can download and fine-tune open-source models for military/harmful use at 1/1000th the original training cost. The report argues governments should focus on what's actually controllable: the expensive computer chips for training, transparency requirements, legal liability for developers, and defensive investments.</p>
-            </div>
-
-            <h2>Technical Skills</h2>
-            <div class="tags">
-                <span>Python</span>
-                <span>Machine Learning</span>
-                <span>Deep Learning</span>
-                <span>PyTorch</span>
-                <span>TensorFlow</span>
-                <span>Hugging Face</span>
-                <span>LangChain</span>
-                <span>Large Language Models</span>
-                <span>RAG Systems</span>
-                <span>AI Agents</span>
-                <span>Prompt Engineering</span>
-                <span>Vector Databases</span>
-                <span>Fine-tuning</span>
-            </div>
-        </div>
-
-        <!-- Experience Section -->
-        <div class="section" id="experience">
-            <div class="card-grid">
-                <div class="card experience-card">
-                    <h3><a href="https://contineo.world/" target="_blank">AI Engineer</a></h3>
-                    <p class="meta">Pune, India · Sept 2024 - December 2025</p>
-                    <p>Building production-ready AI pipelines, developing goal-based AI Agents using A2A protocol and Google ADK, implementing RAG systems with various vector databases.</p>
-                </div>
-
-                <div class="card experience-card">
-                    <h3><a href="https://contineo.world/" target="_blank">Technical Intern - AI</a></h3>
-                    <p class="meta">Pune, India · June 2024 - Sept 2024</p>
-                    <p>Led research on prompt engineering, fine-tuning, and RAG architectures. Conducted comparative analysis of LLMs (GPT-4, Claude-3.5, Gemini Pro, Llama-3).</p>
-                </div>
-
-                <div class="card experience-card">
-                    <h3><a href="https://quoppo.com/" target="_blank">AI Intern</a></h3>
-                    <p class="meta">Resumepal, Quoppo Ventures · April - June 2024</p>
-                    <p>Built POC for RAG architecture using Pinecone. Integrated Hugging Face libraries and researched optimization techniques for LLMs.</p>
-                </div>
-
-                <div class="card experience-card">
-                    <h3><a href="https://indico.ictp.it/event/10479" target="_blank">ICTP ML Workshop</a></h3>
-                    <p class="meta">Italy · May-June 2024 · Fully Funded</p>
-                    <p>Selected among 350+ global applicants (1 of 2 from India). Engaged with Intel, Nvidia, IBM experts on GNNs, Transformers, Neuromorphic Computing.</p>
-                </div>
-            </div>
-
-            <h2>Education</h2>
-            <div class="education-grid">
-                <div class="edu-card">
-                    <h3>Master of Computer Applications</h3>
-                    <p class="school">Savitribai Phule Pune University · 2022-2024</p>
-                    <p class="gpa">GPA: 8.27/10 (3.31/4)</p>
-                </div>
-                <div class="edu-card">
-                    <h3>Bachelor of Science - Physics</h3>
-                    <p class="school">Savitribai Phule Pune University · 2018-2022</p>
-                    <p class="gpa">GPA: 8.46/10 (3.39/4)</p>
-                </div>
-            </div>
-
-            <h2>Workshops & Conferences</h2>
-            <div class="workshop-grid">
-                <div class="workshop-card">
-                    <a href="#">EAGxIndia 2025</a>
-                    <p class="org">New Delhi, India · December 2025</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://aisafetyfundamentals.com/" target="_blank">AI Alignment Fast-track Course</a>
-                    <p class="org">BlueDot Impact · Dec 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://aisafetyfundamentals.com/" target="_blank">Introduction to Transformative AI</a>
-                    <p class="org">BlueDot Impact · Dec 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://dldc.adasci.org/" target="_blank">Deep Learning Conference (DEVCON)</a>
-                    <p class="org">ADaSci · Aug 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://www.scrs.in/conference/cml2024" target="_blank">International Conference on CML</a>
-                    <p class="org">March 2024</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://sites.google.com/iucaa.in/datascienceinastronomy/home" target="_blank">Data Science in Astronomy</a>
-                    <p class="org">IUCAA · Dec 2023</p>
-                </div>
-                <div class="workshop-card">
-                    <a href="https://gwosc.org/workshops/" target="_blank">Gravitational Wave Open Data</a>
-                    <p class="org">LIGO-IUCAA · May 2023</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Projects Section -->
-        <div class="section" id="projects">
-            <div class="card-grid">
-                <div class="card">
-                    <h3>AI Control Security Audit</h3>
-                    <p class="subtitle">Control Evaluations Framework</p>
-                    <p>AI controls evaluation demonstrating how different Claude models respond to deceptive audit instructions. Main task: identify vulnerability and classify it. Side Task: find a back door and misclassify it. Tested 3 frontier models across 2 tasks to measure strategic misclassification behavior.</p>
-                    <a class="link" href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank">GitHub →</a>
-                </div>
-
-                <div class="card">
-                    <h3>Jailbreaking Resistance Analysis</h3>
-                    <p class="subtitle">Frontier Models Security Assessment</p>
-                    <p>Systematic adversarial testing of GPT-5, Claude Sonnet 4.5, and Gemini 2.5 Pro. Revealed 69pp security gap with capability exploitation (51% success) as primary vulnerability.</p>
-                    <a class="link" href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank">GitHub →</a>
-                </div>
-
-                <div class="card">
-                    <h3>Few-Shot vs Fine-tuning</h3>
-                    <p class="subtitle">Biomedical QA (OpenAI Paper)</p>
-                    <p>Reproduced OpenAI's methodology using GPT-2 and PubMedQA. Few-shot achieved 32.5% higher performance and 57.1% improvement on cross-domain transfer.</p>
-                    <a class="link" href="https://github.com/KUNALSINGH9373/few-shot-learning-biomedical-qa/blob/main/README.md" target="_blank">GitHub →</a>
-                </div>
-
-                <div class="card">
-                    <h3>Instruction Tuning LLMs</h3>
-                    <p class="subtitle">Llama-2 Fine-tuning</p>
-                    <p>Implemented Quantized LoRA for efficient fine-tuning of Llama-2-7b-chat-hf with Open-Platypus dataset, reducing computational resources significantly.</p>
-                    <a class="link" href="https://github.com/KUNALSINGH9373" target="_blank">GitHub →</a>
-                </div>
-
-                <div class="card">
-                    <h3>Marine Route Optimization</h3>
-                    <p class="subtitle">ML-based Route Planning</p>
-                    <p>Optimized marine routes using Copernicus Marine data. Achieved 5% reduction in fuel costs and CO₂ emissions using Linear Regression and Random Forest.</p>
-                    <a class="link" href="https://github.com/KUNALSINGH9373/Marine-Route-Optimization" target="_blank">GitHub →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Blogs Section -->
-        <div class="section" id="blogs">
-            <div class="blog-tabs">
-                <button class="blog-tab active" data-blog="substack">Substack</button>
-                <button class="blog-tab" data-blog="technical">Technical Blog</button>
-                <button class="blog-tab" data-blog="medium">Medium</button>
-            </div>
-            
-            <div class="blog-content active" id="substack">
-                <p style="margin-bottom: 1.5rem; color: var(--secondary-text);">Read my research and analysis on AI governance, safety, and policy:</p>
-                <div class="card blog-card">
-                    <h3><a href="https://thinkwaveresearch.substack.com/" target="_blank">The Open-Weight Paradox: How Model Release Policies Undermine Export Controls</a></h3>
-                    <p>Deep dives into AI policy, governance frameworks, and technical safety research. Exploring the intersection of AI capabilities and regulatory mechanisms.</p>
-                    <a class="link" href="https://thinkwaveresearch.substack.com/" target="_blank">Visit Substack →</a>
-                </div>
-            </div>
-
-            <div class="blog-content" id="technical">
-                <div class="card-grid">
-                    <div class="card blog-card">
-                        <h3><a href="https://contineo.world/what-is-ai-reasoning/" target="_blank">What is AI Reasoning?</a></h3>
-                        <p class="platform">Technical Blog</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://contineo.world/the-rise-of-conversational-software-development/" target="_blank">The Rise of Conversational Software Development</a></h3>
-                        <p class="platform">Technical Blog</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://contineo.world/self-training-ai-how-synthetic-data-is-powering-the-next-generation-of-llms/" target="_blank">Self-Training AI: How Synthetic Data is Powering the Next Generation of LLMs</a></h3>
-                        <p class="platform">Technical Blog</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://contineo.world/mcp-one-protocol-to-connect-all-tools/" target="_blank">MCP: One Protocol to Connect All Tools</a></h3>
-                        <p class="platform">Technical Blog</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://contineo.world/redefining-data-analysis-with-neopilot-agentic-ai/" target="_blank">Redefining Data Analysis with NeoPilot Agentic AI</a></h3>
-                        <p class="platform">Technical Blog</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="blog-content" id="medium">
-                <div class="card-grid">
-                    <div class="card blog-card">
-                        <h3><a href="https://kunal-singh.medium.com/how-llms-understand-cun-yew-ndirstawnd-mei-centense-335a46953599" target="_blank">How LLMs understand "Cun yew ndirstawnd mei cenTense?"</a></h3>
-                        <p class="platform">Medium</p>
-                        <p>Why Claude or ChatGPT can read "Cun yew ndirstawnd mei cenTense?" as "Can you understand my sentence?" Initially it seems magic as every letter is scrambled or replaced, yet Claude or basically any LLM instantly reconstructs the intended meaning. This ability reveals how large language models actually work.</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://kunal-singh.medium.com/voice-analysis-in-recruitments-04998d5bfc11" target="_blank">Voice Analysis in Recruitments</a></h3>
-                        <p class="platform">Medium</p>
-                        <p>A lot of tech is currently being used in making hiring easy and seamless, one such aspect is Voice Analysis which plays a very important role. Voice analysis contains 48 different dimensions of vocal emotions categorization and there much more to it.</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Evolution of AI: From Turing Machine to ChatGPT</a></h3>
-                        <p class="platform">Medium</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://kunal-singh.medium.com/" target="_blank">ML and DL in a Nutshell</a></h3>
-                        <p class="platform">Medium</p>
-                    </div>
-
-                    <div class="card blog-card">
-                        <h3><a href="https://kunal-singh.medium.com/" target="_blank">The Game of Chance: Probability and Statistics</a></h3>
-                        <p class="platform">Medium</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Training Section -->
-        <div class="section" id="training">
-            <h2>Teaching & Mentorship</h2>
-            
-            <div class="training-card">
-                <h3>Project Guide & Evaluator</h3>
-                <p class="meta">Institute of Management and Career Courses (IMCC), Pune</p>
-                <p>Guided and evaluated semester projects for 10+ First and Second year Masters students, providing mentorship in machine learning implementation, research methodology, and project development. Oversaw end-to-end project execution from ideation to final presentation, ensuring academic rigor and practical applicability.</p>
-            </div>
-
-            <div class="training-card">
-                <h3>Guest Lecture: Research using AI</h3>
-                <p class="meta">IMCC, Pune · 80+ Second Year Masters Students</p>
-                <p>Demonstrated comprehensive methodologies for leveraging AI tools to enhance research workflows and quality. Covered advanced techniques for literature review automation, data analysis acceleration, and research paper writing assistance. Emphasized ethical considerations and best practices for AI-augmented academic research.</p>
-            </div>
-
-            <div class="training-card">
-                <h3>AI Engineering Mentor</h3>
-                <p class="meta">Indicus Software · 10+ Interns</p>
-                <p>Mentored engineering interns in building production-grade Generative AI applications, designing and implementing ML pipelines, and developing autonomous AI Agents. Provided hands-on training in modern AI frameworks, RAG architectures, and agentic systems. Guided technical problem-solving and professional development in AI engineering practices.</p>
-            </div>
-
-            <div class="training-card">
-                <h3>Guest Lecture: Introduction to Large Language Models</h3>
-                <p class="meta">IMCC, Pune · October 2024 · 60+ MCA Students</p>
-                <p>Delivered comprehensive introduction to LLM architectures, training methodologies, and practical applications. Covered transformer models, attention mechanisms, prompt engineering, and fine-tuning strategies. Included hands-on demonstrations of working with state-of-the-art language models and discussed real-world deployment considerations.</p>
-            </div>
-
-            <div class="training-card">
-                <h3>Technical Presentation: Recent Developments in AI Agents</h3>
-                <p class="meta">Indicus Software · September 2024 · 30+ Employees</p>
-                <p>Explained cutting-edge developments in AI Agent architectures, autonomous decision-making systems, and multi-agent coordination. Covered agent-based planning, tool use, ReAct frameworks, and the latest research in agentic AI systems. Demonstrated practical implementations and discussed integration strategies for enterprise applications.</p>
-            </div>
-
-            <div class="training-card">
-                <h3>Astronomy Research Mentor</h3>
-                <p class="meta">Jyotirvidya Parisanstha, Pune · 15+ MSc Physics Students</p>
-                <p>Mentored graduate physics students in conducting variable star observations and photometric analysis for their Master's thesis projects. Provided guidance on observational astronomy techniques, data collection protocols at the observatory, CCD imaging, light curve analysis, and scientific writing. Supervised thesis development from observation planning through final defense.</p>
-            </div>
-
-            <h2>Additional Academic Contributions</h2>
-            <div class="workshop-grid">
-                <div class="workshop-card">
-                    <p><strong>Amateur Astronomer:</strong> Executive Member at India's oldest astronomy organization with 4+ years of active involvement</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer with Analytics -->
-        <div class="footer">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <div class="visitor-counter">
-                        👁️ Total Visitors: 
-                        <img src="https://visitor-badge.laobi.icu/badge?page_id=kunalsingh9373.github.io" alt="visitor count"/>
-                    </div>
-                    <p class="footer-text">© 2025 Kunal Singh. Built with curiosity.</p>
-                </div>
-                
-                <div class="analytics-widget">
-                    <h4>📊 Site Analytics (Last 7 Days)</h4>
-                    
-                    <div class="analytics-stats">
-                        <div class="stat-box">
-                            <div class="stat-value" id="total-views">--</div>
-                            <div class="stat-label">Page Views</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value" id="avg-time">--</div>
-                            <div class="stat-label">Avg. Time</div>
+        <!-- About -->
+        <section id="about">
+            <div class="wrap">
+                <div class="section-head reveal"><h2>About</h2></div>
+                <div class="about-grid reveal">
+                    <img class="about-photo" src="photo.jpg" alt="Kunal Singh">
+                    <div class="about-text">
+                        <p>
+                            I'm an AI researcher focused on making frontier models safer before they ship.
+                            My work sits at the intersection of adversarial testing, control evaluations,
+                            and the policy mechanisms that govern how capable models are built and released.
+                        </p>
+                        <p>
+                            Most recently I worked as an AI Engineer building production agent systems and RAG
+                            pipelines, and I've mentored 20+ students and engineers in ML and AI engineering.
+                            I hold a Master's in Computer Applications and a BSc in Physics from
+                            <a href="http://www.unipune.ac.in/" target="_blank" rel="noopener">Savitribai Phule Pune University</a>.
+                        </p>
+                        <div class="about-highlights">
+                            <span>ICTP Advanced ML Workshop, Italy — 1 of 2 selected from India</span>
+                            <span>BlueDot Impact — AI Alignment Fast-track</span>
+                            <span>EAGxIndia 2025</span>
                         </div>
                     </div>
-                    
-                    <div class="chart-label">
-                        <span>Daily Visits</span>
-                        <span>Last 7 days</span>
-                    </div>
-                    <div class="mini-chart" id="visits-chart">
-                        <!-- Bars will be generated by JavaScript -->
-                    </div>
-                    
-                    <div class="analytics-link">
-                        <a href="https://kunalsingh.goatcounter.com" target="_blank">View full analytics →</a>
-                    </div>
-                    <div class="powered-by">
-                        Powered by <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a>
-                    </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="contact">
+            <div class="wrap reveal">
+                <h2>Let's talk</h2>
+                <p>
+                    I'm open to research collaborations, red-teaming engagements,
+                    and roles in AI safety and evaluations.
+                </p>
+                <a class="btn btn-primary" href="mailto:singhkunal9373@gmail.com">singhkunal9373@gmail.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap footer-inner">
+            <span>© 2026 Kunal Singh</span>
+            <span>
+                <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">Scholar</a>
+                <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">Substack</a>
+            </span>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // Particle Animation
-        const canvas = document.getElementById('automation-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        
-        const isMobile = window.innerWidth < 768;
-        const maxParticles = isMobile ? 2000 : 8000;
-
-        let w, h;
-        let mouse = { x: null, y: null, radius: isMobile ? 300 : 500 };
-
-        function resize() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-
-        window.addEventListener('mouseout', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.startX = this.x;
-                this.startY = this.y;
-                this.vx = (Math.random() - 0.5) * 1.5; 
-                this.vy = (Math.random() - 0.5) * 1.5;
-                this.size = Math.random() * 0.6 + 0.2;
-            }
-
-            update() {
-                if (this.x < 0) this.x = w;
-                if (this.x > w) this.x = 0;
-                if (this.y < 0) this.y = h;
-                if (this.y > h) this.y = 0;
-
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist > 1) {
-                        const force = (mouse.radius * 8) / (dist * dist);
-                        const forceX = (dx / dist) * force;
-                        const forceY = (dy / dist) * force;
-
-                        this.vx += forceX;
-                        this.vy += forceY;
-                    }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
                 }
-
-                this.vx *= 0.95;
-                this.vy *= 0.95;
-
-                const maxVel = 12;
-                const vel = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                if (vel > maxVel) {
-                    this.vx = (this.vx / vel) * maxVel;
-                    this.vy = (this.vy / vel) * maxVel;
-                }
-            }
-
-            draw() {
-                let r, g, b;
-                
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    const normalizedDist = Math.min(dist / mouse.radius, 1);
-                    
-                    if (normalizedDist < 0.2) {
-                        r = 255;
-                        g = Math.floor(0 + (normalizedDist / 0.2) * 165);
-                        b = 0;
-                    } else if (normalizedDist < 0.4) {
-                        const t = (normalizedDist - 0.2) / 0.2;
-                        r = 255;
-                        g = Math.floor(165 + t * 90);
-                        b = 0;
-                    } else if (normalizedDist < 0.6) {
-                        const t = (normalizedDist - 0.4) / 0.2;
-                        r = Math.floor(255 - t * 255);
-                        g = 255;
-                        b = 0;
-                    } else if (normalizedDist < 0.8) {
-                        const t = (normalizedDist - 0.6) / 0.2;
-                        r = 0;
-                        g = 255;
-                        b = Math.floor(0 + t * 255);
-                    } else {
-                        const t = (normalizedDist - 0.8) / 0.2;
-                        r = 0;
-                        g = Math.floor(255 - t * 135);
-                        b = Math.floor(255 - t * 55);
-                    }
-                } else {
-                    // Default grey-blue for white background
-                    r = 180;
-                    g = 190;
-                    b = 210;
-                }
-                
-                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.85)`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            particles = [];
-            for (let i = 0; i < maxParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
-            
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        // Tab navigation for main sections
-        const navBtns = document.querySelectorAll('.nav-btn');
-        const sections = document.querySelectorAll('.section');
-
-        navBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = btn.dataset.section;
-                
-                navBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                sections.forEach(s => s.classList.remove('active'));
-                document.getElementById(target).classList.add('active');
             });
-        });
+        }, { threshold: 0.12 });
 
-        // Blog tabs navigation
-        const blogTabs = document.querySelectorAll('.blog-tab');
-        const blogContents = document.querySelectorAll('.blog-content');
-
-        blogTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.blog;
-                
-                blogTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                blogContents.forEach(c => c.classList.remove('active'));
-                document.getElementById(target).classList.add('active');
-            });
-        });
-
-        // Analytics Chart Visualization
-        function initAnalytics() {
-            const chart = document.getElementById('visits-chart');
-            if (!chart) return;
-            
-            // Try to fetch real data from GoatCounter
-            fetchGoatCounterData();
-            
-            // Generate initial chart (placeholder data - will show real data once accumulated)
-            // These represent relative visit heights for last 7 days
-            generateChart([12, 28, 19, 35, 24, 16, 22]);
-        }
-        
-        function generateChart(data) {
-            const chart = document.getElementById('visits-chart');
-            if (!chart) return;
-            
-            chart.innerHTML = '';
-            const maxVal = Math.max(...data);
-            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            
-            data.forEach((val, i) => {
-                const bar = document.createElement('div');
-                bar.className = 'chart-bar';
-                const height = maxVal > 0 ? (val / maxVal) * 100 : 10;
-                bar.style.height = Math.max(height, 8) + '%';
-                bar.title = `${days[i]}: ${val} visits`;
-                chart.appendChild(bar);
-            });
-        }
-        
-        async function fetchGoatCounterData() {
-            try {
-                // GoatCounter public counter endpoint
-                const response = await fetch('https://kunalsingh.goatcounter.com/counter/' + encodeURIComponent('/') + '.json');
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.count) {
-                        document.getElementById('total-views').textContent = data.count;
-                    }
-                }
-            } catch (e) {
-                // If CORS blocks or dashboard is private, use localStorage tracking as fallback
-                let views = parseInt(localStorage.getItem('ksingh_page_views') || '0');
-                views++;
-                localStorage.setItem('ksingh_page_views', views);
-                document.getElementById('total-views').textContent = views;
-            }
-            
-            // Track and display average time on site
-            trackTimeOnSite();
-        }
-        
-        // Time tracking
-        let pageLoadTime = Date.now();
-        let totalTimeTracked = parseInt(localStorage.getItem('ksingh_total_time') || '0');
-        let visitCount = parseInt(localStorage.getItem('ksingh_visit_count') || '0');
-        
-        function trackTimeOnSite() {
-            // Increment visit count
-            visitCount++;
-            localStorage.setItem('ksingh_visit_count', visitCount);
-            
-            // Calculate and display average time
-            if (visitCount > 0 && totalTimeTracked > 0) {
-                const avgSeconds = Math.round(totalTimeTracked / visitCount);
-                const mins = Math.floor(avgSeconds / 60);
-                const secs = avgSeconds % 60;
-                document.getElementById('avg-time').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-            } else {
-                document.getElementById('avg-time').textContent = '0:00';
-            }
-        }
-        
-        // Save time spent when leaving page
-        window.addEventListener('beforeunload', function() {
-            const timeSpent = Math.round((Date.now() - pageLoadTime) / 1000);
-            totalTimeTracked += timeSpent;
-            localStorage.setItem('ksingh_total_time', totalTimeTracked);
-        });
-        
-        // Update time display every 30 seconds while on page
-        setInterval(() => {
-            const currentTime = Math.round((Date.now() - pageLoadTime) / 1000);
-            const totalWithCurrent = totalTimeTracked + currentTime;
-            const avgSeconds = Math.round(totalWithCurrent / visitCount);
-            const mins = Math.floor(avgSeconds / 60);
-            const secs = avgSeconds % 60;
-            document.getElementById('avg-time').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-        }, 30000);
-        
-        // Initialize analytics
-        initAnalytics();
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
