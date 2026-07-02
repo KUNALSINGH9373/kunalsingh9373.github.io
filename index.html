@@ -215,6 +215,64 @@
             filter: saturate(0.88);
         }
 
+        .clocks {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            font-size: 0.78rem;
+        }
+
+        .clocks .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .clocks .label { color: var(--faint); }
+        .clocks .time { color: var(--text); font-variant-numeric: tabular-nums; }
+
+        /* ---------- News status bar ---------- */
+        .newsbar {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bar);
+            border-top: 1px solid var(--border);
+            padding: 0.45rem clamp(1.5rem, 3.5vw, 3.5rem);
+            font-size: 0.78rem;
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .newsbar.on { display: flex; }
+
+        .newsbar .tag {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .newsbar .headline {
+            color: var(--text);
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+
+        .newsbar .headline:hover { color: var(--bright); text-decoration: underline; }
+
+        .newsbar .headline.fading { opacity: 0; }
+
+        .newsbar .src {
+            color: var(--faint);
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
         /* ---------- Small screens: allow scroll ---------- */
         @media (max-width: 880px) {
             html, body { height: auto; }
@@ -318,7 +376,23 @@
 
                 <div class="frame">
                     <img src="photo.jpg" alt="Kunal Singh">
+                    <div class="clocks">
+                        <div class="row">
+                            <span class="label">current · pt</span>
+                            <span class="time" id="clock-pt">--:--:--</span>
+                        </div>
+                        <div class="row">
+                            <span class="label">home · ist</span>
+                            <span class="time" id="clock-ist">--:--:--</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="newsbar" id="newsbar">
+                <span class="tag">news/ai</span>
+                <a class="headline" id="news-headline" href="#" target="_blank" rel="noopener"></a>
+                <span class="src">via hacker news</span>
             </div>
         </div>
     </div>
@@ -364,6 +438,60 @@
 
             setTimeout(tick, 600);
         }
+
+        // Live AI news ticker (Hacker News Algolia API)
+        (async function () {
+            const bar = document.getElementById('newsbar');
+            const link = document.getElementById('news-headline');
+            const relevant = /(\bai\b|\bllm|gpt|claude|gemini|openai|anthropic|deepmind|xai\b|model|agent|transformer|frontier)/i;
+
+            try {
+                const res = await fetch('https://hn.algolia.com/api/v1/search_by_date?query=AI&tags=story&numericFilters=points%3E50&hitsPerPage=25');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                const stories = data.hits
+                    .filter(h => h.title && !/^(ask|tell) hn/i.test(h.title) && relevant.test(h.title))
+                    .slice(0, 8);
+                if (!stories.length) return;
+
+                let i = 0;
+                function show() {
+                    const s = stories[i];
+                    link.textContent = s.title;
+                    link.href = s.url || ('https://news.ycombinator.com/item?id=' + s.objectID);
+                    i = (i + 1) % stories.length;
+                }
+
+                show();
+                bar.classList.add('on');
+
+                if (stories.length > 1) {
+                    setInterval(() => {
+                        link.classList.add('fading');
+                        setTimeout(() => {
+                            show();
+                            link.classList.remove('fading');
+                        }, 400);
+                    }, 9000);
+                }
+            } catch (e) { /* no news bar if offline or API unavailable */ }
+        })();
+
+        // Dual clocks: PT (current) and IST (home)
+        const fmtPT = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        const fmtIST = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        const ptEl = document.getElementById('clock-pt');
+        const istEl = document.getElementById('clock-ist');
+
+        function updateClocks() {
+            const now = new Date();
+            ptEl.textContent = fmtPT.format(now);
+            istEl.textContent = fmtIST.format(now);
+        }
+
+        updateClocks();
+        setInterval(updateClocks, 1000);
     </script>
 </body>
 </html>
