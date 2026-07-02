@@ -91,12 +91,26 @@
             text-decoration: none;
         }
 
-        .logo::after {
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .typed {
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-left: 0.6rem;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .typed::after {
             content: '';
             display: inline-block;
             width: 9px;
-            height: 1.1rem;
-            margin-left: 6px;
+            height: 1rem;
+            margin-left: 4px;
             vertical-align: text-bottom;
             background: var(--accent);
             animation: blink 1.4s steps(1) infinite;
@@ -236,7 +250,10 @@
         <div class="content">
             <div class="bar">
                 <div class="bar-inner">
-                    <a class="logo" href="#">~/</a>
+                    <span class="logo-wrap">
+                        <a class="logo" href="#">~/</a>
+                        <span class="typed" id="typed"></span>
+                    </span>
                     <nav>
                         <a href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank" rel="noopener">cv</a>
                         <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">blog</a>
@@ -305,5 +322,48 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const phrases = [
+            'bridging code & policy',
+            'red teaming frontier models',
+            'safety evals',
+            'amateur astronomer'
+        ];
+        const typedEl = document.getElementById('typed');
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            typedEl.textContent = phrases[0];
+        } else {
+            let phrase = 0, char = 0, deleting = false;
+
+            function tick() {
+                const current = phrases[phrase];
+
+                if (!deleting) {
+                    char++;
+                    typedEl.textContent = current.slice(0, char);
+                    if (char === current.length) {
+                        deleting = true;
+                        setTimeout(tick, 2200);
+                        return;
+                    }
+                    setTimeout(tick, 55 + Math.random() * 60);
+                } else {
+                    char--;
+                    typedEl.textContent = current.slice(0, char);
+                    if (char === 0) {
+                        deleting = false;
+                        phrase = (phrase + 1) % phrases.length;
+                        setTimeout(tick, 500);
+                        return;
+                    }
+                    setTimeout(tick, 30);
+                }
+            }
+
+            setTimeout(tick, 600);
+        }
+    </script>
 </body>
 </html>
