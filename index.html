@@ -160,17 +160,32 @@
         .work summary::-webkit-details-marker { display: none; }
         .work summary::marker { content: ''; }
 
-        .work .w-title { display: flex; align-items: baseline; gap: 0.5rem; min-width: 0; }
+        .work .w-title { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
 
         .work .arrow {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.15rem;
+            height: 1.15rem;
+            border: 1px solid var(--faint);
+            border-radius: 3px;
             color: var(--accent);
-            font-size: 0.72rem;
-            transition: transform 0.15s ease;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1;
             flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
-        .work details[open] .arrow { transform: rotate(90deg); }
+        .work .arrow::before { content: '+'; }
+        .work details[open] .arrow::before { content: '\2212'; }
+
+        .work summary:hover .arrow {
+            border-color: var(--accent);
+            color: var(--bright);
+            background: rgba(35, 176, 255, 0.12);
+        }
 
         .work .k {
             color: var(--faint);
@@ -183,7 +198,7 @@
             color: var(--faint);
             font-size: 0.78rem;
             line-height: 1.65;
-            padding: 0 0 0.9rem 1.15rem;
+            padding: 0 0 0.9rem 1.8rem;
             max-width: 95%;
         }
 
@@ -348,7 +363,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://kunalsingh9373.github.io/evaluating-the-evaluators/" target="_blank" rel="noopener">AI Evaluations</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://kunalsingh9373.github.io/evaluating-the-evaluators/" target="_blank" rel="noopener">AI Evaluations</a></span>
                                     <span class="k">MATS 10 (working)</span>
                                 </summary>
                                 <p class="desc">Investigating how well AI safety evaluations hold up under scrutiny — where model assessments can be trusted and where they fall short. Ongoing research under MATS 10, Technical AI Governance stream.</p>
@@ -357,7 +372,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://ai-red-lines-tracker-2026.vercel.app/" target="_blank" rel="noopener">AI Red Lines Tracker</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://ai-red-lines-tracker-2026.vercel.app/" target="_blank" rel="noopener">AI Red Lines Tracker</a></span>
                                     <span class="k">Apart Hackathon</span>
                                 </summary>
                                 <p class="desc">RED30 — 30 universal AI red-line indicators across 4 risk categories, built by analyzing 16 frontier models and mapping EU/global regulatory frameworks onto operational safety criteria. Submitted to the Apart Research Technical Governance Hackathon.</p>
@@ -366,7 +381,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://ai-safety-org-website.vercel.app/" target="_blank" rel="noopener">India AI Safety Coordination Hub</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://ai-safety-org-website.vercel.app/" target="_blank" rel="noopener">India AI Safety Coordination Hub</a></span>
                                     <span class="k">Field Building, Ops</span>
                                 </summary>
                                 <p class="desc">Cofounded a coordination hub connecting India's AI Safety researchers, organizations, and policy practitioners — building community infrastructure and adapting global AI safety frameworks to India's policy context.</p>
@@ -376,7 +391,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">AI Control Security Audit</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">AI Control Security Audit</a></span>
                                     <span class="k">control evals</span>
                                 </summary>
                                 <p class="desc">Designed adversarial audit scenarios (vulnerability classification vs. deliberate misclassification) to test three frontier models for strategic deception under oversight — modeling third-party AI assurance methodology.</p>
@@ -385,7 +400,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">Jailbreak Resistance Analysis</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">Jailbreak Resistance Analysis</a></span>
                                     <span class="k">red teaming</span>
                                 </summary>
                                 <p class="desc">Structured red-teaming framework across 100 adversarial prompts and 6 attack categories, with an automated 0–3 compliance scoring pipeline — revealing a 69pp security gap and 51% capability exploitation rate.</p>
@@ -394,7 +409,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">The Open-Weight Paradox</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">The Open-Weight Paradox</a></span>
                                     <span class="k">governance</span>
                                 </summary>
                                 <p class="desc">Argues US export controls fail because they exempt publicly released models — anyone can fine-tune open-weight models for harmful use at a fraction of training cost. Proposes focusing controls on compute, transparency, and developer liability instead.</p>
@@ -403,7 +418,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <span class="w-title"><span class="arrow">▸</span><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">Refining the Giants — LLM Fine-tuning Review</a></span>
+                                    <span class="w-title"><span class="arrow"></span><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">Refining the Giants — LLM Fine-tuning Review</a></span>
                                     <span class="k">publication</span>
                                 </summary>
                                 <p class="desc">A comprehensive review of fine-tuning strategies for large language models, published at the 20th International Conference on Computing and Machine Learning (CML), March 2024.</p>
