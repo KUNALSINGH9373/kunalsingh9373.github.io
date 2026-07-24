@@ -97,27 +97,6 @@
             min-width: 0;
         }
 
-        .typed {
-            color: var(--text);
-            font-size: 0.9rem;
-            margin-left: 0.6rem;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .typed::after {
-            content: '';
-            display: inline-block;
-            width: 9px;
-            height: 1rem;
-            margin-left: 4px;
-            vertical-align: text-bottom;
-            background: var(--accent);
-            animation: blink 1.4s steps(1) infinite;
-        }
-
-        @keyframes blink { 50% { opacity: 0; } }
-
         .bar nav { display: flex; gap: 1.5rem; font-size: 0.85rem; }
         .bar nav a { text-decoration: none; color: var(--text); }
         .bar nav a:hover { color: var(--bright); }
@@ -314,7 +293,6 @@
                 <div class="bar-inner">
                     <span class="logo-wrap">
                         <a class="logo" href="#">~/</a>
-                        <span class="typed" id="typed"></span>
                     </span>
                     <nav>
                         <a href="https://drive.google.com/drive/folders/1P-9fwEC1QKuYo3ucWi2WL6CwkvimteDo?usp=sharing" target="_blank" rel="noopener">cv</a>
@@ -402,52 +380,6 @@
     </div>
 
     <script>
-        const phrases = [
-            'amateur astronomer',
-            'built a radio receiver in college',
-            'physics grad turned ai researcher',
-            'variable star observer',
-            'loves scientific experiments',
-            "executive member @ india's oldest astronomy club",
-            'analyzed gravitational-wave open data',
-            'watches a lot of movies',
-            'bridging code & policy'
-        ];
-        const typedEl = document.getElementById('typed');
-
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            typedEl.textContent = phrases[0];
-        } else {
-            let phrase = 0, char = 0, deleting = false;
-
-            function tick() {
-                const current = phrases[phrase];
-
-                if (!deleting) {
-                    char++;
-                    typedEl.textContent = current.slice(0, char);
-                    if (char === current.length) {
-                        deleting = true;
-                        setTimeout(tick, 2200);
-                        return;
-                    }
-                    setTimeout(tick, 55 + Math.random() * 60);
-                } else {
-                    char--;
-                    typedEl.textContent = current.slice(0, char);
-                    if (char === 0) {
-                        deleting = false;
-                        phrase = (phrase + 1) % phrases.length;
-                        setTimeout(tick, 500);
-                        return;
-                    }
-                    setTimeout(tick, 30);
-                }
-            }
-
-            setTimeout(tick, 600);
-        }
-
         // Live AI news ticker (Hacker News Algolia API)
         (async function () {
             const bar = document.getElementById('newsbar');
