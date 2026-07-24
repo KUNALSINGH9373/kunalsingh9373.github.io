@@ -88,7 +88,7 @@
             max-width: 1000px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
+            grid-template-columns: minmax(0, 1fr) minmax(0, clamp(200px, 21vw, 300px));
             align-content: center;
             align-items: start;
             gap: clamp(2rem, 5vw, 4.5rem);
@@ -214,6 +214,7 @@
         .contact {
             font-size: clamp(0.88rem, 0.95vw, 0.95rem);
             border-top: 1px solid var(--border);
+            margin-top: 1.25rem;
             padding-top: clamp(0.8rem, 2vh, 1.25rem);
         }
 
@@ -228,6 +229,8 @@
         /* ---------- Photo ---------- */
         .frame {
             justify-self: end;
+            min-width: 0;
+            width: 100%;
         }
 
         .frame img {
@@ -417,19 +420,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="contact">
-                    <a href="mailto:singhkunal9373@gmail.com">singhkunal9373 ät gmail.com</a>
-                    <span class="sep">·</span>
-                    <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">github</a>
-                    <span class="sep">·</span>
-                    <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">linkedin</a>
-                    <span class="sep">·</span>
-                    <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">scholar</a>
-                    <span class="sep">·</span>
-                    <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">substack</a>
-                    <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span></p>
-                </div>
                 </div>
 
                 <div class="frame">
@@ -449,6 +439,19 @@
                         <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">blog</a>
                         <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">research</a>
                     </nav>
+
+                    <div class="contact">
+                        <a href="mailto:singhkunal9373@gmail.com">singhkunal9373 ät gmail.com</a>
+                        <span class="sep">·</span>
+                        <a href="https://github.com/KUNALSINGH9373" target="_blank" rel="noopener">github</a>
+                        <span class="sep">·</span>
+                        <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener">linkedin</a>
+                        <span class="sep">·</span>
+                        <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener">scholar</a>
+                        <span class="sep">·</span>
+                        <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener">substack</a>
+                        <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span></p>
+                    </div>
                 </div>
             </div>
 
