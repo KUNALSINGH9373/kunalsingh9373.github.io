@@ -19,9 +19,9 @@
         :root {
             --bg: #1d1e20;
             --bar: #252627;
-            --text: #a9a9b3;
+            --text: #b8b9c2;
             --bright: #eeeeee;
-            --faint: #73747e;
+            --faint: #91929c;
             --border: #3b3d42;
             --accent: #23b0ff;
         }
@@ -35,7 +35,7 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
-            font-size: 15px;
+            font-size: 17px;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -54,8 +54,8 @@
         .page {
             display: flex;
             flex-direction: column;
-            height: 100dvh;
-            overflow: hidden;
+            min-height: 100dvh;
+            overflow: visible;
         }
 
         /* ---------- Content ---------- */
@@ -84,7 +84,7 @@
             justify-content: flex-end;
         }
 
-        .bar nav { display: flex; gap: 1.5rem; font-size: 0.85rem; }
+        .bar nav { display: flex; gap: 1.5rem; font-size: 0.95rem; }
         .bar nav a { text-decoration: none; color: var(--text); }
         .bar nav a:hover { color: var(--bright); }
 
@@ -124,7 +124,7 @@
         }
 
         .about p {
-            font-size: clamp(0.82rem, 0.95vw, 0.92rem);
+            font-size: clamp(0.95rem, 1.05vw, 1.05rem);
             margin-bottom: 0.8em;
         }
 
@@ -132,7 +132,7 @@
 
         h2 {
             color: var(--bright);
-            font-size: 0.95rem;
+            font-size: 1.08rem;
             font-weight: 600;
             margin-bottom: 0.6rem;
         }
@@ -142,7 +142,7 @@
         .work ul { list-style: none; }
 
         .work li {
-            font-size: clamp(0.8rem, 0.92vw, 0.9rem);
+            font-size: clamp(0.92rem, 1vw, 1.02rem);
         }
 
         .work li::before { content: none; }
@@ -166,12 +166,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 1.15rem;
-            height: 1.15rem;
+            width: 1.3rem;
+            height: 1.3rem;
             border: 1px solid var(--faint);
             border-radius: 3px;
             color: var(--accent);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 700;
             line-height: 1;
             flex-shrink: 0;
@@ -189,16 +189,16 @@
 
         .work .k {
             color: var(--faint);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             flex-shrink: 0;
         }
 
         .work .desc {
-            color: var(--faint);
-            font-size: 0.78rem;
+            color: var(--text);
+            font-size: 0.9rem;
             line-height: 1.65;
-            padding: 0 0 0.9rem 1.8rem;
+            padding: 0 0 0.9rem 1.9rem;
             max-width: 95%;
         }
 
@@ -207,13 +207,13 @@
             padding-top: 0.9rem;
             border-top: 1px solid var(--border);
             color: var(--faint);
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
         }
 
         .contact {
-            font-size: clamp(0.78rem, 0.9vw, 0.88rem);
+            font-size: clamp(0.88rem, 0.95vw, 0.95rem);
             border-top: 1px solid var(--border);
             padding-top: clamp(0.8rem, 2vh, 1.25rem);
         }
@@ -222,7 +222,7 @@
 
         .copyright {
             color: var(--faint);
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             margin-top: 0.5rem;
         }
 
@@ -243,7 +243,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.15rem;
-            font-size: 0.78rem;
+            font-size: 0.88rem;
         }
 
         .clocks .row {
@@ -263,7 +263,7 @@
             background: var(--bar);
             border-top: 1px solid var(--border);
             padding: 0.45rem clamp(1.5rem, 3.5vw, 3.5rem);
-            font-size: 0.78rem;
+            font-size: 0.88rem;
             flex-shrink: 0;
             min-width: 0;
         }
