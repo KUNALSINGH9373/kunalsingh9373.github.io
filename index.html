@@ -178,8 +178,13 @@
             transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
-        .work .arrow::before { content: '+'; }
-        .work details[open] .arrow::before { content: '\2212'; }
+        .work .arrow::before {
+            content: '▾';
+            display: inline-block;
+            transform: rotate(-90deg);
+            transition: transform 0.15s ease;
+        }
+        .work details[open] .arrow::before { transform: rotate(0deg); }
 
         .work summary:hover .arrow {
             border-color: var(--accent);
