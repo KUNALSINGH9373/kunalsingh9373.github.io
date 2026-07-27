@@ -186,7 +186,7 @@
             background: rgba(35, 176, 255, 0.12);
         }
 
-        .work .k {
+        .work .k, .education .k {
             color: var(--faint);
             font-size: 0.85rem;
             white-space: nowrap;
@@ -209,6 +209,30 @@
             font-size: 0.8rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
+        }
+
+        .education ul { list-style: none; }
+
+        .education li {
+            padding: clamp(0.4rem, 0.9vh, 0.6rem) 0;
+            font-size: clamp(0.92rem, 1vw, 1.02rem);
+        }
+
+        .education li::before { content: none; }
+
+        .education .edu-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .education .edu-degree { color: var(--bright); font-weight: 600; }
+
+        .education .edu-sub {
+            color: var(--faint);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
         }
 
         .contact {
@@ -342,6 +366,7 @@
 
             .work summary { flex-direction: column; gap: 0; }
             .work .k { display: none; }
+            .education .edu-row { flex-direction: column; gap: 0.15rem; }
         }
     </style>
 </head>
@@ -434,6 +459,26 @@
                                 </summary>
                                 <p class="desc">A comprehensive review of fine-tuning strategies for large language models, published at the 20th International Conference on Computing and Machine Learning (CML), March 2024.</p>
                             </details>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="education">
+                    <h2>Education</h2>
+                    <ul>
+                        <li>
+                            <div class="edu-row">
+                                <span class="edu-degree">Master of Computer Applications</span>
+                                <span class="k">2022 – 2024</span>
+                            </div>
+                            <div class="edu-sub">Savitribai Phule Pune University · GPA 8.27/10 · AI, ML, Deep Learning, Data Science</div>
+                        </li>
+                        <li>
+                            <div class="edu-row">
+                                <span class="edu-degree">Bachelor of Science — Physics</span>
+                                <span class="k">2018 – 2022</span>
+                            </div>
+                            <div class="edu-sub">Savitribai Phule Pune University · GPA 8.46/10 · Astrophysics, Electrodynamics, Quantum Physics</div>
                         </li>
                     </ul>
                 </div>
