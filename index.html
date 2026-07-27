@@ -133,15 +133,51 @@
 
         h2::before { content: '# '; color: var(--accent); }
 
-        .work ul { list-style: none; }
+        .tab-bar {
+            display: flex;
+            gap: 1.6rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.9rem;
+            position: relative;
+        }
 
-        .work li {
+        .tab-bar::before {
+            content: '# ';
+            color: var(--accent);
+            font-weight: 600;
+            align-self: center;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--faint);
+            cursor: pointer;
+            padding: 0 0 0.6rem 0;
+            margin-bottom: -1px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+
+        .tab-btn.active { color: var(--bright); border-color: var(--accent); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .tab-panel ul { list-style: none; }
+
+        .tab-panel li {
             font-size: clamp(0.92rem, 1vw, 1.02rem);
         }
 
-        .work li::before { content: none; }
+        .tab-panel li::before { content: none; }
 
-        .work summary {
+        .tab-panel summary {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
@@ -151,12 +187,12 @@
             list-style: none;
         }
 
-        .work summary::-webkit-details-marker { display: none; }
-        .work summary::marker { content: ''; }
+        .tab-panel summary::-webkit-details-marker { display: none; }
+        .tab-panel summary::marker { content: ''; }
 
-        .work .w-title { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
+        .tab-panel .w-title { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
 
-        .work .arrow {
+        .tab-panel .arrow {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -172,28 +208,28 @@
             transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
-        .work .arrow::before {
+        .tab-panel .arrow::before {
             content: '▾';
             display: inline-block;
             transform: rotate(-90deg);
             transition: transform 0.15s ease;
         }
-        .work details[open] .arrow::before { transform: rotate(0deg); }
+        .tab-panel details[open] .arrow::before { transform: rotate(0deg); }
 
-        .work summary:hover .arrow {
+        .tab-panel summary:hover .arrow {
             border-color: var(--accent);
             color: var(--bright);
             background: rgba(35, 176, 255, 0.12);
         }
 
-        .work .k, .education .k {
+        .tab-panel .k {
             color: var(--faint);
             font-size: 0.85rem;
             white-space: nowrap;
             flex-shrink: 0;
         }
 
-        .work .desc {
+        .tab-panel .desc {
             color: var(--text);
             font-size: 0.9rem;
             line-height: 1.65;
@@ -201,7 +237,7 @@
             max-width: 95%;
         }
 
-        .work li.divider {
+        .tab-panel li.divider {
             margin-top: 0.4rem;
             padding-top: 0.9rem;
             border-top: 1px solid var(--border);
@@ -211,25 +247,20 @@
             text-transform: uppercase;
         }
 
-        .education ul { list-style: none; }
-
-        .education li {
+        .tab-panel[data-panel="edu"] li {
             padding: clamp(0.4rem, 0.9vh, 0.6rem) 0;
-            font-size: clamp(0.92rem, 1vw, 1.02rem);
         }
 
-        .education li::before { content: none; }
-
-        .education .edu-row {
+        .tab-panel .edu-row {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
             gap: 1.5rem;
         }
 
-        .education .edu-degree { color: var(--bright); font-weight: 600; }
+        .tab-panel .edu-degree { color: var(--bright); font-weight: 600; }
 
-        .education .edu-sub {
+        .tab-panel .edu-sub {
             color: var(--faint);
             font-size: 0.85rem;
             margin-top: 0.2rem;
@@ -364,9 +395,9 @@
 
             .frame img { width: min(55vw, 240px); }
 
-            .work summary { flex-direction: column; gap: 0; }
-            .work .k { display: none; }
-            .education .edu-row { flex-direction: column; gap: 0.15rem; }
+            .tab-panel summary { flex-direction: column; gap: 0; }
+            .tab-panel[data-panel="work"] .k { display: none; }
+            .tab-panel .edu-row { flex-direction: column; gap: 0.15rem; }
         }
     </style>
 </head>
@@ -393,8 +424,13 @@
                     </p>
                 </div>
 
-                <div class="work">
-                    <h2>Research and Projects</h2>
+                <div class="tabs">
+                    <div class="tab-bar">
+                        <button class="tab-btn active" data-tab="work" type="button">Research and Projects</button>
+                        <button class="tab-btn" data-tab="edu" type="button">Education</button>
+                    </div>
+
+                    <div class="tab-panel active" data-panel="work">
                     <ul>
                         <li>
                             <details>
@@ -461,10 +497,9 @@
                             </details>
                         </li>
                     </ul>
-                </div>
+                    </div>
 
-                <div class="education">
-                    <h2>Education</h2>
+                    <div class="tab-panel" data-panel="edu">
                     <ul>
                         <li>
                             <div class="edu-row">
@@ -481,6 +516,7 @@
                             <div class="edu-sub">Savitribai Phule Pune University · GPA 8.46/10 · Astrophysics, Electrodynamics, Quantum Physics</div>
                         </li>
                     </ul>
+                    </div>
                 </div>
                 </div>
 
@@ -522,6 +558,16 @@
     </div>
 
     <script>
+        // Research/Education tabs
+        document.querySelectorAll('.tab-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach((p) => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+            });
+        });
+
         // Live AI news ticker (Hacker News Algolia API)
         (async function () {
             const bar = document.getElementById('newsbar');
