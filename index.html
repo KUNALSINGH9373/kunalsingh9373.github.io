@@ -308,22 +308,8 @@
             cursor: default;
         }
 
-        .moon-icon .moon-wrap {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .moon-icon .lit {
-            position: absolute;
-            top: 0;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: var(--text);
-        }
+        .moon-icon svg { display: block; width: 100%; height: 100%; }
+        .moon-icon .lit { fill: var(--text); }
 
         /* ---------- Photo ---------- */
         .frame {
@@ -463,7 +449,7 @@
                             <details>
                                 <summary>
                                     <span class="w-title"><span class="arrow"></span><a href="https://kunalsingh9373.github.io/evaluating-the-evaluators/" target="_blank" rel="noopener">AI Evaluations</a></span>
-                                    <span class="k">MATS 10 (working)</span>
+                                    <span class="k" style="color: #8b1a1a;">MATS 10 (working)</span>
                                 </summary>
                                 <p class="desc">Investigating how well AI safety evaluations hold up under scrutiny — where model assessments can be trusted and where they fall short. Ongoing research under MATS 10, Technical AI Governance stream.</p>
                             </details>
@@ -571,7 +557,7 @@
                         <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin</a>
                         <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>scholar</a>
                         <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="3.4"/><rect x="3" y="9.6" width="18" height="3.4"/><path d="M3 16.2h18v5.6l-9-4.9-9 4.9z"/></svg>substack</a>
-                        <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span><span class="moon-icon" id="moon-egg" title=""><span class="moon-wrap"><span class="lit" id="moon-lit"></span></span></span></p>
+                        <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span><span class="moon-icon" id="moon-egg" title=""><svg viewBox="0 0 20 20"><path class="lit" id="moon-lit"/></svg></span></p>
                     </div>
                 </div>
             </div>
@@ -594,22 +580,19 @@
             let phase = (diffDays % synodic) / synodic;
             if (phase < 0) phase += 1;
 
-            const W = 13;
-            let offset;
-            if (phase <= 0.5) {
-                const illum = phase / 0.5;
-                offset = W * (1 - illum);
-            } else {
-                const illum = (1 - phase) / 0.5;
-                offset = -W * (1 - illum);
-            }
+            const R = 10;
+            const theta = phase * 2 * Math.PI;
+            const rx = Math.abs(R * Math.cos(theta));
+            const sweep1 = phase < 0.5 ? 1 : 0;
+            const sweep2 = (phase < 0.25 || phase >= 0.75) ? 1 - sweep1 : sweep1;
+            const d = `M 10,0 A 10,10 0 0,${sweep1} 10,20 A ${rx.toFixed(3)},10 0 0,${sweep2} 10,0 Z`;
 
             const lit = document.getElementById('moon-lit');
-            if (lit) lit.style.left = offset + 'px';
+            if (lit) lit.setAttribute('d', d);
 
             const names = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous', 'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
             const idx = Math.round(phase * 8) % 8;
-            const illumPct = Math.round((phase <= 0.5 ? phase / 0.5 : (1 - phase) / 0.5) * 100);
+            const illumPct = Math.round(((1 - Math.cos(theta)) / 2) * 100);
             const egg = document.getElementById('moon-egg');
             if (egg) egg.title = names[idx] + ' · ' + illumPct + '% illuminated';
         })();
