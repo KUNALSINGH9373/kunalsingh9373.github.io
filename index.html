@@ -298,6 +298,35 @@
             margin-top: 0.5rem;
         }
 
+        .moon-icon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 1px -1px 5px;
+            opacity: 0.55;
+            vertical-align: middle;
+            cursor: default;
+        }
+
+        .moon-icon .moon-wrap {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg);
+            border: 1px solid var(--faint);
+        }
+
+        .moon-icon .lit {
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--faint);
+        }
+
         /* ---------- Photo ---------- */
         .frame {
             justify-self: end;
@@ -544,7 +573,7 @@
                         <a href="https://www.linkedin.com/in/contact-kunal-singh" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin</a>
                         <a href="https://scholar.google.com/citations?hl=en&user=tgF7jnUAAAAJ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>scholar</a>
                         <a href="https://thinkwaveresearch.substack.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>substack</a>
-                        <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span></p>
+                        <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span><span class="moon-icon" id="moon-egg" title=""><span class="moon-wrap"><span class="lit" id="moon-lit"></span></span></span></p>
                     </div>
                 </div>
             </div>
@@ -558,6 +587,35 @@
     </div>
 
     <script>
+        // Moon phase (today, recalculated on every load — no API)
+        (function () {
+            const synodic = 29.530588853;
+            const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14, 0);
+            const now = new Date();
+            const diffDays = (now.getTime() - knownNewMoon) / 86400000;
+            let phase = (diffDays % synodic) / synodic;
+            if (phase < 0) phase += 1;
+
+            const W = 10;
+            let offset;
+            if (phase <= 0.5) {
+                const illum = phase / 0.5;
+                offset = W * (1 - illum);
+            } else {
+                const illum = (1 - phase) / 0.5;
+                offset = -W * (1 - illum);
+            }
+
+            const lit = document.getElementById('moon-lit');
+            if (lit) lit.style.left = offset + 'px';
+
+            const names = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous', 'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
+            const idx = Math.round(phase * 8) % 8;
+            const illumPct = Math.round((phase <= 0.5 ? phase / 0.5 : (1 - phase) / 0.5) * 100);
+            const egg = document.getElementById('moon-egg');
+            if (egg) egg.title = names[idx] + ' · ' + illumPct + '% illuminated';
+        })();
+
         // Research/Education tabs
         document.querySelectorAll('.tab-btn').forEach((btn) => {
             btn.addEventListener('click', () => {
