@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunal Singh</title>
-    <meta name="description" content="Kunal Singh is an AI researcher working on technical AI governance, red teaming, and safety evaluations of frontier models.">
-    <meta property="og:title" content="Kunal Singh — Technical AI Governance">
-    <meta property="og:description" content="Technical AI governance, red teaming, and safety evaluations of frontier models.">
+    <meta name="description" content="Kunal Singh is an AI safety researcher working on AI strategy, risk modelling, evaluations, and technical AI governance.">
+    <meta property="og:title" content="Kunal Singh — AI Safety Researcher">
+    <meta property="og:description" content="AI strategy, risk modelling, evaluations, and technical AI governance.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kunalsingh9373.github.io/">
     <meta property="og:image" content="https://kunalsingh9373.github.io/photo.jpg">
@@ -89,7 +89,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, clamp(200px, 21vw, 300px));
-            align-content: center;
+            align-content: start;
             align-items: start;
             gap: clamp(2rem, 5vw, 4.5rem);
             padding: clamp(1.25rem, 3vh, 2.5rem) 1.5rem;
@@ -105,7 +105,7 @@
 
         h1 {
             color: var(--bright);
-            font-size: clamp(2rem, 3.2vw, 2.9rem);
+            font-size: clamp(1.5rem, 2.6vw, 2.4rem);
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.25;
@@ -114,15 +114,28 @@
         h1 .dim {
             color: var(--faint);
             font-weight: 400;
-            font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.15rem);
         }
 
         .about p {
             font-size: clamp(0.95rem, 1.05vw, 1.05rem);
             margin-bottom: 0.8em;
+            max-width: 66ch;
         }
 
         .about p:last-child { margin-bottom: 0; }
+
+        .about p.creds {
+            color: var(--faint);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            margin-top: 0.35rem;
+        }
+
+        .creds a { color: var(--faint); text-decoration-color: var(--border); }
+        .creds a:hover { color: var(--text); text-decoration-color: var(--faint); }
+        .creds .sep { opacity: 0.5; }
+        .creds .ci { white-space: nowrap; }
 
         h2 {
             color: var(--bright);
@@ -133,137 +146,120 @@
 
         h2::before { content: '# '; color: var(--accent); }
 
-        .tab-bar {
+        /* ---------- Sections ---------- */
+        .section-head {
             display: flex;
-            gap: 1.6rem;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 0.9rem;
-            position: relative;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: clamp(0.6rem, 1.4vh, 0.95rem);
         }
 
-        .tab-bar::before {
-            content: '# ';
-            color: var(--accent);
-            font-weight: 600;
-            align-self: center;
+        .section-head h2 { margin-bottom: 0; white-space: nowrap; }
+
+        .section-head .rule {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
         }
 
-        .tab-btn {
-            background: none;
-            border: none;
-            font-family: inherit;
-            font-size: 1.08rem;
-            font-weight: 600;
-            color: var(--faint);
-            cursor: pointer;
-            padding: 0 0 0.6rem 0;
-            margin-bottom: -1px;
-            border-bottom: 2px solid transparent;
-            transition: color 0.15s ease, border-color 0.15s ease;
-        }
+        /* ---------- Lead items ---------- */
+        .item + .item { margin-top: clamp(0.75rem, 1.8vh, 1.15rem); }
 
-        .tab-btn:hover { color: var(--text); }
-
-        .tab-btn.active { color: var(--bright); border-color: var(--accent); }
-
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
-
-        .tab-panel ul { list-style: none; }
-
-        .tab-panel li {
-            font-size: clamp(0.92rem, 1vw, 1.02rem);
-        }
-
-        .tab-panel li::before { content: none; }
-
-        .tab-panel summary {
+        .item-head {
             display: flex;
             align-items: baseline;
-            justify-content: space-between;
-            gap: 1.5rem;
-            padding: clamp(0.25rem, 0.9vh, 0.5rem) 0;
-            cursor: pointer;
-            list-style: none;
+            gap: 0.7rem;
+            flex-wrap: wrap;
         }
 
-        .tab-panel summary::-webkit-details-marker { display: none; }
-        .tab-panel summary::marker { content: ''; }
-
-        .tab-panel .w-title { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
-
-        .tab-panel .arrow {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 1.3rem;
-            height: 1.3rem;
-            border: 1px solid var(--faint);
-            border-radius: 3px;
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 700;
-            line-height: 1;
-            flex-shrink: 0;
-            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-        }
-
-        .tab-panel .arrow::before {
-            content: '▾';
-            display: inline-block;
-            transform: rotate(-90deg);
-            transition: transform 0.15s ease;
-        }
-        .tab-panel details[open] .arrow::before { transform: rotate(0deg); }
-
-        .tab-panel summary:hover .arrow {
-            border-color: var(--accent);
+        .item-title {
             color: var(--bright);
-            background: rgba(35, 176, 255, 0.12);
+            font-weight: 600;
+            font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
         }
 
-        .tab-panel .k {
-            color: var(--faint);
-            font-size: 0.85rem;
+        .item-title:hover { color: var(--bright); border-bottom-color: var(--accent); }
+
+        .tag {
+            color: var(--accent);
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.1rem 0.42rem;
             white-space: nowrap;
-            flex-shrink: 0;
         }
 
-        .tab-panel .desc {
+        .item-desc {
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: clamp(0.88rem, 0.98vw, 0.96rem);
             line-height: 1.65;
-            padding: 0 0 0.9rem 1.9rem;
-            max-width: 95%;
+            margin-top: 0.3rem;
+            max-width: 64ch;
         }
 
-        .tab-panel li.divider {
-            margin-top: 0.4rem;
-            padding-top: 0.9rem;
-            border-top: 1px solid var(--border);
+        /* ---------- Compact rows ---------- */
+        .row {
+            display: block;
+            text-decoration: none;
+            padding: 0.36rem 0;
+        }
+
+        .row-line {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+        }
+
+        .row-title {
+            color: var(--text);
+            font-size: clamp(0.9rem, 1vw, 0.98rem);
+            font-weight: 500;
+        }
+
+        .row:hover .row-title { color: var(--bright); }
+
+        .row-leader {
+            flex: 1;
+            min-width: 1rem;
+            border-bottom: 1px dotted var(--border);
+            transform: translateY(-0.28rem);
+        }
+
+        .row:hover .row-leader { border-bottom-color: var(--faint); }
+
+        .row-kind {
             color: var(--faint);
             font-size: 0.8rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        .tab-panel[data-panel="edu"] li {
-            padding: clamp(0.4rem, 0.9vh, 0.6rem) 0;
+        .row-gloss {
+            display: block;
+            color: var(--faint);
+            font-size: 0.82rem;
+            line-height: 1.55;
+            margin-top: 0.12rem;
+            max-width: 60ch;
         }
 
-        .tab-panel .edu-row {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 1.5rem;
-        }
-
-        .tab-panel .edu-degree { color: var(--bright); font-weight: 600; }
-
-        .tab-panel .edu-sub {
+        /* ---------- Education ---------- */
+        .edu-line {
+            margin-top: clamp(1rem, 2.2vh, 1.5rem);
+            padding-top: clamp(0.7rem, 1.6vh, 1rem);
+            border-top: 1px solid var(--border);
             color: var(--faint);
             font-size: 0.85rem;
-            margin-top: 0.2rem;
+        }
+
+        .edu-line .edu-k {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 0.73rem;
+            margin-right: 0.55rem;
         }
 
         .contact {
@@ -316,6 +312,8 @@
             justify-self: end;
             min-width: 0;
             width: 100%;
+            position: sticky;
+            top: clamp(1.25rem, 3vh, 2.5rem);
         }
 
         .frame img {
@@ -345,6 +343,9 @@
         /* ---------- News status bar ---------- */
         .newsbar {
             display: none;
+            position: sticky;
+            bottom: 0;
+            z-index: 5;
             align-items: center;
             gap: 0.75rem;
             background: var(--bar);
@@ -408,9 +409,9 @@
 
             .frame img { width: min(55vw, 240px); }
 
-            .tab-panel summary { flex-direction: column; gap: 0; }
-            .tab-panel[data-panel="work"] .k { display: none; }
-            .tab-panel .edu-row { flex-direction: column; gap: 0.15rem; }
+            .frame { position: static; }
+            .row-leader { display: none; }
+            .row-line { flex-wrap: wrap; gap: 0.45rem; }
         }
     </style>
 </head>
@@ -421,116 +422,107 @@
 
             <div class="inner">
                 <div class="text-col">
-                <h1>Kunal Singh <span class="dim">// technical AI governance researcher</span></h1>
+                <h1>Kunal Singh <span class="dim">// AI Safety researcher</span></h1>
 
                 <div class="about">
                     <p>
-                        I'm currently doing MATS research under
+                        Hi, I'm an AI generalist and researcher working under
                         <a href="https://stephencasper.com/" target="_blank" rel="noopener">Stephen Casper</a>.
-                        My focus is bridging the gap between technical AI research and governance.
+                        I recently completed MATS 10, where I gave a spotlight talk, and I'm now continuing
+                        with the MATS Extension in Berkeley.
                     </p>
                     <p>
-                        Published at <a href="https://link.springer.com/book/9789819778386" target="_blank" rel="noopener">Springer CML 2024</a>,
-                        trained through <a href="https://aisafetyfundamentals.com/" target="_blank" rel="noopener">BlueDot Impact</a>,
-                        and selected for the <a href="https://indico.ictp.it/event/10479" target="_blank" rel="noopener">ICTP Advanced ML Workshop</a> in Italy.
-                        Currently based in Berkeley.
+                        My interests include AI strategy, risk modelling, evaluations, and technical AI
+                        governance. I'm highly agentic, enjoy taking ownership, and thrive in fast-paced
+                        environments.
+                    </p>
+                    <p>
+                        I have also organized AI safety talks, networking events, and community gatherings
+                        in India. I enjoy critical thinking, solving complex problems, working through
+                        ambiguity, and turning ideas into concrete projects.
+                    </p>
+                    <p class="creds">
+                        <span class="ci"><a href="https://link.springer.com/book/9789819778386" target="_blank" rel="noopener">Springer CML 2024</a></span>
+                        <span class="ci"><span class="sep">·</span> <a href="https://aisafetyfundamentals.com/" target="_blank" rel="noopener">BlueDot Impact</a></span>
+                        <span class="ci"><span class="sep">·</span> <a href="https://indico.ictp.it/event/10479" target="_blank" rel="noopener">ICTP Advanced ML Workshop</a></span>
                     </p>
                 </div>
 
-                <div class="tabs">
-                    <div class="tab-bar">
-                        <button class="tab-btn active" data-tab="work" type="button">Research and Projects</button>
-                        <button class="tab-btn" data-tab="edu" type="button">Education</button>
+                <section class="section">
+                    <div class="section-head">
+                        <h2>now</h2>
+                        <span class="rule"></span>
                     </div>
 
-                    <div class="tab-panel active" data-panel="work">
-                    <ul>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://kunalsingh9373.github.io/evaluating-the-evaluators/" target="_blank" rel="noopener">AI Evaluations</a></span>
-                                    <span class="k">MATS 10 (working)</span>
-                                </summary>
-                                <p class="desc">Investigating how well AI safety evaluations hold up under scrutiny — where model assessments can be trusted and where they fall short. Ongoing research under MATS 10, Technical AI Governance stream.</p>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://ai-red-lines-tracker-2026.vercel.app/" target="_blank" rel="noopener">AI Red Lines Tracker</a></span>
-                                    <span class="k">Apart Hackathon</span>
-                                </summary>
-                                <p class="desc">RED30 — 30 universal AI red-line indicators across 4 risk categories, built by analyzing 16 frontier models and mapping EU/global regulatory frameworks onto operational safety criteria. Submitted to the Apart Research Technical Governance Hackathon.</p>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://ai-safety-org-website.vercel.app/" target="_blank" rel="noopener">India AI Safety Coordination Hub</a></span>
-                                    <span class="k">Field Building, Ops</span>
-                                </summary>
-                                <p class="desc">Cofounded a coordination hub connecting India's AI Safety researchers, organizations, and policy practitioners — building community infrastructure and adapting global AI safety frameworks to India's policy context.</p>
-                            </details>
-                        </li>
-                        <li class="divider"><span>Others</span></li>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">AI Control Security Audit</a></span>
-                                    <span class="k">control evals</span>
-                                </summary>
-                                <p class="desc">Designed adversarial audit scenarios (vulnerability classification vs. deliberate misclassification) to test three frontier models for strategic deception under oversight — modeling third-party AI assurance methodology.</p>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">Jailbreak Resistance Analysis</a></span>
-                                    <span class="k">red teaming</span>
-                                </summary>
-                                <p class="desc">Structured red-teaming framework across 100 adversarial prompts and 6 attack categories, with an automated 0–3 compliance scoring pipeline — revealing a 69pp security gap and 51% capability exploitation rate.</p>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">The Open-Weight Paradox</a></span>
-                                    <span class="k">governance</span>
-                                </summary>
-                                <p class="desc">Argues US export controls fail because they exempt publicly released models — anyone can fine-tune open-weight models for harmful use at a fraction of training cost. Proposes focusing controls on compute, transparency, and developer liability instead.</p>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>
-                                    <span class="w-title"><span class="arrow"></span><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">Refining the Giants — LLM Fine-tuning Review</a></span>
-                                    <span class="k">publication</span>
-                                </summary>
-                                <p class="desc">A comprehensive review of fine-tuning strategies for large language models, published at the 20th International Conference on Computing and Machine Learning (CML), March 2024.</p>
-                            </details>
-                        </li>
-                    </ul>
+                    <article class="item">
+                        <div class="item-head">
+                            <a class="item-title" href="https://kunalsingh9373.github.io/evaluating-the-evaluators/" target="_blank" rel="noopener">AI Evaluations</a>
+                            <span class="tag">MATS extension</span>
+                        </div>
+                        <p class="item-desc">Investigating how well AI safety evaluations hold up under scrutiny — where model assessments can be trusted and where they fall short. Technical AI Governance stream.</p>
+                    </article>
+
+                    <article class="item">
+                        <div class="item-head">
+                            <a class="item-title" href="https://ai-red-lines-tracker-2026.vercel.app/" target="_blank" rel="noopener">AI Red Lines Tracker</a>
+                            <span class="tag">Apart hackathon</span>
+                        </div>
+                        <p class="item-desc">RED30 — 30 universal AI red-line indicators across 4 risk categories, built by analyzing 16 frontier models and mapping EU/global regulatory frameworks onto operational safety criteria.</p>
+                    </article>
+
+                    <article class="item">
+                        <div class="item-head">
+                            <a class="item-title" href="https://ai-safety-org-website.vercel.app/" target="_blank" rel="noopener">India AI Safety Coordination Hub</a>
+                            <span class="tag">cofounded</span>
+                        </div>
+                        <p class="item-desc">A coordination hub connecting India's AI safety researchers, organizations, and policy practitioners — building community infrastructure and adapting global AI safety frameworks to India's policy context.</p>
+                    </article>
+                </section>
+
+                <section class="section">
+                    <div class="section-head">
+                        <h2>also</h2>
+                        <span class="rule"></span>
                     </div>
 
-                    <div class="tab-panel" data-panel="edu">
-                    <ul>
-                        <li>
-                            <div class="edu-row">
-                                <span class="edu-degree">Master of Computer Applications</span>
-                                <span class="k">2022 – 2024</span>
-                            </div>
-                            <div class="edu-sub">Savitribai Phule Pune University · GPA 8.27/10 · AI, ML, Deep Learning, Data Science</div>
-                        </li>
-                        <li>
-                            <div class="edu-row">
-                                <span class="edu-degree">Bachelor of Science — Physics</span>
-                                <span class="k">2018 – 2022</span>
-                            </div>
-                            <div class="edu-sub">Savitribai Phule Pune University · GPA 8.46/10 · Astrophysics, Electrodynamics, Quantum Physics</div>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
+                    <a class="row" href="https://github.com/KUNALSINGH9373/ai_controls_security_audit" target="_blank" rel="noopener">
+                        <span class="row-line">
+                            <span class="row-title">AI Control Security Audit</span>
+                            <span class="row-leader"></span>
+                            <span class="row-kind">control evals</span>
+                        </span>
+                        <span class="row-gloss">Adversarial audit scenarios testing three frontier models for strategic deception under oversight.</span>
+                    </a>
+
+                    <a class="row" href="https://github.com/KUNALSINGH9373/Jaibreak-Resistence-Analysis-Project/blob/main/Jailbreak_resistence_analysis_across_frontier_models.pdf" target="_blank" rel="noopener">
+                        <span class="row-line">
+                            <span class="row-title">Jailbreak Resistance Analysis</span>
+                            <span class="row-leader"></span>
+                            <span class="row-kind">red teaming</span>
+                        </span>
+                        <span class="row-gloss">100 adversarial prompts across 6 attack categories, automated compliance scoring — a 69pp security gap.</span>
+                    </a>
+
+                    <a class="row" href="https://thinkwaveresearch.substack.com/p/the-open-weight-paradox-how-model" target="_blank" rel="noopener">
+                        <span class="row-line">
+                            <span class="row-title">The Open-Weight Paradox</span>
+                            <span class="row-leader"></span>
+                            <span class="row-kind">governance</span>
+                        </span>
+                        <span class="row-gloss">Why US export controls fail when they exempt publicly released models — and what to control instead.</span>
+                    </a>
+
+                    <a class="row" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=tgF7jnUAAAAJ&citation_for_view=tgF7jnUAAAAJ:IjCSPb-OGe4C" target="_blank" rel="noopener">
+                        <span class="row-line">
+                            <span class="row-title">Refining the Giants</span>
+                            <span class="row-leader"></span>
+                            <span class="row-kind">CML 2024</span>
+                        </span>
+                        <span class="row-gloss">A review of fine-tuning strategies for large language models.</span>
+                    </a>
+                </section>
+
+                <p class="edu-line"><span class="edu-k">education</span>MCA and BSc Physics — Savitribai Phule Pune University</p>
                 </div>
 
                 <div class="frame">
@@ -596,16 +588,6 @@
             const egg = document.getElementById('moon-egg');
             if (egg) egg.title = names[idx] + ' · ' + illumPct + '% illuminated';
         })();
-
-        // Research/Education tabs
-        document.querySelectorAll('.tab-btn').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
-                document.querySelectorAll('.tab-panel').forEach((p) => p.classList.remove('active'));
-                btn.classList.add('active');
-                document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
-            });
-        });
 
         // Live AI news ticker (Hacker News Algolia API)
         (async function () {
