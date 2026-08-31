@@ -115,6 +115,7 @@
         }
 
         h1 .name {
+            margin-right: 0.5rem;
             text-decoration: underline;
             text-decoration-color: var(--accent);
             text-decoration-thickness: 0.07em;
@@ -252,19 +253,32 @@
         }
 
         /* ---------- Education ---------- */
-        .edu-line {
-            margin-top: clamp(1rem, 2.2vh, 1.5rem);
-            padding-top: clamp(0.7rem, 1.6vh, 1rem);
-            border-top: 1px solid var(--border);
-            color: var(--faint);
-            font-size: 0.85rem;
+        .edu + .edu { margin-top: 0.75rem; }
+
+        .edu-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1.5rem;
         }
 
-        .edu-line .edu-k {
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-size: 0.73rem;
-            margin-right: 0.55rem;
+        .edu-degree {
+            color: var(--bright);
+            font-weight: 600;
+            font-size: clamp(0.92rem, 1vw, 1rem);
+        }
+
+        .edu-years {
+            color: var(--faint);
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .edu-sub {
+            color: var(--faint);
+            font-size: 0.82rem;
+            line-height: 1.55;
+            margin-top: 0.14rem;
         }
 
         .contact {
@@ -439,6 +453,7 @@
             .frame { position: static; }
             .row-leader { display: none; }
             .row-line { flex-wrap: wrap; gap: 0.45rem; }
+            .edu-row { flex-direction: column; gap: 0.15rem; }
         }
     </style>
 </head>
@@ -453,7 +468,7 @@
 
                 <div class="about">
                     <p>
-                        Hi, I'm an AI generalist and researcher working under
+                        Hi, I'm an AI researcher working under
                         <a href="https://stephencasper.com/" target="_blank" rel="noopener">Stephen Casper</a>.
                         I recently completed MATS 10, where I gave a spotlight talk, and I'm now continuing
                         with the MATS Extension in Berkeley.
@@ -545,7 +560,28 @@
                     </a>
                 </section>
 
-                <p class="edu-line"><span class="edu-k">education</span>MCA and BSc Physics — Savitribai Phule Pune University</p>
+                <section class="section">
+                    <div class="section-head">
+                        <h2>education</h2>
+                        <span class="rule"></span>
+                    </div>
+
+                    <div class="edu">
+                        <div class="edu-row">
+                            <span class="edu-degree">Master of Computer Applications</span>
+                            <span class="edu-years">2022 – 2024</span>
+                        </div>
+                        <div class="edu-sub">Savitribai Phule Pune University · AI, ML, Deep Learning, Data Science</div>
+                    </div>
+
+                    <div class="edu">
+                        <div class="edu-row">
+                            <span class="edu-degree">Bachelor of Science — Physics</span>
+                            <span class="edu-years">2018 – 2022</span>
+                        </div>
+                        <div class="edu-sub">Savitribai Phule Pune University · Astrophysics, Electrodynamics, Quantum Physics</div>
+                    </div>
+                </section>
                 </div>
 
                 <div class="frame">
