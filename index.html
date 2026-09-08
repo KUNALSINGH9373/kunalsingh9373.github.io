@@ -20,13 +20,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #1d1e20;
-            --bar: #252627;
-            --text: #b8b9c2;
-            --bright: #eeeeee;
-            --faint: #91929c;
-            --border: #3b3d42;
-            --accent: #23b0ff;
+            color-scheme: light;
+            --bg: #f7f4ee;
+            --bar: #ece6da;
+            --text: #4a463f;
+            --bright: #171512;
+            --faint: #756e62;
+            --border: #ddd5c7;
+            --accent: #1257c4;
+            --tile: #fffdf9;
+            --shadow: 0 1px 2px rgba(60, 50, 35, 0.05), 0 3px 10px rgba(60, 50, 35, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,7 +40,7 @@
             font-family: 'Fira Code', Monaco, Consolas, monospace;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.75;
             font-size: 17px;
             -webkit-font-smoothing: antialiased;
         }
@@ -80,7 +83,7 @@
             flex-wrap: wrap;
             gap: 0.35rem 1.35rem;
             font-size: 0.95rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         .frame-nav a { text-decoration: none; color: var(--accent); font-weight: 600; }
         .frame-nav a:hover { color: var(--bright); }
@@ -88,21 +91,21 @@
         .inner {
             flex: 1;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1080px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, clamp(200px, 21vw, 300px));
             align-content: start;
             align-items: start;
             gap: clamp(2rem, 5vw, 4.5rem);
-            padding: clamp(1.25rem, 3vh, 2.5rem) 1.5rem;
+            padding: clamp(2.25rem, 5.5vh, 4rem) clamp(1.5rem, 4vw, 2.5rem);
             min-height: 0;
         }
 
         .text-col {
             display: flex;
             flex-direction: column;
-            gap: clamp(1rem, 2.6vh, 1.9rem);
+            gap: clamp(1.75rem, 4vh, 2.75rem);
             min-width: 0;
         }
 
@@ -112,6 +115,7 @@
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.25;
+            margin-bottom: clamp(1.5rem, 4vh, 3rem);
         }
 
         h1 .name {
@@ -130,7 +134,7 @@
 
         .about p {
             font-size: clamp(0.95rem, 1.05vw, 1.05rem);
-            margin-bottom: 0.8em;
+            margin-bottom: 1.05em;
             max-width: 66ch;
         }
 
@@ -150,7 +154,7 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            margin-bottom: clamp(0.6rem, 1.4vh, 0.95rem);
+            margin-bottom: clamp(1rem, 2.2vh, 1.45rem);
         }
 
         .section-head h2 { margin-bottom: 0; white-space: nowrap; }
@@ -162,7 +166,7 @@
         }
 
         /* ---------- Lead items ---------- */
-        .item + .item { margin-top: clamp(0.75rem, 1.8vh, 1.15rem); }
+        .item + .item { margin-top: clamp(1.35rem, 3vh, 2rem); }
 
         .item-head {
             display: flex;
@@ -202,8 +206,8 @@
         .item-desc {
             color: var(--text);
             font-size: clamp(0.88rem, 0.98vw, 0.96rem);
-            line-height: 1.65;
-            margin-top: 0.3rem;
+            line-height: 1.7;
+            margin-top: 0.45rem;
             max-width: 64ch;
         }
 
@@ -211,7 +215,7 @@
         .row {
             display: block;
             text-decoration: none;
-            padding: 0.36rem 0;
+            padding: 0.6rem 0;
         }
 
         .row-line {
@@ -253,7 +257,7 @@
         }
 
         /* ---------- Education ---------- */
-        .edu + .edu { margin-top: 0.75rem; }
+        .edu + .edu { margin-top: 1.25rem; }
 
         .edu-row {
             display: flex;
@@ -284,9 +288,9 @@
         .contact {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            gap: 0.6rem;
             border-top: 1px solid var(--border);
-            margin-top: 1.25rem;
+            margin-top: 1.75rem;
             padding-top: clamp(0.8rem, 2vh, 1.25rem);
         }
 
@@ -296,9 +300,11 @@
             align-items: center;
             justify-content: center;
             gap: 0.4rem;
-            padding: 0.65rem 0.25rem;
+            padding: 0.85rem 0.25rem;
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 5px;
+            background: var(--tile);
+            box-shadow: var(--shadow);
             text-decoration: none;
             color: var(--text);
             transition: color 0.15s, border-color 0.15s, background 0.15s;
@@ -307,7 +313,7 @@
         .contact a:hover {
             color: var(--bright);
             border-color: var(--accent);
-            background: rgba(35, 176, 255, 0.08);
+            background: rgba(18, 87, 196, 0.06);
         }
 
         .contact svg {
@@ -346,7 +352,8 @@
         }
 
         .moon-icon svg { display: block; width: 100%; height: 100%; }
-        .moon-icon .lit { fill: var(--text); }
+        .moon-icon .disc { fill: #c3bbab; }
+        .moon-icon .lit { fill: #fffdf8; }
 
         /* ---------- Photo ---------- */
         .frame {
@@ -361,14 +368,14 @@
             display: block;
             width: clamp(200px, 21vw, 300px);
             border-radius: 8px;
-            filter: saturate(0.88);
+            box-shadow: var(--shadow);
         }
 
         .clocks {
-            margin-top: 0.8rem;
+            margin-top: 1.1rem;
             display: flex;
             flex-direction: column;
-            gap: 0.15rem;
+            gap: 0.3rem;
             font-size: 0.88rem;
         }
 
@@ -487,7 +494,7 @@
 
                 <section class="section">
                     <div class="section-head">
-                        <h2>now</h2>
+                        <h2>research</h2>
                         <span class="rule"></span>
                     </div>
 
@@ -612,7 +619,7 @@
 
                     <p class="email-line"><a href="mailto:singhkunal9373@gmail.com">singhkunal9373 ät gmail.com</a></p>
 
-                    <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span><span class="moon-icon" id="moon-egg" title=""><svg viewBox="0 0 20 20"><path class="lit" id="moon-lit"/></svg></span></p>
+                    <p class="copyright">© 2026 Kunal Singh<span id="visitors"></span><span class="moon-icon" id="moon-egg" title=""><svg viewBox="0 0 20 20"><circle class="disc" cx="10" cy="10" r="9.5"/><path class="lit" id="moon-lit"/></svg></span></p>
                 </div>
             </div>
 
