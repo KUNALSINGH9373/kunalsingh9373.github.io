@@ -64,6 +64,55 @@
             overflow: visible;
         }
 
+        /* ---------- Sticky name bar (appears once the headline scrolls away) ---------- */
+        .minibar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            background: rgba(247, 244, 238, 0.92);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.28s ease, opacity 0.28s ease;
+        }
+
+        .minibar.show {
+            transform: none;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .minibar-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0.62rem clamp(1.5rem, 4vw, 2.5rem);
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+        }
+
+        .mb-name {
+            color: var(--bright);
+            font-weight: 700;
+            font-size: 1rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 1px;
+        }
+
+        .mb-role {
+            color: var(--faint);
+            font-size: 0.8rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .minibar { transition: none; }
+        }
+
         /* ---------- Content ---------- */
         .content {
             display: flex;
@@ -465,6 +514,13 @@
     </style>
 </head>
 <body>
+    <div class="minibar" id="minibar" aria-hidden="true">
+        <div class="minibar-inner">
+            <span class="mb-name">Kunal Singh</span>
+            <span class="mb-role">// AI Safety researcher</span>
+        </div>
+    </div>
+
     <div class="page">
         <div class="content">
             <div class="bar"></div>
@@ -656,6 +712,29 @@
             const illumPct = Math.round(((1 - Math.cos(theta)) / 2) * 100);
             const egg = document.getElementById('moon-egg');
             if (egg) egg.title = names[idx] + ' · ' + illumPct + '% illuminated';
+        })();
+
+        // Sticky name bar: only while the headline is scrolled out of view
+        (function () {
+            const h1 = document.querySelector('h1');
+            const bar = document.getElementById('minibar');
+            if (!h1 || !bar) return;
+
+            let trigger = 0;
+            function measure() {
+                trigger = h1.getBoundingClientRect().bottom + window.scrollY;
+            }
+            function update() {
+                const past = window.scrollY > trigger;
+                bar.classList.toggle('show', past);
+                bar.setAttribute('aria-hidden', past ? 'false' : 'true');
+            }
+            function remeasure() { measure(); update(); }
+
+            remeasure();
+            window.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', remeasure);
+            window.addEventListener('load', remeasure);
         })();
 
         // Live AI news ticker (Hacker News Algolia API)
