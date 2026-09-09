@@ -182,11 +182,14 @@
         }
 
         .about .mark {
+            color: inherit;
             text-decoration: underline;
             text-decoration-color: var(--accent);
             text-decoration-thickness: 0.07em;
             text-underline-offset: 0.18em;
         }
+
+        .about .mark:hover { color: var(--accent); }
 
         .about p {
             font-size: clamp(0.95rem, 1.05vw, 1.05rem);
@@ -540,7 +543,7 @@
                     <p>
                         Hi, I'm an AI researcher working with
                         <a href="https://stephencasper.com/" target="_blank" rel="noopener">Stephen Casper</a>.
-                        I recently completed <span class="mark">MATS 10</span>, where I gave a spotlight talk, and I'm now continuing
+                        I recently completed <a class="mark" href="https://www.matsprogram.org/" target="_blank" rel="noopener">MATS</a> 10, where I gave a spotlight talk, and I'm now continuing
                         with the MATS Extension in Berkeley.
                     </p>
                     <p>
