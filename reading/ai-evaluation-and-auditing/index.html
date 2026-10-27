@@ -84,6 +84,51 @@
 
         .tb-crumb { color: var(--faint); font-size: 0.72rem; }
 
+        .tb-pct {
+            margin-left: auto;
+            color: var(--faint);
+            font-size: 0.68rem;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+
+        .tb-pct.done { color: var(--accent); }
+
+        .progress {
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            height: 2px;
+            width: 100%;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            will-change: transform;
+        }
+
+        .progress.done { animation: finish 0.9s ease-out; }
+
+        @keyframes finish {
+            0%   { box-shadow: 0 0 0 0 rgba(18, 87, 196, 0.5); }
+            35%  { box-shadow: 0 0 10px 2px rgba(18, 87, 196, 0.45); }
+            100% { box-shadow: 0 0 0 0 rgba(18, 87, 196, 0); }
+        }
+
+        .tb-pct.done .check {
+            display: inline-block;
+            animation: pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(0) rotate(-25deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .progress.done, .tb-pct.done .check { animation: none; }
+        }
+
         /* ---------- Layout ---------- */
         main {
             max-width: 1260px;
@@ -260,7 +305,9 @@
         <div class="topbar-inner">
             <a class="tb-home" href="../../">Kunal Singh</a>
             <span class="tb-crumb">// reading / third-party evaluation &amp; auditing</span>
+            <span class="tb-pct" id="pct" aria-hidden="true">0%</span>
         </div>
+        <div class="progress" id="progress"></div>
     </div>
 
     <main>
@@ -358,5 +405,58 @@
             </ol>
         </nav>
     </main>
+
+    <script>
+        // Reading progress: fills the bar under the top bar, celebrates once at the end.
+        (function () {
+            var bar = document.getElementById('progress');
+            var pct = document.getElementById('pct');
+            if (!bar || !pct) return;
+
+            var celebrated = false;
+            var queued = false;
+
+            function update() {
+                queued = false;
+                var doc = document.documentElement;
+                var span = doc.scrollHeight - window.innerHeight;
+                var p = span > 0 ? (window.scrollY || doc.scrollTop) / span : 1;
+                if (p < 0) p = 0;
+                if (p > 1) p = 1;
+
+                bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+
+                var whole = Math.round(p * 100);
+                if (whole >= 100) {
+                    if (!celebrated) {
+                        celebrated = true;
+                        pct.innerHTML = '<span class="check">\u2713</span> end of list';
+                        pct.classList.add('done');
+                        bar.classList.remove('done');
+                        void bar.offsetWidth;
+                        bar.classList.add('done');
+                    }
+                } else {
+                    if (celebrated) {
+                        celebrated = false;
+                        pct.classList.remove('done');
+                        bar.classList.remove('done');
+                    }
+                    pct.textContent = whole + '%';
+                }
+            }
+
+            function onScroll() {
+                if (queued) return;
+                queued = true;
+                window.requestAnimationFrame(update);
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+            window.addEventListener('load', update);
+            update();
+        })();
+    </script>
 </body>
 </html>
