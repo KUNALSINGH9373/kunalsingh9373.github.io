@@ -33,25 +33,29 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'Fira Code', Monaco, Consolas, monospace;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
-            font-size: 16px;
+            line-height: 1.58;
+            font-size: 14px;
             -webkit-font-smoothing: antialiased;
         }
+
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
         ::selection { background: var(--accent); color: var(--bg); }
 
         a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; text-underline-offset: 3px; }
+        a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
         /* ---------- Top bar ---------- */
         .topbar {
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 30;
             background: rgba(236, 230, 218, 0.94);
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
@@ -59,37 +63,72 @@
         }
 
         .topbar-inner {
-            max-width: 1080px;
+            max-width: 1260px;
             margin: 0 auto;
-            padding: 0.6rem clamp(1.25rem, 4vw, 2.5rem);
+            padding: 0.45rem clamp(1rem, 3vw, 2rem);
             display: flex;
             align-items: baseline;
-            gap: 0.7rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
         }
 
         .tb-home {
             color: var(--bright);
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             border-bottom: 2px solid var(--accent);
             padding-bottom: 1px;
         }
 
         .tb-home:hover { color: var(--accent); text-decoration: none; }
 
-        .tb-crumb { color: var(--faint); font-size: 0.78rem; }
+        .tb-crumb { color: var(--faint); font-size: 0.72rem; }
 
-        /* ---------- Page ---------- */
+        /* ---------- Layout ---------- */
         main {
-            max-width: 1080px;
+            max-width: 1260px;
             margin: 0 auto;
-            padding: clamp(2rem, 5vh, 3.25rem) clamp(1.25rem, 4vw, 2.5rem) 5rem;
+            padding: 1.75rem clamp(1rem, 3vw, 2rem) 4rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 196px;
+            gap: 0 2.5rem;
+            align-items: start;
         }
 
+        .doc { min-width: 0; }
+
+        /* ---------- Index ---------- */
+        .toc {
+            position: sticky;
+            top: 2.9rem;
+            font-size: 0.7rem;
+            line-height: 1.5;
+            border-left: 1px solid var(--border);
+            padding-left: 0.9rem;
+            max-height: calc(100vh - 4.5rem);
+            overflow-y: auto;
+        }
+
+        .toc-head {
+            color: var(--bright);
+            font-weight: 600;
+            font-size: 0.72rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-head::before { content: '# '; color: var(--accent); }
+
+        .toc ol { list-style: none; margin: 0; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--text); display: block; }
+        .toc a:hover { color: var(--accent); text-decoration: none; }
+        .toc .sub { margin-left: 0.8rem; }
+        .toc .sub a { color: var(--faint); font-size: 0.66rem; }
+
+        /* ---------- Text ---------- */
         h1 {
             color: var(--bright);
-            font-size: clamp(1.35rem, 2.4vw, 2rem);
+            font-size: clamp(1.1rem, 1.9vw, 1.5rem);
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.3;
@@ -101,16 +140,18 @@
 
         .byline {
             color: var(--faint);
-            font-size: 0.82rem;
-            margin-top: 0.85rem;
+            font-size: 0.74rem;
+            margin-top: 0.5rem;
         }
+
+        h2, h3 { scroll-margin-top: 3.2rem; }
 
         h2 {
             color: var(--bright);
-            font-size: 1.08rem;
+            font-size: 0.98rem;
             font-weight: 600;
-            margin: 3rem 0 0.9rem;
-            padding-top: 1.6rem;
+            margin: 1.9rem 0 0.6rem;
+            padding-top: 1.1rem;
             border-top: 1px solid var(--border);
         }
 
@@ -118,18 +159,18 @@
 
         h3 {
             color: var(--bright);
-            font-size: 0.98rem;
+            font-size: 0.88rem;
             font-weight: 600;
-            margin: 2.1rem 0 0.7rem;
+            margin: 1.3rem 0 0.45rem;
         }
 
         h3::before { content: '## '; color: var(--accent); font-weight: 400; }
 
-        p { margin: 0.9rem 0; max-width: 74ch; }
+        p { margin: 0.6rem 0; max-width: 92ch; }
 
-        ul, ol { margin: 0.9rem 0 0.9rem 1.3rem; max-width: 74ch; }
-        li { margin: 0.5rem 0; }
-        li p { margin: 0.35rem 0; }
+        ul, ol { margin: 0.6rem 0 0.6rem 1.2rem; max-width: 92ch; }
+        li { margin: 0.32rem 0; }
+        li p { margin: 0.22rem 0; }
 
         strong { color: var(--bright); font-weight: 600; }
         em { font-style: italic; }
@@ -137,9 +178,9 @@
         /* ---------- Tables ---------- */
         .tw {
             overflow-x: auto;
-            margin: 1.2rem 0 1.6rem;
+            margin: 0.75rem 0 1.1rem;
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 5px;
             background: var(--tile);
             box-shadow: var(--shadow);
             -webkit-overflow-scrolling: touch;
@@ -148,12 +189,12 @@
         table {
             border-collapse: collapse;
             width: 100%;
-            font-size: 0.82rem;
-            line-height: 1.6;
+            font-size: 0.72rem;
+            line-height: 1.45;
         }
 
         th, td {
-            padding: 0.6rem 0.75rem;
+            padding: 0.35rem 0.5rem;
             text-align: left;
             vertical-align: top;
             border-bottom: 1px solid var(--border);
@@ -176,17 +217,40 @@
 
         /* ---------- Footer ---------- */
         .back {
-            margin-top: 3.5rem;
-            padding-top: 1.5rem;
+            margin-top: 2.25rem;
+            padding-top: 1rem;
             border-top: 1px solid var(--border);
-            font-size: 0.82rem;
+            font-size: 0.74rem;
             color: var(--faint);
         }
 
-        @media (max-width: 760px) {
-            body { font-size: 15px; }
-            table { font-size: 0.76rem; }
-            th, td { padding: 0.5rem 0.55rem; }
+        /* ---------- Narrow ---------- */
+        @media (max-width: 1040px) {
+            main { grid-template-columns: 1fr; gap: 0; }
+
+            .toc {
+                position: static;
+                order: -1;
+                max-height: none;
+                overflow: visible;
+                border-left: 0;
+                border: 1px solid var(--border);
+                border-radius: 5px;
+                background: var(--tile);
+                padding: 0.7rem 0.9rem;
+                margin-bottom: 1.5rem;
+                columns: 2;
+                column-gap: 1.5rem;
+            }
+
+            .toc-head { column-span: all; }
+            .toc .sub { display: none; }
+        }
+
+        @media (max-width: 560px) {
+            .toc { columns: 1; }
+            table { font-size: 0.69rem; }
+            th, td { padding: 0.32rem 0.4rem; }
             td:first-child { white-space: normal; }
         }
     </style>
@@ -200,6 +264,7 @@
     </div>
 
     <main>
+        <div class="doc">
 <h1 id="ai-evaluation-auditing-standards-reading-list">AI Evaluation &amp; Auditing Standards: Reading List</h1>
 <p class="byline"><time datetime="2026-10-27">October 27, 2026</time> · Kunal Singh</p>
 <h2 id="how-to-use-this-list">How to use this list</h2>
@@ -265,6 +330,33 @@
 <p>Every entry links to the page it came from; organization facts are from their own sites (<a href="https://www.averi.org/updates" target="_blank" rel="noopener">AVERI</a>, <a href="https://aievaluatorforum.org/" target="_blank" rel="noopener">AEF</a>, <a href="https://guidelight.ai/about" target="_blank" rel="noopener">Guidelight</a>). LessWrong karma and dates were read on Oct 27, 2026.</p>
 
         <p class="back"><a href="../../">← back to kunalsingh.com</a></p>
+        </div>
+
+        <nav class="toc" aria-label="Sections">
+            <div class="toc-head">index</div>
+            <ol>
+                <li><a href="#how-to-use-this-list">How to use this list</a></li>
+                <li><a href="#organizations">Organizations</a></li>
+                <li class="sub"><a href="#averi-ai-verification-and-evaluation-research-institute">AVERI</a></li>
+                <li class="sub"><a href="#ai-evaluator-forum-aef">AI Evaluator Forum</a></li>
+                <li class="sub"><a href="#guidelight">Guidelight</a></li>
+                <li class="sub"><a href="#other-evaluators-auditors-and-standards-bodies">Other evaluators</a></li>
+                <li class="sub"><a href="#more-organizations-and-their-key-outputs">More organizations</a></li>
+                <li><a href="#standards-frameworks-and-laws">Standards, frameworks, laws</a></li>
+                <li><a href="#foundational-and-most-cited-papers">Foundational papers</a></li>
+                <li class="sub"><a href="#audit-ecosystem-and-accountability">Audit ecosystem</a></li>
+                <li class="sub"><a href="#evaluation-science-and-dangerous-capability-evals">Evaluation science</a></li>
+                <li class="sub"><a href="#roots-in-algorithmic-auditing-and-documentation">Roots &amp; most cited</a></li>
+                <li class="sub"><a href="#assurance-audits-and-safety-cases">Assurance &amp; safety cases</a></li>
+                <li><a href="#recent-preprints-and-reports-20252026">Recent preprints (2025–26)</a></li>
+                <li><a href="#lesswrong-alignment-forum-posts">LessWrong / AF posts</a></li>
+                <li><a href="#blogs-and-substacks">Blogs &amp; Substacks</a></li>
+                <li class="sub"><a href="#more-commentary">More commentary</a></li>
+                <li><a href="#news-coverage">News coverage</a></li>
+                <li><a href="#suggested-reading-order-and-open-gaps">Reading order &amp; gaps</a></li>
+                <li><a href="#sources">Sources</a></li>
+            </ol>
+        </nav>
     </main>
 </body>
 </html>
